@@ -1,0 +1,5 @@
+*.pyc
+.classpath
+.project
+.pydevproject
+appengine/.settings/*
