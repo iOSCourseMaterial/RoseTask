@@ -18,7 +18,7 @@ handlers:
 
 #Endpoints handler
 - url: /_ah/spi/.*
-  script: rosetask_api.APPLICATION
+  script: rose_task_api.APPLICATION
 
 #Main handler
 - url: .*

@@ -27,15 +27,7 @@ CLIENT_ID_IOS = '692785471170-iphols9ldsfi4596dn12oc617400d7qc.apps.googleuserco
                allowed_client_ids=[CLIENT_ID, CLIENT_ID_LOCALHOST, CLIENT_ID_IOS, endpoints.API_EXPLORER_CLIENT_ID])
 class RoseTaskApi(remote.Service):
     """Class which defines rosetask API v1."""
-    
-    @TaskUser.method(user_required=True, request_fields=('lowercase_email',), path='taskuser/{lowercase_email}', http_method='GET', name='taskuser.get')
-    def TaskUserGet(self, a_task_user):
-        """ Simple get to return one TaskUser from the one email given. """
-        # Trying to use a field instead of an id to get one TaskUser.  Example used an id, HIGHLY doubt this is a legal modification the simple_get sample.
-        if not a_task_user.from_datastore:
-            raise endpoints.NotFoundException("TaskUser not found.")
-        return a_task_user
-    
+
     @TaskUser.method(user_required=True, path='taskuser', http_method='POST', name='taskuser.insert')
     def TaskUserInsert(self, a_task_user):
         """ Create with preferred and update the Google Plus ID. """
@@ -52,11 +44,24 @@ class RoseTaskApi(remote.Service):
         the_task_user.put()
         return the_task_user
     
-    @TaskUser.query_method(user_required=True, query_fields=('task_list_ids', 'pageToken',), path='taskuser', name='taskuser.gettaskusers')
-    def TaskUserGetTaskUsers(self, query):
-        """ Returns all the TaskUsers in the TaskList """
-        # This feels poorly done.  It's not using the list of Keys in the TaskList just the reverse conneciton. :(
+    @TaskUser.method(user_required=True, request_fields=('id',), path='taskuser/{id}', http_method='GET', name='taskuser.get')
+    def TaskUserGet(self, a_task_user):
+        """ Simple get to return one TaskUser from the one email given. """
+        if not a_task_user.from_datastore:
+            raise endpoints.NotFoundException("TaskUser not found.")
+        return a_task_user
+
+    @TaskUser.query_method(user_required=True, query_fields=('lowercase_email',), path='taskuser', http_method='GET', name='taskuser.gettaskuser')
+    def TaskUserGetTaskUser(self, query):
+        """ Returns the TaskUser for the email given """
         return query
+    
+    # Not valid "No queries on repeated values are allowed."
+#     @TaskUser.query_method(user_required=True, query_fields=('task_list_ids', 'pageToken',), path='taskuser', name='taskuser.gettaskusers')
+#     def TaskUserGetTaskUsers(self, query):
+#         """ Returns all the TaskUsers in the TaskList """
+#         # This feels poorly done.  It's not using the list of Keys in the TaskList just the reverse conneciton. :(
+#         return query
 
     @Task.method(user_required=True, path='task', http_method='POST', name='task.insert')
     def TaskInsert(self, a_task):
@@ -64,13 +69,20 @@ class RoseTaskApi(remote.Service):
         a_task.creator = endpoints.get_current_user()
         parent_task_list = TaskList.get_by_id(a_task.task_list_id)
         a_task.anestor = parent_task_list
+        if a_task.assigned_to_email:
+            if a_task.assigned_to_email.lower() in parent_task_list.task_users_emails:
+                a_task.assigned_to_email = a_task.assigned_to_email.lower()
+                a_task.assigned_to = TaskUser.get_task_user_by_email(a_task.assigned_to_email).key
+            else:
+                logging.info("Attempt to assign user that is not in the TaskList.")
+                a_task.assigned_to_email = None
         a_task.put()
         # Make sure the Task is in the TaskList's tasks
         parent_task_list.tasks.append(a_task.key)
         parent_task_list.put()
         return a_task
     
-    @Task.query_method(user_required=True, query_fields=('task_list_id', 'pageToken',), path='tasks', name='task.gettasks')
+    @Task.query_method(user_required=True, query_fields=('task_list_id', 'order', 'pageToken',), path='tasks', name='task.gettasks')
     def TaskGetTasks(self, query):
         """ Returns the Tasks that share the task_list_id (ie Tasks that are in the TaskList)"""
         # This feels poorly done.  It's not using the parent nature, NOR the list of Keys in the TaskList. :(
@@ -98,20 +110,34 @@ class RoseTaskApi(remote.Service):
         else:
             a_task_list.put() # Generate an id because it'll be needed for next steps.
         # Add the current user as a TaskUser in the key list
+        emails = [endpoints.get_current_user().email().lower()]
         a_task_list.add_task_user_by_email(endpoints.get_current_user().email().lower())        
         # Now go through all the emails and add them too.
         for an_email in a_task_list.task_users_emails:
             #logging.info("Adding " + an_email.lower() + " to the TaskList")
             a_task_list.add_task_user_by_email(an_email.lower())
+            emails.append(an_email.lower())
+        a_task_list.task_users_emails = emails
         a_task_list.put() # Second put now that the task_users are in.
         return a_task_list
     
-    @TaskList.query_method(user_required=True, query_fields=('task_users', 'pageToken'), path='tasklist', name='tasklist.gettasklists')
+    @TaskList.query_method(user_required=True, query_fields=('order', 'pageToken'), path='tasklist', name='tasklist.gettasklists')
     def TaskListGetTaskLists(self, query):
-        """ Returns all the TaskLists for the task_user """
+        """ Returns all the TaskLists for the logged in user. """
+        my_task_user = TaskUser.get_task_user_by_email(endpoints.get_current_user().email().lower())
+        query.filter(id.IN(my_task_user.task_list_ids))
         return query
 
-    @TaskList.method(user_required=True, request_fields=('id',), path='tasklist/{id}', http_method='GET', name='tasklist.delete')
+    @TaskList.method(user_required=True, request_fields=('id',), path='tasklist/{id}', http_method='GET', name='tasklist.get')
+    def TaskListGet(self, a_task_list):
+        """ Simple get to return one TaskUser from the one email given. """
+        if not a_task_list.from_datastore:
+            raise endpoints.NotFoundException("TaskList not found.")
+        return a_task_list
+
+    # This delete is bad because it's the exact same GET request as the get above.
+
+    @TaskList.method(user_required=True, request_fields=('id',), path='tasklist/delete/{id}', http_method='GET', name='tasklist.delete')
     def TaskListDelete(self, a_task_list):
         """ Delete a TaskList. """
         if not a_task_list.from_datastore:

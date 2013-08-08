@@ -29,7 +29,7 @@ def get_endpoints_current_user(raise_unauthorized=True):
 
 class TaskUser(EndpointsModel):
     """ Model that represents an individual user. """
-    _message_fields_schema = ('id', 'lowercase_email', 'preferred_name', 'google_plus_id', 'task_list_ids')
+    _message_fields_schema = ('id', 'entityKey', 'lowercase_email', 'preferred_name', 'google_plus_id', 'task_list_ids')
     lowercase_email = ndb.StringProperty(required=True) # Also using lowercase_email as the entity key name
     preferred_name = ndb.StringProperty()
     google_plus_id = ndb.StringProperty(required=False)
@@ -47,7 +47,8 @@ class TaskUser(EndpointsModel):
         query = cls.query(cls.lowercase_email == an_email)
         # Create a new TaskUser for this email if none exist
         if query.count() == 0:
-            return TaskUser(id=an_email, lowercase_email = an_email)
+            new_task_user = TaskUser(lowercase_email = an_email)
+            return new_task_user
         else:
             for the_task_user in query:
                 return the_task_user
@@ -61,10 +62,11 @@ class TaskUser(EndpointsModel):
         
 class Task(EndpointsModel):
     """ Model to store a single task"""
-    _message_fields_schema = ('id', 'text', 'complete', 'assigned_to', 'task_list_id')
+    _message_fields_schema = ('id', 'entityKey', 'text', 'complete', 'assigned_to_email', 'task_list_id', 'created')
     text = ndb.StringProperty(required=True)
     complete = ndb.BooleanProperty(default=False)
-    assigned_to = ndb.KeyProperty(kind=TaskUser)
+    assigned_to = ndb.KeyProperty(kind=TaskUser) # Not sure which to keep
+    assigned_to_email = ndb.StringProperty() 
     task_list_id = ndb.IntegerProperty() # Used to work around PD
     created = ndb.DateTimeProperty(auto_now=True)
     creator = ndb.UserProperty(required=False)
@@ -80,7 +82,7 @@ class Task(EndpointsModel):
     
 class TaskList(EndpointsModel):
     """ Model to store a lists of task and list of users"""
-    _message_fields_schema = ('id', 'title', 'task_users_emails')
+    _message_fields_schema = ('id', 'entityKey', 'title', 'tasks', 'task_users', 'task_users_emails')
     title = ndb.StringProperty(required=True)
     tasks = ndb.KeyProperty(kind=Task,repeated=True)
     task_users = ndb.KeyProperty(kind=TaskUser,repeated=True)
