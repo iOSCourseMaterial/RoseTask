@@ -1,6 +1,9 @@
 
 from protorpc import messages
 
+class TaskUserRequestMessage(messages.Message):
+    lowercase_email = messages.StringField(1)
+
 class TaskUserResponseMessage(messages.Message):
     lowercase_email = messages.StringField(1)
     preferred_name = messages.StringField(2)

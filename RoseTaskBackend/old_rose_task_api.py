@@ -7,9 +7,9 @@
 from google.appengine.ext import endpoints
 from protorpc import remote
 
-from models import TaskUser
-from models import Task
-from models import TaskList
+from old_models import TaskUser
+from old_models import Task
+from old_models import TaskList
 
 import logging
 
