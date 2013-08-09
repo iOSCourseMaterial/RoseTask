@@ -1,0 +1,472 @@
+{
+ "kind": "discovery#rpcDescription",
+ "etag": "\"nPbVolg1F8jpPe9kkErPtt8mpZE/zJXjpFdyFxaoG_IvrKPJNje-npM\"",
+ "discoveryVersion": "v1",
+ "id": "rosetask:v1",
+ "name": "rosetask",
+ "version": "v1",
+ "description": "Rose Task API",
+ "ownerDomain": "google.com",
+ "ownerName": "Google",
+ "icons": {
+  "x16": "http://www.google.com/images/icons/product/search-16.gif",
+  "x32": "http://www.google.com/images/icons/product/search-32.gif"
+ },
+ "protocol": "rpc",
+ "rootUrl": "https://None/_ah/api/",
+ "rpcUrl": "https://None/_ah/api/rpc",
+ "rpcPath": "/_ah/api/rpc",
+ "parameters": {
+  "alt": {
+   "type": "string",
+   "description": "Data format for the response.",
+   "default": "json",
+   "enum": [
+    "json"
+   ],
+   "enumDescriptions": [
+    "Responses with Content-Type of application/json"
+   ],
+   "location": "query"
+  },
+  "fields": {
+   "type": "string",
+   "description": "Selector specifying which fields to include in a partial response.",
+   "location": "query"
+  },
+  "key": {
+   "type": "string",
+   "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.",
+   "location": "query"
+  },
+  "oauth_token": {
+   "type": "string",
+   "description": "OAuth 2.0 token for the current user.",
+   "location": "query"
+  },
+  "prettyPrint": {
+   "type": "boolean",
+   "description": "Returns response with indentations and line breaks.",
+   "default": "true",
+   "location": "query"
+  },
+  "quotaUser": {
+   "type": "string",
+   "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided.",
+   "location": "query"
+  },
+  "userIp": {
+   "type": "string",
+   "description": "IP address of the site where the request originates. Use this if you want to enforce per-user limits.",
+   "location": "query"
+  }
+ },
+ "auth": {
+  "oauth2": {
+   "scopes": {
+    "https://www.googleapis.com/auth/userinfo.email": {
+     "description": "View your email address"
+    }
+   }
+  }
+ },
+ "schemas": {
+  "RoseTaskApiMessagesTaskListListResponse": {
+   "id": "RoseTaskApiMessagesTaskListListResponse",
+   "type": "object",
+   "description": "ProtoRPC message definition to represent a list of task lists.",
+   "properties": {
+    "items": {
+     "type": "array",
+     "items": {
+      "$ref": "RoseTaskApiMessagesTaskListResponseMessage"
+     }
+    }
+   }
+  },
+  "RoseTaskApiMessagesTaskListResponseMessage": {
+   "id": "RoseTaskApiMessagesTaskListResponseMessage",
+   "type": "object",
+   "properties": {
+    "id": {
+     "type": "string",
+     "format": "int64"
+    },
+    "task_users": {
+     "type": "array",
+     "items": {
+      "$ref": "RoseTaskApiMessagesTaskUserResponseMessage"
+     }
+    },
+    "tasks": {
+     "type": "array",
+     "items": {
+      "$ref": "RoseTaskApiMessagesTaskResponseMessage"
+     }
+    },
+    "title": {
+     "type": "string"
+    }
+   }
+  },
+  "RoseTaskApiMessagesTaskResponseMessage": {
+   "id": "RoseTaskApiMessagesTaskResponseMessage",
+   "type": "object",
+   "properties": {
+    "assigned_to": {
+     "$ref": "RoseTaskApiMessagesTaskUserResponseMessage"
+    },
+    "complete": {
+     "type": "boolean"
+    },
+    "id": {
+     "type": "string",
+     "format": "int64"
+    },
+    "text": {
+     "type": "string"
+    }
+   }
+  },
+  "RoseTaskApiMessagesTaskUserResponseMessage": {
+   "id": "RoseTaskApiMessagesTaskUserResponseMessage",
+   "type": "object",
+   "properties": {
+    "google_plus_id": {
+     "type": "string"
+    },
+    "lowercase_email": {
+     "type": "string"
+    },
+    "preferred_name": {
+     "type": "string"
+    }
+   }
+  },
+  "Task": {
+   "id": "Task",
+   "type": "object",
+   "properties": {
+    "assigned_to_email": {
+     "type": "string"
+    },
+    "complete": {
+     "type": "boolean"
+    },
+    "created": {
+     "type": "string"
+    },
+    "creator": {
+     "$ref": "UserMessage",
+     "description": "ProtoRPC container for users.User objects. Attributes: email: String; The email of the user. auth_domain: String; The auth domain of the user. user_id: String; The user ID. federated_identity: String; The federated identity of the user."
+    },
+    "task_list_id": {
+     "type": "string",
+     "format": "int64"
+    },
+    "text": {
+     "type": "string"
+    }
+   }
+  },
+  "TaskCollection": {
+   "id": "TaskCollection",
+   "type": "object",
+   "properties": {
+    "items": {
+     "type": "array",
+     "items": {
+      "$ref": "Task"
+     }
+    },
+    "nextPageToken": {
+     "type": "string"
+    }
+   }
+  },
+  "TaskList": {
+   "id": "TaskList",
+   "type": "object",
+   "properties": {
+    "created": {
+     "type": "string"
+    },
+    "creator": {
+     "$ref": "UserMessage",
+     "description": "ProtoRPC container for users.User objects. Attributes: email: String; The email of the user. auth_domain: String; The auth domain of the user. user_id: String; The user ID. federated_identity: String; The federated identity of the user."
+    },
+    "task_keys": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "task_user_emails": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "title": {
+     "type": "string"
+    }
+   }
+  },
+  "TaskUser": {
+   "id": "TaskUser",
+   "type": "object",
+   "properties": {
+    "created": {
+     "type": "string"
+    },
+    "google_plus_id": {
+     "type": "string"
+    },
+    "lowercase_email": {
+     "type": "string"
+    },
+    "preferred_name": {
+     "type": "string"
+    },
+    "task_list_keys": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    }
+   }
+  },
+  "UserMessage": {
+   "id": "UserMessage",
+   "type": "object",
+   "description": "ProtoRPC container for users.User objects. Attributes: email: String; The email of the user. auth_domain: String; The auth domain of the user. user_id: String; The user ID. federated_identity: String; The federated identity of the user.",
+   "properties": {
+    "auth_domain": {
+     "type": "string"
+    },
+    "email": {
+     "type": "string"
+    },
+    "federated_identity": {
+     "type": "string"
+    },
+    "user_id": {
+     "type": "string"
+    }
+   }
+  }
+ },
+ "methods": {
+  "rosetask.task.delete": {
+   "id": "rosetask.task.delete",
+   "description": "Task Delete.",
+   "allowGet": true,
+   "parameters": {
+    "id": {
+     "type": "string",
+     "required": true,
+     "format": "int64"
+    }
+   },
+   "parameterOrder": [
+    "id"
+   ],
+   "returns": {
+    "$ref": "Task"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "rosetask.task.get": {
+   "id": "rosetask.task.get",
+   "description": "Task get.",
+   "allowGet": true,
+   "parameters": {
+    "id": {
+     "type": "string",
+     "required": true,
+     "format": "int64"
+    }
+   },
+   "parameterOrder": [
+    "id"
+   ],
+   "returns": {
+    "$ref": "Task"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "rosetask.task.gettasks": {
+   "id": "rosetask.task.gettasks",
+   "description": "Returns the Tasks that share the task_list_id (ie Tasks that are in the TaskList)",
+   "allowGet": true,
+   "parameters": {
+    "order": {
+     "type": "string"
+    },
+    "pageToken": {
+     "type": "string"
+    },
+    "task_list_id": {
+     "type": "string",
+     "required": true,
+     "format": "int64"
+    }
+   },
+   "parameterOrder": [
+    "task_list_id"
+   ],
+   "returns": {
+    "$ref": "TaskCollection"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "rosetask.task.insert": {
+   "id": "rosetask.task.insert",
+   "description": "Insert a Task.",
+   "parameters": {
+    "resource": {
+     "$ref": "Task"
+    }
+   },
+   "parameterOrder": [
+    "resource"
+   ],
+   "returns": {
+    "$ref": "Task"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "rosetask.tasklist.delete": {
+   "id": "rosetask.tasklist.delete",
+   "description": "Delete a TaskList.",
+   "allowGet": true,
+   "parameters": {
+    "id": {
+     "type": "string",
+     "required": true,
+     "format": "int64"
+    }
+   },
+   "parameterOrder": [
+    "id"
+   ],
+   "returns": {
+    "$ref": "TaskList"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "rosetask.tasklist.get": {
+   "id": "rosetask.tasklist.get",
+   "description": "TaskList get.",
+   "allowGet": true,
+   "parameters": {
+    "id": {
+     "type": "string",
+     "required": true,
+     "format": "int64"
+    }
+   },
+   "parameterOrder": [
+    "id"
+   ],
+   "returns": {
+    "$ref": "TaskList"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "rosetask.tasklist.gettasklists": {
+   "id": "rosetask.tasklist.gettasklists",
+   "description": "Returns all the TaskLists for the logged in user.",
+   "allowGet": true,
+   "parameters": {
+    "limit": {
+     "type": "string",
+     "default": "20",
+     "format": "int64"
+    },
+    "order": {
+     "type": "string",
+     "default": "WHEN",
+     "enum": [
+      "TITLE",
+      "WHEN"
+     ],
+     "enumDescriptions": [
+      "",
+      ""
+     ]
+    }
+   },
+   "returns": {
+    "$ref": "RoseTaskApiMessagesTaskListListResponse"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "rosetask.tasklist.insert": {
+   "id": "rosetask.tasklist.insert",
+   "description": "Insert a TaskList.",
+   "parameters": {
+    "resource": {
+     "$ref": "TaskList"
+    }
+   },
+   "parameterOrder": [
+    "resource"
+   ],
+   "returns": {
+    "$ref": "TaskList"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "rosetask.taskuser.get": {
+   "id": "rosetask.taskuser.get",
+   "description": "TaskUser get.",
+   "allowGet": true,
+   "parameters": {
+    "lowercase_email": {
+     "type": "string"
+    }
+   },
+   "returns": {
+    "$ref": "RoseTaskApiMessagesTaskUserResponseMessage"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "rosetask.taskuser.insert": {
+   "id": "rosetask.taskuser.insert",
+   "description": "Insert a TaskUser.",
+   "parameters": {
+    "resource": {
+     "$ref": "TaskUser"
+    }
+   },
+   "parameterOrder": [
+    "resource"
+   ],
+   "returns": {
+    "$ref": "TaskUser"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  }
+ }
+}

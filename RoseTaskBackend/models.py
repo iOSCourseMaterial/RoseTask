@@ -1,6 +1,5 @@
 """ Model classes for the RoseTask API """
 
-from google.appengine.ext import endpoints
 from google.appengine.ext import ndb
 from endpoints_proto_datastore.ndb import EndpointsModel
 
