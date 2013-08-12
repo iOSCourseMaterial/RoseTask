@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RHTaskListTableViewController : UITableViewController
-
+@interface RHTaskListTableViewController : UITableViewController <NSFetchedResultsControllerDelegate>
+- (IBAction)addTaskList:(id)sender;
+@property (nonatomic, copy) NSString * userEmail;
 @end

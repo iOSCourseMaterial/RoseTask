@@ -10,6 +10,11 @@
 #import "GTMOAuth2ViewControllerTouch.h"
 #import "GTMHTTPFetcherLogging.h"
 #import "GTLRosetask.h"
+#import "RHTaskListTableViewController.h"
+#import "RHAppDelegate.h"
+
+#define SIGN_IN_SECTION_INDEX 0
+#define LOCAL_ONLY_ID @"local_only"
 
 @interface RHLoginViewController ()
 
@@ -38,7 +43,48 @@
     
     
     // TODO: Create some data to run once.
+    if (NO) {
+        
+        RHAppDelegate *ad = (RHAppDelegate *) [[UIApplication sharedApplication] delegate];
+        NSManagedObjectContext *managedObjectContext = [ad managedObjectContext];
+        
+        NSManagedObject * taskUserMo1 = [NSEntityDescription insertNewObjectForEntityForName:@"TaskUser" inManagedObjectContext:managedObjectContext];
+        [taskUserMo1 setValue:@"test3b" forKey:@"lowercase_email"];
+        [taskUserMo1 setValue:@"108456725833219286408" forKey:@"google_plus_id"];
+        [taskUserMo1 setValue:@"Dave" forKey:@"preferred_name"];
+        
+        NSManagedObject * taskUserMo2 = [NSEntityDescription insertNewObjectForEntityForName:@"TaskUser" inManagedObjectContext:managedObjectContext];
+        [taskUserMo2 setValue:@"test4b" forKey:@"lowercase_email"];
+        
+        
+        NSManagedObject * taskUserMo3 = [NSEntityDescription insertNewObjectForEntityForName:@"TaskUser" inManagedObjectContext:managedObjectContext];
+        [taskUserMo3 setValue:@"test5b" forKey:@"lowercase_email"];
+        
+        NSManagedObject * taskList1 = [NSEntityDescription insertNewObjectForEntityForName:@"TaskList" inManagedObjectContext:managedObjectContext];
+        [taskList1 setValue:@"List 2b" forKey:@"title"];
+        NSSet * taskUserSet = [[NSSet alloc] initWithArray:@[taskUserMo1, taskUserMo2]];
+        [taskList1 setValue:taskUserSet forKey:@"task_users"];
+        
+        NSManagedObject * task1 = [NSEntityDescription insertNewObjectForEntityForName:@"Task" inManagedObjectContext:managedObjectContext];
+        [task1 setValue:@"Step 1b" forKey:@"text"];
+        [task1 setValue:taskList1 forKey:@"task_list"];
+        NSManagedObject * task2 = [NSEntityDescription insertNewObjectForEntityForName:@"Task" inManagedObjectContext:managedObjectContext];
+        [task2 setValue:@"Step 2b" forKey:@"text"];
+        [task2 setValue:taskList1 forKey:@"task_list"];
+        NSManagedObject * task3 = [NSEntityDescription insertNewObjectForEntityForName:@"Task" inManagedObjectContext:managedObjectContext];
+        [task3 setValue:@"Step 3b" forKey:@"text"];
+        [task3 setValue:taskList1 forKey:@"task_list"];
+        
+        NSError *error = nil;
+        if (![managedObjectContext save:&error]) {
+            NSLog(@"Error saving fake data");
+        } else {
+            
+            NSLog(@"Success saving fake data");
+        }
+    }
     
+
     
     
     
@@ -85,12 +131,6 @@ bool signedIn = false;
     }];
 }
 
-- (IBAction)createTasksPress:(id)sender {
-}
-
-- (IBAction)queryPress:(id)sender {
-}
-
 - (GTLServiceRosetask *)roseTaskService {
     static GTLServiceRosetask *service = nil;
     if (!service) {
@@ -107,6 +147,7 @@ bool signedIn = false;
 
 - (void)signin {
     if (!signedIn) {
+        NSLog(@"Signing in");
         GTMOAuth2ViewControllerTouch *viewController;
         viewController = [[GTMOAuth2ViewControllerTouch alloc] initWithScope:scope
                                                                     clientID:kMyClientID
@@ -115,100 +156,79 @@ bool signedIn = false;
                                                                     delegate:self
                                                             finishedSelector:@selector(viewController:finishedWithAuth:error:)];
         
-        [self presentModalViewController:viewController
-                                animated:YES];
+        [self presentViewController:viewController animated:YES completion:nil];
+       
     } else {
+        NSLog(@"Signed out");
         signedIn = false;
+        
+        // TODO: Change the text on the TableVeiwCell to sign in again.
 //        [self.signInButton setTitle:@"Sign in" forState:UIControlStateNormal];
+        
     }
 }
 
 - (void)viewController:(GTMOAuth2ViewControllerTouch *)viewController
       finishedWithAuth:(GTMOAuth2Authentication *)auth
                  error:(NSError *)error {
-    [self dismissModalViewControllerAnimated:YES];
-    
     if (error != nil) {
         // Authentication failed
+        [self dismissViewControllerAnimated:YES completion:nil];
     } else {
         // Authentication succeeded
         signedIn = true;
         [[self roseTaskService] setAuthorizer:auth];
         auth.authorizationTokenKey = @"id_token";
+        
+        // TODO: Change the text on the Table View Cell to sign out instead.
 //        [self.signInButton setTitle:@"Sign out" forState:UIControlStateNormal];
+        
+        
+        [self dismissViewControllerAnimated:YES completion:^{
+            NSLog(@"Fire the segway automatically to view the tasks. for this user.");
+            
+            NSLog(@"userData = %@", auth.userData);
+            NSLog(@"userID = %@", auth.userID);
+            
+            
+            [self performSegueWithIdentifier:@"PushTaskListsSegue" sender:auth.userEmail];
+            
+        }];
+    }
+}
+
+
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    // The class of the sender will be either UITableViewCell (if not signing in)
+    // If they signed in with Google the sender class will be an NSString (ther users email)
+    RHTaskListTableViewController *taskListController = segue.destinationViewController;
+    if ([segue.identifier isEqualToString:@"PushTaskListsSegue"]) {
+        if ([sender isKindOfClass:[NSString class]]) {
+            NSLog(@"Fire TaskListTableViewController for %@", sender);
+            taskListController.userEmail = sender;
+        }
+        else {
+            NSLog(@"sender = %@", sender);
+            NSLog(@"sender class = %@", [sender class]);
+            NSLog(@"Fire TaskListTableViewController for LocalOnly");
+            taskListController.userEmail = LOCAL_ONLY_ID;
+        }
     }
 }
 
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
-    return cell;
-}
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.section == SIGN_IN_SECTION_INDEX) {
+        [self signin];
+    }
     // Navigation logic may go here. Create and push another view controller.
     /*
      <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];

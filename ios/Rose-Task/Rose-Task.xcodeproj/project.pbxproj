@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		FD292E3D17B5F3A800BB9EBE /* RHLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD292E3C17B5F3A800BB9EBE /* RHLoginViewController.m */; };
+		FD292E4017B8816400BB9EBE /* RHTaskDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD292E3F17B8816400BB9EBE /* RHTaskDetailViewController.m */; };
 		FD82D7CB17B421BB00529133 /* GTLObject.m in Sources */ = {isa = PBXBuildFile; fileRef = FD82D79217B421BB00529133 /* GTLObject.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FD82D7CC17B421BB00529133 /* GTLQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = FD82D79417B421BB00529133 /* GTLQuery.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FD82D7CD17B421BB00529133 /* GTLBatchQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = FD82D79617B421BB00529133 /* GTLBatchQuery.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -50,7 +51,6 @@
 		FD82D80E17B4220000529133 /* GTLServiceRosetask.m in Sources */ = {isa = PBXBuildFile; fileRef = FD82D80117B4220000529133 /* GTLServiceRosetask.m */; };
 		FD82D81117B422CD00529133 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD82D81017B422CD00529133 /* Security.framework */; };
 		FD82D81317B422DA00529133 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD82D81217B422DA00529133 /* SystemConfiguration.framework */; };
-		FD82D81617B4A95800529133 /* RHRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD82D81517B4A95800529133 /* RHRootViewController.m */; };
 		FDFC23C417B41B6400AACB71 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDFC23C317B41B6400AACB71 /* UIKit.framework */; };
 		FDFC23C617B41B6400AACB71 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDFC23C517B41B6400AACB71 /* Foundation.framework */; };
 		FDFC23C817B41B6400AACB71 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDFC23C717B41B6400AACB71 /* CoreGraphics.framework */; };
@@ -70,6 +70,8 @@
 /* Begin PBXFileReference section */
 		FD292E3B17B5F3A800BB9EBE /* RHLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHLoginViewController.h; sourceTree = "<group>"; };
 		FD292E3C17B5F3A800BB9EBE /* RHLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHLoginViewController.m; sourceTree = "<group>"; };
+		FD292E3E17B8816400BB9EBE /* RHTaskDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHTaskDetailViewController.h; sourceTree = "<group>"; };
+		FD292E3F17B8816400BB9EBE /* RHTaskDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHTaskDetailViewController.m; sourceTree = "<group>"; };
 		FD82D79017B421BB00529133 /* GTLDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLDefines.h; sourceTree = "<group>"; };
 		FD82D79117B421BB00529133 /* GTLObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLObject.h; sourceTree = "<group>"; };
 		FD82D79217B421BB00529133 /* GTLObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLObject.m; sourceTree = "<group>"; };
@@ -156,8 +158,6 @@
 		FD82D80117B4220000529133 /* GTLServiceRosetask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLServiceRosetask.m; sourceTree = "<group>"; };
 		FD82D81017B422CD00529133 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		FD82D81217B422DA00529133 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		FD82D81417B4A95800529133 /* RHRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHRootViewController.h; sourceTree = "<group>"; };
-		FD82D81517B4A95800529133 /* RHRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHRootViewController.m; sourceTree = "<group>"; };
 		FDFC23C017B41B6400AACB71 /* Rose-Task.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Rose-Task.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDFC23C317B41B6400AACB71 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		FDFC23C517B41B6400AACB71 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -339,10 +339,10 @@
 				FDFC23E817B41C8A00AACB71 /* RHTaskListTableViewController.m */,
 				FDFC23EA17B41CC400AACB71 /* RHTaskTableViewController.h */,
 				FDFC23EB17B41CC400AACB71 /* RHTaskTableViewController.m */,
-				FD82D81417B4A95800529133 /* RHRootViewController.h */,
-				FD82D81517B4A95800529133 /* RHRootViewController.m */,
 				FD292E3B17B5F3A800BB9EBE /* RHLoginViewController.h */,
 				FD292E3C17B5F3A800BB9EBE /* RHLoginViewController.m */,
+				FD292E3E17B8816400BB9EBE /* RHTaskDetailViewController.h */,
+				FD292E3F17B8816400BB9EBE /* RHTaskDetailViewController.m */,
 			);
 			path = "Rose-Task";
 			sourceTree = "<group>";
@@ -473,8 +473,8 @@
 				FD82D80C17B4220000529133 /* GTLRosetaskTaskUser.m in Sources */,
 				FD82D80D17B4220000529133 /* GTLRosetaskUserMessage.m in Sources */,
 				FD82D80E17B4220000529133 /* GTLServiceRosetask.m in Sources */,
-				FD82D81617B4A95800529133 /* RHRootViewController.m in Sources */,
 				FD292E3D17B5F3A800BB9EBE /* RHLoginViewController.m in Sources */,
+				FD292E4017B8816400BB9EBE /* RHTaskDetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
