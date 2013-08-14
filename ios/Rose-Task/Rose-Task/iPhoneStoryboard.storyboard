@@ -93,11 +93,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TaskListCell" textLabel="YxB-yH-b2U" detailTextLabel="YWg-4L-rSh" style="IBUITableViewCellStyleSubtitle" id="BsG-Y6-Hgn">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="detailDisclosureButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TaskListCell" textLabel="YxB-yH-b2U" detailTextLabel="YWg-4L-rSh" style="IBUITableViewCellStyleSubtitle" id="BsG-Y6-Hgn">
                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="300" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YxB-yH-b2U">
@@ -113,9 +113,6 @@
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
-                                <connections>
-                                    <segue destination="KFl-xO-mgx" kind="push" id="Bk9-IN-eIR"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -130,10 +127,147 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="KFl-xO-mgx" kind="push" identifier="DisplayTasks" id="cJ4-YN-si0"/>
+                        <segue destination="Hcz-so-DPK" kind="push" identifier="EditTaskList" id="ONP-tM-Jj3"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VhB-ai-P0C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="769" y="-80"/>
+            <point key="canvasLocation" x="775" y="-80"/>
+        </scene>
+        <!--Task List Detail View Controller - Task List-->
+        <scene sceneID="dDl-8J-jvX">
+            <objects>
+                <viewController id="Hcz-so-DPK" customClass="RHTaskListDetailViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Vao-0E-hrq">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Task list title" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="B9b-Kr-qdu">
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
+                                <connections>
+                                    <action selector="textEditingDone:" destination="Hcz-so-DPK" eventType="editingDidEnd" id="4fX-BJ-z9w"/>
+                                    <action selector="textEditingDone:" destination="Hcz-so-DPK" eventType="editingDidEndOnExit" id="Rgm-vv-Nej"/>
+                                    <outlet property="delegate" destination="Hcz-so-DPK" id="axk-83-Vtr"/>
+                                </connections>
+                            </textField>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="KNd-DM-GTS">
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="394" id="m65-nd-dfQ"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="dataSource" destination="Hcz-so-DPK" id="RZu-eu-HsK"/>
+                                    <outlet property="delegate" destination="Hcz-so-DPK" id="KC5-8H-vjq"/>
+                                </connections>
+                            </tableView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SlR-qK-9vZ">
+                                <items>
+                                    <barButtonItem title="Edit Team Members" id="Tmf-am-FLR">
+                                        <connections>
+                                            <action selector="addTaskUser:" destination="Hcz-so-DPK" id="Ruw-1P-WqJ"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="3tl-cG-XmO"/>
+                                    <barButtonItem title="Delete" id="i8u-c1-hat">
+                                        <color key="tintColor" red="0.89019614459999996" green="0.2196078598" blue="0.054901964960000001" alpha="1" colorSpace="deviceRGB"/>
+                                        <connections>
+                                            <action selector="deleteTaskList:" destination="Hcz-so-DPK" id="i3r-Dv-x8Q"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                        </subviews>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="B9b-Kr-qdu" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="ShM-Ge-eYC"/>
+                            <constraint firstItem="KNd-DM-GTS" firstAttribute="trailing" secondItem="Vao-0E-hrq" secondAttribute="trailing" type="default" id="XkG-xt-1Fv"/>
+                            <constraint firstItem="KNd-DM-GTS" firstAttribute="leading" secondItem="Vao-0E-hrq" secondAttribute="leading" type="default" id="bSX-QM-YZp"/>
+                            <constraint firstItem="SlR-qK-9vZ" firstAttribute="leading" secondItem="Vao-0E-hrq" secondAttribute="leading" type="default" id="ccE-Nd-fBf"/>
+                            <constraint firstItem="SlR-qK-9vZ" firstAttribute="bottom" secondItem="Vao-0E-hrq" secondAttribute="bottom" type="default" id="jxc-Ao-JJA"/>
+                            <constraint firstItem="B9b-Kr-qdu" firstAttribute="leading" secondItem="Vao-0E-hrq" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="o06-Ll-E9p"/>
+                            <constraint firstItem="SlR-qK-9vZ" firstAttribute="top" secondItem="KNd-DM-GTS" secondAttribute="bottom" type="default" id="qY1-yY-Bw1"/>
+                            <constraint firstItem="B9b-Kr-qdu" firstAttribute="top" secondItem="Vao-0E-hrq" secondAttribute="top" constant="20" symbolic="YES" type="default" id="rda-Pi-9cf"/>
+                            <constraint firstItem="SlR-qK-9vZ" firstAttribute="trailing" secondItem="Vao-0E-hrq" secondAttribute="trailing" type="default" id="uiU-Nl-euQ"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Task List" id="vXY-Cu-7B8">
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="aZg-nU-TZh">
+                            <connections>
+                                <action selector="save:" destination="Hcz-so-DPK" id="48F-iw-7xd"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="titleTextField" destination="B9b-Kr-qdu" id="lEQ-L6-QaJ"/>
+                        <segue destination="M7r-bi-dAz" kind="push" id="FZK-Bu-Pax"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gn9-Zm-W6A" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="775" y="-816"/>
+        </scene>
+        <!--Table View Controller - Team Members-->
+        <scene sceneID="PWd-HN-jqz">
+            <objects>
+                <tableViewController id="M7r-bi-dAz" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="wDT-O1-mfx">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="checkmark" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SelectMemberCell" textLabel="Tub-ht-myV" detailTextLabel="QvR-Og-pgn" style="IBUITableViewCellStyleSubtitle" id="C9f-cS-Q9y">
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="300" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tub-ht-myV">
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QvR-Og-pgn">
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AddMemberCell" textLabel="ta4-aZ-szp" style="IBUITableViewCellStyleDefault" id="pIT-CO-iCC">
+                                <rect key="frame" x="0.0" y="66" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Add new email" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ta4-aZ-szp">
+                                            <rect key="frame" x="10" y="0.0" width="300" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="M7r-bi-dAz" id="5S3-mz-GeY"/>
+                            <outlet property="delegate" destination="M7r-bi-dAz" id="hEB-UI-2VL"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Team Members" id="Vye-bC-yVN"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7m7-lA-3wK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1250" y="-816"/>
         </scene>
         <!--Task Table View Controller - Tasks-->
         <scene sceneID="Vh5-uG-FeO">
@@ -166,7 +300,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="psV-Vp-LXl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1196" y="-80"/>
+            <point key="canvasLocation" x="1250" y="-74"/>
         </scene>
         <!--Task Detail View Controller - Task Detail-->
         <scene sceneID="yBX-cE-Wg1">
@@ -222,7 +356,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GiH-TK-lfh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1620" y="-80"/>
+            <point key="canvasLocation" x="1690" y="-74"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="U0s-g6-02o">
@@ -241,6 +375,9 @@
         </scene>
     </scenes>
     <classes>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
         <class className="RHLoginViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/RHLoginViewController.h"/>
             <relationships>
@@ -249,6 +386,17 @@
         </class>
         <class className="RHTaskDetailViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/RHTaskDetailViewController.h"/>
+        </class>
+        <class className="RHTaskListDetailViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RHTaskListDetailViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="addTaskUser:"/>
+                <relationship kind="action" name="deleteTaskList:"/>
+                <relationship kind="action" name="removeTaskUser:"/>
+                <relationship kind="action" name="save:"/>
+                <relationship kind="action" name="textEditingDone:"/>
+                <relationship kind="outlet" name="titleTextField" candidateClass="UITextField"/>
+            </relationships>
         </class>
         <class className="RHTaskListTableViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/RHTaskListTableViewController.h"/>

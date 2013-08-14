@@ -14,65 +14,49 @@
 #import "RHAppDelegate.h"
 
 #define SIGN_IN_SECTION_INDEX 0
-#define LOCAL_ONLY_ID @"local_only"
+#define LOCAL_ONLY_EMAIL @"local_only"
 
 @interface RHLoginViewController ()
-
+- (NSManagedObject *) getTaskUserMo:(NSString *) lowercase_email;
 @end
 
 @implementation RHLoginViewController
-
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
-    
-    // TODO: Create some data to run once.
+    // TESTING ONLY: Create some fake core data to run once.
     if (NO) {
         
         RHAppDelegate *ad = (RHAppDelegate *) [[UIApplication sharedApplication] delegate];
         NSManagedObjectContext *managedObjectContext = [ad managedObjectContext];
         
         NSManagedObject * taskUserMo1 = [NSEntityDescription insertNewObjectForEntityForName:@"TaskUser" inManagedObjectContext:managedObjectContext];
-        [taskUserMo1 setValue:@"test3b" forKey:@"lowercase_email"];
+        [taskUserMo1 setValue:@"test1" forKey:@"lowercase_email"];
         [taskUserMo1 setValue:@"108456725833219286408" forKey:@"google_plus_id"];
-        [taskUserMo1 setValue:@"Dave" forKey:@"preferred_name"];
+        [taskUserMo1 setValue:@"Test1 like Dave" forKey:@"preferred_name"];
         
         NSManagedObject * taskUserMo2 = [NSEntityDescription insertNewObjectForEntityForName:@"TaskUser" inManagedObjectContext:managedObjectContext];
-        [taskUserMo2 setValue:@"test4b" forKey:@"lowercase_email"];
+        [taskUserMo2 setValue:@"test2" forKey:@"lowercase_email"];
         
         
         NSManagedObject * taskUserMo3 = [NSEntityDescription insertNewObjectForEntityForName:@"TaskUser" inManagedObjectContext:managedObjectContext];
-        [taskUserMo3 setValue:@"test5b" forKey:@"lowercase_email"];
+        [taskUserMo3 setValue:@"test3" forKey:@"lowercase_email"];
         
         NSManagedObject * taskList1 = [NSEntityDescription insertNewObjectForEntityForName:@"TaskList" inManagedObjectContext:managedObjectContext];
-        [taskList1 setValue:@"List 2b" forKey:@"title"];
+        [taskList1 setValue:@"List 1" forKey:@"title"];
         NSSet * taskUserSet = [[NSSet alloc] initWithArray:@[taskUserMo1, taskUserMo2]];
         [taskList1 setValue:taskUserSet forKey:@"task_users"];
         
         NSManagedObject * task1 = [NSEntityDescription insertNewObjectForEntityForName:@"Task" inManagedObjectContext:managedObjectContext];
-        [task1 setValue:@"Step 1b" forKey:@"text"];
+        [task1 setValue:@"Step 1" forKey:@"text"];
         [task1 setValue:taskList1 forKey:@"task_list"];
         NSManagedObject * task2 = [NSEntityDescription insertNewObjectForEntityForName:@"Task" inManagedObjectContext:managedObjectContext];
-        [task2 setValue:@"Step 2b" forKey:@"text"];
+        [task2 setValue:@"Step 2" forKey:@"text"];
         [task2 setValue:taskList1 forKey:@"task_list"];
         NSManagedObject * task3 = [NSEntityDescription insertNewObjectForEntityForName:@"Task" inManagedObjectContext:managedObjectContext];
-        [task3 setValue:@"Step 3b" forKey:@"text"];
+        [task3 setValue:@"Step 3" forKey:@"text"];
         [task3 setValue:taskList1 forKey:@"task_list"];
         
         NSError *error = nil;
@@ -83,11 +67,6 @@
             NSLog(@"Success saving fake data");
         }
     }
-    
-
-    
-    
-    
 }
 
 - (void)didReceiveMemoryWarning
@@ -109,27 +88,6 @@ bool signedIn = false;
     [self signin];
 }
 
-- (void) updateMyTaskUser:(NSString *) preferred_name {
-    GTLServiceRosetask *service = [self roseTaskService];
-    
-    GTLRosetaskTaskUser *taskUser = [GTLRosetaskTaskUser alloc];
-    if (preferred_name == nil) {
-        // Use the name from Google for now.
-    }
-    [taskUser setLowercaseEmail:@"fisherds@gmail.com"];
-    [taskUser setPreferredName:@"iOS Dave"];
-    [taskUser setGooglePlusId:@"108456725833219286408"];
-    
-    GTLQueryRosetask *query = [GTLQueryRosetask queryForTaskuserInsertWithObject:taskUser];
-    
-    [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, GTLRosetaskTaskUser *object, NSError *error) {
-        NSLog(@"Done!");
-        NSLog(@"Created = %@", object.created);
-        NSLog(@"lowercaseEmail = %@", object.lowercaseEmail);
-        NSLog(@"preferredName = %@", object.preferredName);
-        NSLog(@"googlePlusId = %@", object.googlePlusId);
-    }];
-}
 
 - (GTLServiceRosetask *)roseTaskService {
     static GTLServiceRosetask *service = nil;
@@ -185,14 +143,19 @@ bool signedIn = false;
         
         
         [self dismissViewControllerAnimated:YES completion:^{
-            NSLog(@"Fire the segway automatically to view the tasks. for this user.");
-            
-            NSLog(@"userData = %@", auth.userData);
-            NSLog(@"userID = %@", auth.userID);
-            
-            
-            [self performSegueWithIdentifier:@"PushTaskListsSegue" sender:auth.userEmail];
-            
+            // Determine if this user has a preferred_name set.
+            if ([self getTaskUserMo:auth.userEmail] != nil) {
+                NSLog(@"Repeat login.  Assume no updates needed. Fire the segway automatically to view the tasks. for %@.", auth.userEmail);
+                [self performSegueWithIdentifier:@"PushTaskListsSegue" sender:[self getTaskUserMo:auth.userEmail]];
+            } else {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Set your preferred name", @"Set your preferred name")
+                                                                message:@"Usually just your first name"
+                                                               delegate:self
+                                                      cancelButtonTitle:NSLocalizedString(@"OK", @"OK")
+                                                      otherButtonTitles:nil];
+                [alert setAlertViewStyle:UIAlertViewStylePlainTextInput];
+                [alert show];
+            }
         }];
     }
 }
@@ -205,19 +168,32 @@ bool signedIn = false;
     // If they signed in with Google the sender class will be an NSString (ther users email)
     RHTaskListTableViewController *taskListController = segue.destinationViewController;
     if ([segue.identifier isEqualToString:@"PushTaskListsSegue"]) {
-        if ([sender isKindOfClass:[NSString class]]) {
-            NSLog(@"Fire TaskListTableViewController for %@", sender);
-            taskListController.userEmail = sender;
+        if ([sender isKindOfClass:[NSManagedObject class]]) {
+            //NSLog(@"Fire TaskListTableViewController for %@", sender);
+            taskListController.taskUser = sender;
         }
         else {
-            NSLog(@"sender = %@", sender);
-            NSLog(@"sender class = %@", [sender class]);
-            NSLog(@"Fire TaskListTableViewController for LocalOnly");
-            taskListController.userEmail = LOCAL_ONLY_ID;
+            //NSLog(@"Fire TaskListTableViewController for %@", LOCAL_ONLY_EMAIL);
+            taskListController.taskUser = [self localOnlyTaskUser];
         }
     }
 }
 
+- (NSManagedObject *) localOnlyTaskUser {
+    if (_localOnlyTaskUser == nil) {
+        // Create TaskUser in core data.
+        RHAppDelegate *ad = (RHAppDelegate *) [[UIApplication sharedApplication] delegate];
+        NSManagedObjectContext *moc = [ad managedObjectContext];
+        _localOnlyTaskUser = [NSEntityDescription insertNewObjectForEntityForName:@"TaskUser"
+                                                                     inManagedObjectContext:moc];
+        [_localOnlyTaskUser setValue:LOCAL_ONLY_EMAIL forKey:@"lowercase_email"];
+        NSError *error = nil;
+        if (![moc save:&error]) {
+            NSLog(@"MOC error %@", [error localizedDescription]);
+        }
+    }
+    return _localOnlyTaskUser;
+}
 
 #pragma mark - Table view data source
 
@@ -229,13 +205,91 @@ bool signedIn = false;
     if (indexPath.section == SIGN_IN_SECTION_INDEX) {
         [self signin];
     }
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
 }
+
+#pragma mark - Alert view delegate
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    // For now there is only one alert view so assume it is the name dialog.
+    NSString * preferred_name = [[alertView textFieldAtIndex:0] text];
+    NSLog(@"Got a preferred name of %@", preferred_name);
+    
+    // Create TaskUser in core data.
+    GTMOAuth2Authentication * auth = [self.roseTaskService authorizer];
+    RHAppDelegate *ad = (RHAppDelegate *) [[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *moc = [ad managedObjectContext]; 
+    NSManagedObject * taskUserMo = [NSEntityDescription insertNewObjectForEntityForName:@"TaskUser"
+                                                             inManagedObjectContext:moc];
+    [taskUserMo setValue:[[auth userEmail] lowercaseString] forKey:@"lowercase_email"];
+    [taskUserMo setValue:[auth userID] forKey:@"google_plus_id"];
+    [taskUserMo setValue:preferred_name forKey:@"preferred_name"];
+    [taskUserMo setValue:[NSNumber numberWithBool:YES] forKey:@"sync_needed"];
+    NSError *error = nil;
+    if (![moc save:&error]) {
+        NSLog(@"MOC error %@", [error localizedDescription]);
+    }
+
+    // Sync the TaskUser with GAE
+    [self updateTaskUser:preferred_name];
+    
+    // Display the TaskLists for this user.
+    [self performSegueWithIdentifier:@"PushTaskListsSegue" sender:auth.userEmail];
+}
+
+- (void) updateTaskUser:(NSString *) preferred_name {
+    GTLServiceRosetask *service = [self roseTaskService];
+    
+    GTLRosetaskTaskUser *taskUser = [GTLRosetaskTaskUser alloc];
+    if (preferred_name == nil) {
+        // Use the name from Google for now.
+    }
+    
+    [taskUser setPreferredName:preferred_name];
+    GTMOAuth2Authentication * auth = [self.roseTaskService authorizer];
+    [taskUser setLowercaseEmail:[auth userEmail]];
+    [taskUser setGooglePlusId:[auth userID]];
+    
+    GTLQueryRosetask *query = [GTLQueryRosetask queryForTaskuserInsertWithObject:taskUser];
+    
+    [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, GTLRosetaskTaskUser *object, NSError *error) {
+        NSLog(@"Done!");
+        NSLog(@"Created = %@", object.created);
+        NSLog(@"lowercaseEmail = %@", object.lowercaseEmail);
+        NSLog(@"preferredName = %@", object.preferredName);
+        NSLog(@"googlePlusId = %@", object.googlePlusId);
+        
+        // Mark the TaskUser as no longer needing a sync.
+        RHAppDelegate *ad = (RHAppDelegate *) [[UIApplication sharedApplication] delegate];
+        NSManagedObjectContext *moc = [ad managedObjectContext];
+        NSManagedObject * taskUser = [self getTaskUserMo:[object.lowercaseEmail lowercaseString]];
+        [taskUser setValue:[NSNumber numberWithBool:NO] forKey:@"sync_needed"];
+        NSError *mocError = nil;
+        if (![moc save:&mocError]) {
+            NSLog(@"MOC error %@", [mocError localizedDescription]);
+        }
+
+    }];
+}
+
+#pragma mark - GAE helpers
++ (NSManagedObject *) getTaskUserMo:(NSString *) lowercase_email {
+    RHAppDelegate *ad = (RHAppDelegate *) [[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *moc = [ad managedObjectContext];
+    NSEntityDescription *entityDescription = [NSEntityDescription
+                                              entityForName:@"TaskUser"
+                                              inManagedObjectContext:moc];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:entityDescription];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:
+                              @"(lowercase_email == %@)", lowercase_email];
+    [request setPredicate:predicate];
+    NSError *error;
+    NSArray *array = [moc executeFetchRequest:request error:&error];
+    if ([array count] > 0) {
+        return array[0];
+    }
+    return nil;
+}
+
 
 @end

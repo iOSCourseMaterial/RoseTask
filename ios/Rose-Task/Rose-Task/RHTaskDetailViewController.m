@@ -7,7 +7,6 @@
 //
 
 #import "RHTaskDetailViewController.h"
-
 @interface RHTaskDetailViewController ()
 
 @end

@@ -8,6 +8,8 @@
 
 #import "RHTaskListTableViewController.h"
 #import "RHAppDelegate.h"
+#import "RHTaskListDetailViewController.h"
+#import "RHTaskTableViewController.h"
 
 static NSDateFormatter *__dateFormatter = nil;
 
@@ -44,7 +46,7 @@ static NSDateFormatter *__dateFormatter = nil;
     _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fr
                                                                     managedObjectContext:moc
                                                                       sectionNameKeyPath:nil
-                                                                               cacheName:self.userEmail];
+                                                                               cacheName:[self.taskUser valueForKey:@"lowercase_email"]];
     _fetchedResultsController.delegate = self;
     return _fetchedResultsController;
 }
@@ -73,6 +75,7 @@ static NSDateFormatter *__dateFormatter = nil;
         [alert show];
     }
 
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -156,7 +159,6 @@ static NSDateFormatter *__dateFormatter = nil;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    NSLog(@"Sections count = %d", [[self.fetchedResultsController sections] count]);
     return [[self.fetchedResultsController sections] count];
 }
 
@@ -164,7 +166,6 @@ static NSDateFormatter *__dateFormatter = nil;
 {
     // Return the number of rows in the section.
     id<NSFetchedResultsSectionInfo>sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
-    NSLog(@"Row count = %d", [sectionInfo numberOfObjects]);
     return [sectionInfo numberOfObjects];
 }
 
@@ -191,19 +192,29 @@ static NSDateFormatter *__dateFormatter = nil;
 }
 */
 
-/*
+
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSManagedObjectContext *managedObjectContext=[self.fetchedResultsController managedObjectContext];
+
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        
+        [managedObjectContext deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+        
+        NSError *error;
+        if (![managedObjectContext save:&error]) {
+            NSLog(@"MOC error %@", [error localizedDescription]);
+        }
+
     }   
     else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        // Done via + button
     }   
 }
-*/
+
 
 /*
 // Override to support rearranging the table view.
@@ -225,19 +236,60 @@ static NSDateFormatter *__dateFormatter = nil;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
-    
-    // TODO: Pass the id of the task list to the next table view.
-    
+    NSManagedObject * selectedTaskList = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    [self performSegueWithIdentifier:@"DisplayTasks" sender:selectedTaskList];
 }
+
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
+    NSManagedObject * selectedTaskList = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    [self performSegueWithIdentifier:@"EditTaskList" sender:selectedTaskList];
+}
+
+#pragma mark -
 
 - (IBAction)addTaskList:(id)sender {
     NSLog(@"You'd like to add a TaskList.  Good for you.");
+    
+    // Create a new task list.  Fire the segway manually to open the TaskList editor.
+    NSManagedObjectContext *managedObjectContext = [self.fetchedResultsController managedObjectContext];
+    
+    NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
+    NSManagedObject * taskListMo = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:managedObjectContext];
+
+    // Insert the task user for the current user.
+    NSSet * taskUsers = [NSSet setWithArray:@[self.taskUser]];
+    [taskListMo setValue:taskUsers forKey:@"task_users"];
+    
+    NSError *error = nil;
+    if (![managedObjectContext save:&error]) {
+        NSLog(@"MOC error %@", [error localizedDescription]);
+    }
+    [self performSegueWithIdentifier:@"EditTaskList" sender:taskListMo];
 }
+
+
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"EditTaskList"]) {
+        if ([sender isKindOfClass:[NSManagedObject class]]) {
+            // Edit this TaskList.
+            RHTaskListDetailViewController *detailController = segue.destinationViewController;
+            detailController.taskList = sender;
+            NSLog(@"Launching for list %@", [sender valueForKey:@"title"]);
+        }
+        else {
+
+        }
+    } else if ([segue.identifier isEqualToString:@"DisplayTasks"]) {
+        if ([sender isKindOfClass:[NSManagedObject class]]) {
+            RHTaskTableViewController * tasksTableViewController = segue.destinationViewController;
+            tasksTableViewController.taskList = sender;
+        }
+        else {
+            
+        }
+    }
+}
+
 @end

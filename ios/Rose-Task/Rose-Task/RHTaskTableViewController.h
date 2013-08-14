@@ -11,5 +11,6 @@
 @interface RHTaskTableViewController : UITableViewController
 
 
+@property (nonatomic, strong) NSManagedObject * taskList;
 
 @end

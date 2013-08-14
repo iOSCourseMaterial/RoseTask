@@ -10,5 +10,5 @@
 
 @interface RHTaskListTableViewController : UITableViewController <NSFetchedResultsControllerDelegate>
 - (IBAction)addTaskList:(id)sender;
-@property (nonatomic, copy) NSString * userEmail;
+@property (nonatomic, strong) NSManagedObject * taskUser;
 @end
