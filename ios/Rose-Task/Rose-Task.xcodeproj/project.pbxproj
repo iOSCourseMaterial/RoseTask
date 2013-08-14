@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		FD292E3D17B5F3A800BB9EBE /* RHLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD292E3C17B5F3A800BB9EBE /* RHLoginViewController.m */; };
 		FD292E4017B8816400BB9EBE /* RHTaskDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD292E3F17B8816400BB9EBE /* RHTaskDetailViewController.m */; };
-		FD292E4317B9322000BB9EBE /* RHTaskListDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD292E4217B9322000BB9EBE /* RHTaskListDetailTableViewController.m */; };
 		FD292E4917B94D8600BB9EBE /* RHTaskListTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FD292E4817B94D8500BB9EBE /* RHTaskListTitleCell.m */; };
 		FD82D7CB17B421BB00529133 /* GTLObject.m in Sources */ = {isa = PBXBuildFile; fileRef = FD82D79217B421BB00529133 /* GTLObject.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FD82D7CC17B421BB00529133 /* GTLQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = FD82D79417B421BB00529133 /* GTLQuery.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -53,6 +52,15 @@
 		FD82D80E17B4220000529133 /* GTLServiceRosetask.m in Sources */ = {isa = PBXBuildFile; fileRef = FD82D80117B4220000529133 /* GTLServiceRosetask.m */; };
 		FD82D81117B422CD00529133 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD82D81017B422CD00529133 /* Security.framework */; };
 		FD82D81317B422DA00529133 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD82D81217B422DA00529133 /* SystemConfiguration.framework */; };
+		FDBE74DD17BBCCBA0006092D /* Task.m in Sources */ = {isa = PBXBuildFile; fileRef = FDBE74DC17BBCCBA0006092D /* Task.m */; };
+		FDBE74E017BBCCBB0006092D /* TaskUser.m in Sources */ = {isa = PBXBuildFile; fileRef = FDBE74DF17BBCCBB0006092D /* TaskUser.m */; };
+		FDBE74E317BBCCBB0006092D /* DeleteTransaction.m in Sources */ = {isa = PBXBuildFile; fileRef = FDBE74E217BBCCBB0006092D /* DeleteTransaction.m */; };
+		FDBE74E617BBCCBB0006092D /* TaskList.m in Sources */ = {isa = PBXBuildFile; fileRef = FDBE74E517BBCCBB0006092D /* TaskList.m */; };
+		FDBE74EA17BBCD370006092D /* Task+HelperUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = FDBE74E917BBCD370006092D /* Task+HelperUtils.m */; };
+		FDBE74ED17BBCD4E0006092D /* TaskUser+HelperUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = FDBE74EC17BBCD4E0006092D /* TaskUser+HelperUtils.m */; };
+		FDBE74F017BBCD670006092D /* TaskList+HelperUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = FDBE74EF17BBCD670006092D /* TaskList+HelperUtils.m */; };
+		FDBE74F317BBCD7B0006092D /* DeleteTransaction+HelperUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = FDBE74F217BBCD7B0006092D /* DeleteTransaction+HelperUtils.m */; };
+		FDBE74F717BBD3250006092D /* RHEndpointsAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = FDBE74F617BBD3250006092D /* RHEndpointsAdapter.m */; };
 		FDC0FF8217B9D64300341E18 /* RHTaskListDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FDC0FF8117B9D64300341E18 /* RHTaskListDetailViewController.m */; };
 		FDFC23C417B41B6400AACB71 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDFC23C317B41B6400AACB71 /* UIKit.framework */; };
 		FDFC23C617B41B6400AACB71 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDFC23C517B41B6400AACB71 /* Foundation.framework */; };
@@ -75,8 +83,6 @@
 		FD292E3C17B5F3A800BB9EBE /* RHLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHLoginViewController.m; sourceTree = "<group>"; };
 		FD292E3E17B8816400BB9EBE /* RHTaskDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHTaskDetailViewController.h; sourceTree = "<group>"; };
 		FD292E3F17B8816400BB9EBE /* RHTaskDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHTaskDetailViewController.m; sourceTree = "<group>"; };
-		FD292E4117B9322000BB9EBE /* RHTaskListDetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHTaskListDetailTableViewController.h; sourceTree = "<group>"; };
-		FD292E4217B9322000BB9EBE /* RHTaskListDetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHTaskListDetailTableViewController.m; sourceTree = "<group>"; };
 		FD292E4717B94D8500BB9EBE /* RHTaskListTitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHTaskListTitleCell.h; sourceTree = "<group>"; };
 		FD292E4817B94D8500BB9EBE /* RHTaskListTitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHTaskListTitleCell.m; sourceTree = "<group>"; };
 		FD82D79017B421BB00529133 /* GTLDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLDefines.h; sourceTree = "<group>"; };
@@ -165,6 +171,24 @@
 		FD82D80117B4220000529133 /* GTLServiceRosetask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLServiceRosetask.m; sourceTree = "<group>"; };
 		FD82D81017B422CD00529133 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		FD82D81217B422DA00529133 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		FDBE74DB17BBCCBA0006092D /* Task.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Task.h; sourceTree = "<group>"; };
+		FDBE74DC17BBCCBA0006092D /* Task.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Task.m; sourceTree = "<group>"; };
+		FDBE74DE17BBCCBB0006092D /* TaskUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskUser.h; sourceTree = "<group>"; };
+		FDBE74DF17BBCCBB0006092D /* TaskUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskUser.m; sourceTree = "<group>"; };
+		FDBE74E117BBCCBB0006092D /* DeleteTransaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeleteTransaction.h; sourceTree = "<group>"; };
+		FDBE74E217BBCCBB0006092D /* DeleteTransaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeleteTransaction.m; sourceTree = "<group>"; };
+		FDBE74E417BBCCBB0006092D /* TaskList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskList.h; sourceTree = "<group>"; };
+		FDBE74E517BBCCBB0006092D /* TaskList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskList.m; sourceTree = "<group>"; };
+		FDBE74E817BBCD370006092D /* Task+HelperUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Task+HelperUtils.h"; sourceTree = "<group>"; };
+		FDBE74E917BBCD370006092D /* Task+HelperUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Task+HelperUtils.m"; sourceTree = "<group>"; };
+		FDBE74EB17BBCD4E0006092D /* TaskUser+HelperUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TaskUser+HelperUtils.h"; sourceTree = "<group>"; };
+		FDBE74EC17BBCD4E0006092D /* TaskUser+HelperUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TaskUser+HelperUtils.m"; sourceTree = "<group>"; };
+		FDBE74EE17BBCD670006092D /* TaskList+HelperUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TaskList+HelperUtils.h"; sourceTree = "<group>"; };
+		FDBE74EF17BBCD670006092D /* TaskList+HelperUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TaskList+HelperUtils.m"; sourceTree = "<group>"; };
+		FDBE74F117BBCD7B0006092D /* DeleteTransaction+HelperUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DeleteTransaction+HelperUtils.h"; sourceTree = "<group>"; };
+		FDBE74F217BBCD7B0006092D /* DeleteTransaction+HelperUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DeleteTransaction+HelperUtils.m"; sourceTree = "<group>"; };
+		FDBE74F517BBD3250006092D /* RHEndpointsAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHEndpointsAdapter.h; sourceTree = "<group>"; };
+		FDBE74F617BBD3250006092D /* RHEndpointsAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHEndpointsAdapter.m; sourceTree = "<group>"; };
 		FDC0FF8017B9D64300341E18 /* RHTaskListDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHTaskListDetailViewController.h; sourceTree = "<group>"; };
 		FDC0FF8117B9D64300341E18 /* RHTaskListDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHTaskListDetailViewController.m; sourceTree = "<group>"; };
 		FDFC23C017B41B6400AACB71 /* Rose-Task.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Rose-Task.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -224,8 +248,6 @@
 				FDC0FF8117B9D64300341E18 /* RHTaskListDetailViewController.m */,
 				FD292E3E17B8816400BB9EBE /* RHTaskDetailViewController.h */,
 				FD292E3F17B8816400BB9EBE /* RHTaskDetailViewController.m */,
-				FD292E4117B9322000BB9EBE /* RHTaskListDetailTableViewController.h */,
-				FD292E4217B9322000BB9EBE /* RHTaskListDetailTableViewController.m */,
 			);
 			name = DetailViewControllers;
 			sourceTree = "<group>";
@@ -337,6 +359,45 @@
 			name = API;
 			sourceTree = "<group>";
 		};
+		FDBE74E717BBCCC40006092D /* CD Generated MOs */ = {
+			isa = PBXGroup;
+			children = (
+				FDBE74E417BBCCBB0006092D /* TaskList.h */,
+				FDBE74E517BBCCBB0006092D /* TaskList.m */,
+				FDBE74E117BBCCBB0006092D /* DeleteTransaction.h */,
+				FDBE74E217BBCCBB0006092D /* DeleteTransaction.m */,
+				FDBE74DE17BBCCBB0006092D /* TaskUser.h */,
+				FDBE74DF17BBCCBB0006092D /* TaskUser.m */,
+				FDBE74DB17BBCCBA0006092D /* Task.h */,
+				FDBE74DC17BBCCBA0006092D /* Task.m */,
+			);
+			name = "CD Generated MOs";
+			sourceTree = "<group>";
+		};
+		FDBE74F417BBCD840006092D /* CD Helper utilities */ = {
+			isa = PBXGroup;
+			children = (
+				FDBE74E817BBCD370006092D /* Task+HelperUtils.h */,
+				FDBE74E917BBCD370006092D /* Task+HelperUtils.m */,
+				FDBE74EB17BBCD4E0006092D /* TaskUser+HelperUtils.h */,
+				FDBE74EC17BBCD4E0006092D /* TaskUser+HelperUtils.m */,
+				FDBE74EE17BBCD670006092D /* TaskList+HelperUtils.h */,
+				FDBE74EF17BBCD670006092D /* TaskList+HelperUtils.m */,
+				FDBE74F117BBCD7B0006092D /* DeleteTransaction+HelperUtils.h */,
+				FDBE74F217BBCD7B0006092D /* DeleteTransaction+HelperUtils.m */,
+			);
+			name = "CD Helper utilities";
+			sourceTree = "<group>";
+		};
+		FDBE74F817BBD34A0006092D /* Endpoints */ = {
+			isa = PBXGroup;
+			children = (
+				FDBE74F517BBD3250006092D /* RHEndpointsAdapter.h */,
+				FDBE74F617BBD3250006092D /* RHEndpointsAdapter.m */,
+			);
+			name = Endpoints;
+			sourceTree = "<group>";
+		};
 		FDFC23B717B41B6300AACB71 = {
 			isa = PBXGroup;
 			children = (
@@ -370,6 +431,7 @@
 		FDFC23CB17B41B6400AACB71 /* Rose-Task */ = {
 			isa = PBXGroup;
 			children = (
+				FDBE74F817BBD34A0006092D /* Endpoints */,
 				FD292E4C17B94E4000BB9EBE /* TableViewCells */,
 				FD292E4B17B94E2200BB9EBE /* DetailViewControllers */,
 				FD292E4A17B94DEE00BB9EBE /* DisplayTableViewControllers */,
@@ -382,6 +444,8 @@
 				FDFC23E517B41B7C00AACB71 /* iPhoneStoryboard.storyboard */,
 				FD292E3B17B5F3A800BB9EBE /* RHLoginViewController.h */,
 				FD292E3C17B5F3A800BB9EBE /* RHLoginViewController.m */,
+				FDBE74E717BBCCC40006092D /* CD Generated MOs */,
+				FDBE74F417BBCD840006092D /* CD Helper utilities */,
 			);
 			path = "Rose-Task";
 			sourceTree = "<group>";
@@ -514,9 +578,17 @@
 				FD82D80E17B4220000529133 /* GTLServiceRosetask.m in Sources */,
 				FD292E3D17B5F3A800BB9EBE /* RHLoginViewController.m in Sources */,
 				FD292E4017B8816400BB9EBE /* RHTaskDetailViewController.m in Sources */,
-				FD292E4317B9322000BB9EBE /* RHTaskListDetailTableViewController.m in Sources */,
 				FD292E4917B94D8600BB9EBE /* RHTaskListTitleCell.m in Sources */,
 				FDC0FF8217B9D64300341E18 /* RHTaskListDetailViewController.m in Sources */,
+				FDBE74DD17BBCCBA0006092D /* Task.m in Sources */,
+				FDBE74E017BBCCBB0006092D /* TaskUser.m in Sources */,
+				FDBE74E317BBCCBB0006092D /* DeleteTransaction.m in Sources */,
+				FDBE74E617BBCCBB0006092D /* TaskList.m in Sources */,
+				FDBE74EA17BBCD370006092D /* Task+HelperUtils.m in Sources */,
+				FDBE74ED17BBCD4E0006092D /* TaskUser+HelperUtils.m in Sources */,
+				FDBE74F017BBCD670006092D /* TaskList+HelperUtils.m in Sources */,
+				FDBE74F317BBCD7B0006092D /* DeleteTransaction+HelperUtils.m in Sources */,
+				FDBE74F717BBD3250006092D /* RHEndpointsAdapter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

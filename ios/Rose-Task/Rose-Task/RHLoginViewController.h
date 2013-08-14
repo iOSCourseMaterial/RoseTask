@@ -7,11 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-@class GTLServiceRosetask;
 
 @interface RHLoginViewController : UITableViewController <UIAlertViewDelegate>
-
-- (GTLServiceRosetask *)roseTaskService;
-@property (nonatomic, strong) NSManagedObject * localOnlyTaskUser;
 
 @end

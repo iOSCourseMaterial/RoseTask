@@ -7,7 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+@class Task;
 
-@interface RHTaskDetailViewController : UITableViewController
+@interface RHTaskDetailViewController : UITableViewController <UITextFieldDelegate>
+
+@property (nonatomic) Task * task;
+
+@property (weak, nonatomic) IBOutlet UITextField *textTextField;
+@property (weak, nonatomic) IBOutlet UITextView *detailsTextView;
+
+- (IBAction)save:(id)sender;
+- (IBAction)deleteTask:(id)sender;
+- (IBAction)textEditingDone:(id)sender;
 
 @end

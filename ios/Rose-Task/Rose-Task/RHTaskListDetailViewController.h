@@ -7,16 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+@class TaskUser;
+@class TaskList;
 
 @interface RHTaskListDetailViewController : UIViewController <UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 
-@property (nonatomic, strong) NSManagedObject * taskUser;
-@property (nonatomic, strong) NSManagedObject * taskList;
+@property (nonatomic) TaskUser * taskUser;
+@property (nonatomic) TaskList * taskList;
+
+@property (nonatomic, strong) NSMutableArray * taskListTaskUsers;
+
 @property (weak, nonatomic) IBOutlet UITextField *titleTextField;
 
 - (IBAction)save:(id)sender;
-- (IBAction)addTaskUser:(id)sender;
-- (IBAction)removeTaskUser:(id)sender;
+- (IBAction)editTaskListTaskUsers:(id)sender;
 - (IBAction)deleteTaskList:(id)sender;
 - (IBAction)textEditingDone:(id)sender;
 

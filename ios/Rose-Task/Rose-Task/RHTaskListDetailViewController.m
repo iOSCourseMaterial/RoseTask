@@ -7,6 +7,8 @@
 //
 
 #import "RHTaskListDetailViewController.h"
+#import "TaskList+HelperUtils.h"
+#import "TaskUser+HelperUtils.h"
 
 @interface RHTaskListDetailViewController ()
 
@@ -19,48 +21,46 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    self.titleTextField.text = [self.taskList valueForKey:@"title"];
-//    [self.userTableView ]
+    self.titleTextField.text = self.taskList.title;
+    self.taskListTaskUsers = [self.taskList.sortedTaskUsers mutableCopy];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 - (IBAction)deleteTaskList:(id)sender {
-    NSLog(@"%s", __FUNCTION__);
-    
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Delete %@", [self.taskList valueForKey:@"title"]]
                                                     message:@"Are you sure?"
                                                    delegate:self
                                           cancelButtonTitle:@"Cancel"
                                           otherButtonTitles:@"Delete", nil];
     [alert show];
-    
 }
 
 - (IBAction)textEditingDone:(id)sender {
     [sender resignFirstResponder];
 }
+#pragma mark - UITextField delegate
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     [textField resignFirstResponder];
 }
 
 - (IBAction)save:(id)sender {
     NSLog(@"%s", __FUNCTION__);
+    
+    // Save the changes to the title and jump back to the list of task lists.
+    [self.taskList setTitle:self.titleTextField.text];
+    
+    // Consider: Put the check for the local_only user here instead.
+    if ([self.taskUser.lowercase_email isEqualToString:LOCAL_ONLY_EMAIL]) {
+        [self.taskList saveThenSync:NO];
+    } else {
+        [self.taskList saveThenSync:YES];
+    }
 }
 
-- (IBAction)addTaskUser:(id)sender {
-    NSLog(@"%s", __FUNCTION__);
+- (IBAction)editTaskListTaskUsers:(id)sender {
     
 }
 
-- (IBAction)removeTaskUser:(id)sender {
-    
-    NSLog(@"%s", __FUNCTION__);
-}
 
 #pragma mark - Table view data source
 

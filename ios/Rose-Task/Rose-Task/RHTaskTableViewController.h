@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+@class TaskList;
 
 @interface RHTaskTableViewController : UITableViewController
 
 
-@property (nonatomic, strong) NSManagedObject * taskList;
+@property (nonatomic) TaskList * taskList;
+
+- (IBAction)addTask:(id)sender;
 
 @end

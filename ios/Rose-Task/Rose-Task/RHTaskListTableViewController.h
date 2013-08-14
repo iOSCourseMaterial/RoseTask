@@ -7,8 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+@class TaskUser;
 
-@interface RHTaskListTableViewController : UITableViewController <NSFetchedResultsControllerDelegate>
+@interface RHTaskListTableViewController : UITableViewController
+
+@property (nonatomic) TaskUser * taskUser;
+
 - (IBAction)addTaskList:(id)sender;
-@property (nonatomic, strong) NSManagedObject * taskUser;
+
 @end
