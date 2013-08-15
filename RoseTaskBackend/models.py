@@ -7,8 +7,10 @@ import logging
 
 class Task(EndpointsModel):
     """ Model to store a single task"""
+    _message_fields_schema = ('id', 'text', 'task_list_id', 'details', 'complete', 'assigned_to_email', 'created')
     text = ndb.StringProperty(required=True)
     task_list_id = ndb.IntegerProperty(required=True)
+    details = ndb.StringProperty(required=False)
     complete = ndb.BooleanProperty(default=False)
     assigned_to_email = ndb.StringProperty(required=False)
     created = ndb.DateTimeProperty(auto_now=True)
@@ -16,6 +18,7 @@ class Task(EndpointsModel):
     
 class TaskList(EndpointsModel):
     """ Model to store a lists of task and list of users"""
+    _message_fields_schema = ('id', 'title', 'task_user_emails', 'created')
     title = ndb.StringProperty(required=True)
     task_keys = ndb.KeyProperty(kind=Task,repeated=True)
     task_user_emails = ndb.StringProperty(repeated=True)
@@ -41,6 +44,7 @@ class TaskList(EndpointsModel):
         
 class TaskUser(EndpointsModel):
     """ Model that represents an individual user. """
+    _message_fields_schema = ('lowercase_email', 'preferred_name', 'google_plus_id', 'created')
     lowercase_email = ndb.StringProperty(required=True) # Also using lowercase_email as the entity key name
     preferred_name = ndb.StringProperty(required=False)
     google_plus_id = ndb.StringProperty(required=False)

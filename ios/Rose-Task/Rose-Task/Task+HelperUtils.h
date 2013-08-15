@@ -14,4 +14,6 @@
 + (Task *) taskFromId:(NSInteger) anId;
 + (Task *) createTaskforTaskList:(TaskList *) aTaskList;
 
+- (void) saveThenSync:(BOOL) syncNeeded;
+
 @end

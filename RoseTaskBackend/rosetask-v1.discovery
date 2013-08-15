@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"nPbVolg1F8jpPe9kkErPtt8mpZE/zJXjpFdyFxaoG_IvrKPJNje-npM\"",
+ "etag": "\"nPbVolg1F8jpPe9kkErPtt8mpZE/rB0DltTn1PR4czgN8hIqx7h-zhQ\"",
  "discoveryVersion": "v1",
  "id": "rosetask:v1",
  "name": "rosetask",
@@ -78,6 +78,7 @@
    "properties": {
     "items": {
      "type": "array",
+     "description": "ProtoRPC message definition to return a TaskList",
      "items": {
       "$ref": "RoseTaskApiMessagesTaskListResponseMessage"
      }
@@ -87,19 +88,22 @@
   "RoseTaskApiMessagesTaskListResponseMessage": {
    "id": "RoseTaskApiMessagesTaskListResponseMessage",
    "type": "object",
+   "description": "ProtoRPC message definition to return a TaskList",
    "properties": {
-    "id": {
+    "identifier": {
      "type": "string",
      "format": "int64"
     },
     "task_users": {
      "type": "array",
+     "description": "ProtoRPC message definition to return a TaskUser",
      "items": {
       "$ref": "RoseTaskApiMessagesTaskUserResponseMessage"
      }
     },
     "tasks": {
      "type": "array",
+     "description": "ProtoRPC message definition to return a Task",
      "items": {
       "$ref": "RoseTaskApiMessagesTaskResponseMessage"
      }
@@ -112,14 +116,16 @@
   "RoseTaskApiMessagesTaskResponseMessage": {
    "id": "RoseTaskApiMessagesTaskResponseMessage",
    "type": "object",
+   "description": "ProtoRPC message definition to return a Task",
    "properties": {
     "assigned_to": {
-     "$ref": "RoseTaskApiMessagesTaskUserResponseMessage"
+     "$ref": "RoseTaskApiMessagesTaskUserResponseMessage",
+     "description": "ProtoRPC message definition to return a TaskUser"
     },
     "complete": {
      "type": "boolean"
     },
-    "id": {
+    "identifier": {
      "type": "string",
      "format": "int64"
     },
@@ -131,6 +137,7 @@
   "RoseTaskApiMessagesTaskUserResponseMessage": {
    "id": "RoseTaskApiMessagesTaskUserResponseMessage",
    "type": "object",
+   "description": "ProtoRPC message definition to return a TaskUser",
    "properties": {
     "google_plus_id": {
      "type": "string"
@@ -156,9 +163,12 @@
     "created": {
      "type": "string"
     },
-    "creator": {
-     "$ref": "UserMessage",
-     "description": "ProtoRPC container for users.User objects. Attributes: email: String; The email of the user. auth_domain: String; The auth domain of the user. user_id: String; The user ID. federated_identity: String; The federated identity of the user."
+    "details": {
+     "type": "string"
+    },
+    "id": {
+     "type": "string",
+     "format": "int64"
     },
     "task_list_id": {
      "type": "string",
@@ -191,15 +201,9 @@
     "created": {
      "type": "string"
     },
-    "creator": {
-     "$ref": "UserMessage",
-     "description": "ProtoRPC container for users.User objects. Attributes: email: String; The email of the user. auth_domain: String; The auth domain of the user. user_id: String; The user ID. federated_identity: String; The federated identity of the user."
-    },
-    "task_keys": {
-     "type": "array",
-     "items": {
-      "type": "string"
-     }
+    "id": {
+     "type": "string",
+     "format": "int64"
     },
     "task_user_emails": {
      "type": "array",
@@ -208,6 +212,51 @@
      }
     },
     "title": {
+     "type": "string"
+    }
+   }
+  },
+  "TaskListProtoIdTitleTaskUserEmails": {
+   "id": "TaskListProtoIdTitleTaskUserEmails",
+   "type": "object",
+   "properties": {
+    "id": {
+     "type": "string",
+     "format": "int64"
+    },
+    "task_user_emails": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "title": {
+     "type": "string"
+    }
+   }
+  },
+  "TaskProtoIdTextTaskListIdDetailsCompleteAssignedToEmail": {
+   "id": "TaskProtoIdTextTaskListIdDetailsCompleteAssignedToEmail",
+   "type": "object",
+   "properties": {
+    "assigned_to_email": {
+     "type": "string"
+    },
+    "complete": {
+     "type": "boolean"
+    },
+    "details": {
+     "type": "string"
+    },
+    "id": {
+     "type": "string",
+     "format": "int64"
+    },
+    "task_list_id": {
+     "type": "string",
+     "format": "int64"
+    },
+    "text": {
      "type": "string"
     }
    }
@@ -227,30 +276,20 @@
     },
     "preferred_name": {
      "type": "string"
-    },
-    "task_list_keys": {
-     "type": "array",
-     "items": {
-      "type": "string"
-     }
     }
    }
   },
-  "UserMessage": {
-   "id": "UserMessage",
+  "TaskUserProtoLowercaseEmailPreferredNameGooglePlusId": {
+   "id": "TaskUserProtoLowercaseEmailPreferredNameGooglePlusId",
    "type": "object",
-   "description": "ProtoRPC container for users.User objects. Attributes: email: String; The email of the user. auth_domain: String; The auth domain of the user. user_id: String; The user ID. federated_identity: String; The federated identity of the user.",
    "properties": {
-    "auth_domain": {
+    "google_plus_id": {
      "type": "string"
     },
-    "email": {
+    "lowercase_email": {
      "type": "string"
     },
-    "federated_identity": {
-     "type": "string"
-    },
-    "user_id": {
+    "preferred_name": {
      "type": "string"
     }
    }
@@ -331,7 +370,7 @@
    "description": "Insert a Task.",
    "parameters": {
     "resource": {
-     "$ref": "Task"
+     "$ref": "TaskProtoIdTextTaskListIdDetailsCompleteAssignedToEmail"
     }
    },
    "parameterOrder": [
@@ -421,7 +460,7 @@
    "description": "Insert a TaskList.",
    "parameters": {
     "resource": {
-     "$ref": "TaskList"
+     "$ref": "TaskListProtoIdTitleTaskUserEmails"
     }
    },
    "parameterOrder": [
@@ -455,7 +494,7 @@
    "description": "Insert a TaskUser.",
    "parameters": {
     "resource": {
-     "$ref": "TaskUser"
+     "$ref": "TaskUserProtoLowercaseEmailPreferredNameGooglePlusId"
     }
    },
    "parameterOrder": [

@@ -34,5 +34,8 @@
 // supports -itemAtIndex: to retrieve individual objects from "items".
 
 @interface GTLRosetaskApiMessagesTaskListListResponse : GTLCollectionObject
+
+// ProtoRPC message definition to return a TaskList
 @property (retain) NSArray *items;  // of GTLRosetaskApiMessagesTaskListResponseMessage
+
 @end

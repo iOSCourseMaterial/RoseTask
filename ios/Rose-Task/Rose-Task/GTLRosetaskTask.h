@@ -13,15 +13,13 @@
 // Description:
 //   Rose Task API
 // Classes:
-//   GTLRosetaskTask (0 custom class methods, 6 custom properties)
+//   GTLRosetaskTask (0 custom class methods, 7 custom properties)
 
 #if GTL_BUILT_AS_FRAMEWORK
   #import "GTL/GTLObject.h"
 #else
   #import "GTLObject.h"
 #endif
-
-@class GTLRosetaskUserMessage;
 
 // ----------------------------------------------------------------------------
 //
@@ -32,12 +30,10 @@
 @property (copy) NSString *assignedToEmail;
 @property (retain) NSNumber *complete;  // boolValue
 @property (copy) NSString *created;
+@property (copy) NSString *details;
 
-// ProtoRPC container for users.User objects. Attributes: email: String; The
-// email of the user. auth_domain: String; The auth domain of the user. user_id:
-// String; The user ID. federated_identity: String; The federated identity of
-// the user.
-@property (retain) GTLRosetaskUserMessage *creator;
+// identifier property maps to 'id' in JSON (to avoid Objective C's 'id').
+@property (retain) NSNumber *identifier;  // longLongValue
 
 @property (retain) NSNumber *taskListId;  // longLongValue
 @property (copy) NSString *text;

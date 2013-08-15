@@ -26,12 +26,12 @@
 //
 
 @implementation GTLRosetaskApiMessagesTaskListResponseMessage
-@dynamic identifier, taskUsers, tasks, title;
+@dynamic identifierProperty, taskUsers, tasks, title;
 
 + (NSDictionary *)propertyToJSONKeyMap {
   NSDictionary *map =
     [NSDictionary dictionaryWithObjectsAndKeys:
-      @"id", @"identifier",
+      @"identifier", @"identifierProperty",
       @"task_users", @"taskUsers",
       nil];
   return map;

@@ -3,7 +3,7 @@
  */
 
 //
-//  GTLRosetaskApiMessagesTaskUserResponseMessage.h
+//  GTLRosetaskTaskUserProtoLowercaseEmailPreferredNameGooglePlusId.h
 //
 
 // ----------------------------------------------------------------------------
@@ -13,7 +13,7 @@
 // Description:
 //   Rose Task API
 // Classes:
-//   GTLRosetaskApiMessagesTaskUserResponseMessage (0 custom class methods, 3 custom properties)
+//   GTLRosetaskTaskUserProtoLowercaseEmailPreferredNameGooglePlusId (0 custom class methods, 3 custom properties)
 
 #if GTL_BUILT_AS_FRAMEWORK
   #import "GTL/GTLObject.h"
@@ -23,12 +23,10 @@
 
 // ----------------------------------------------------------------------------
 //
-//   GTLRosetaskApiMessagesTaskUserResponseMessage
+//   GTLRosetaskTaskUserProtoLowercaseEmailPreferredNameGooglePlusId
 //
 
-// ProtoRPC message definition to return a TaskUser
-
-@interface GTLRosetaskApiMessagesTaskUserResponseMessage : GTLObject
+@interface GTLRosetaskTaskUserProtoLowercaseEmailPreferredNameGooglePlusId : GTLObject
 @property (copy) NSString *googlePlusId;
 @property (copy) NSString *lowercaseEmail;
 @property (copy) NSString *preferredName;

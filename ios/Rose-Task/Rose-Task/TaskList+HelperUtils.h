@@ -11,7 +11,7 @@
 
 @interface TaskList (HelperUtils)
 
-+ (TaskList *) taskListFromId:(NSInteger) anId;
++ (TaskList *) taskListFromId:(NSNumber *) anId;
 + (TaskList *) createTaskListforTaskUser:(TaskUser *) aTaskUser;
 
 @property (nonatomic, readonly) NSArray * sortedTasks;

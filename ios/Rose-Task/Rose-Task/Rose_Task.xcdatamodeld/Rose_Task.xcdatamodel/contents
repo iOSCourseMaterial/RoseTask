@@ -1,40 +1,41 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="12E55" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="DeleteTransaction" representedClassName="DeleteTransaction" syncable="YES">
-        <attribute name="entity_type" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
-        <attribute name="lowercase_email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="entityType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="identifier" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="lowercaseEmail" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="Task" representedClassName="Task" syncable="YES">
         <attribute name="complete" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="created" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
-        <attribute name="sync_needed" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="identifier" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="syncNeeded" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="text" attributeType="String" indexed="YES" syncable="YES"/>
-        <relationship name="assigned_to" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaskUser" syncable="YES"/>
-        <relationship name="task_list" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaskList" inverseName="tasks" inverseEntity="TaskList" syncable="YES"/>
+        <relationship name="assignedTo" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaskUser" inverseName="assignments" inverseEntity="TaskUser" syncable="YES"/>
+        <relationship name="taskList" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaskList" inverseName="tasks" inverseEntity="TaskList" syncable="YES"/>
     </entity>
     <entity name="TaskList" representedClassName="TaskList" syncable="YES">
         <attribute name="created" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
-        <attribute name="sync_needed" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="identifier" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="syncNeeded" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" defaultValueString="Untitled list" syncable="YES"/>
-        <relationship name="task_users" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TaskUser" inverseName="task_lists" inverseEntity="TaskUser" syncable="YES"/>
-        <relationship name="tasks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Task" inverseName="task_list" inverseEntity="Task" syncable="YES"/>
+        <relationship name="tasks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Task" inverseName="taskList" inverseEntity="Task" syncable="YES"/>
+        <relationship name="taskUsers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TaskUser" inverseName="taskLists" inverseEntity="TaskUser" syncable="YES"/>
     </entity>
     <entity name="TaskUser" representedClassName="TaskUser" syncable="YES">
         <attribute name="created" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="google_plus_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="googlePlusId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="image" optional="YES" attributeType="Binary" syncable="YES"/>
-        <attribute name="lowercase_email" attributeType="String" indexed="YES" syncable="YES"/>
-        <attribute name="preferred_name" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="sync_needed" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <relationship name="task_lists" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TaskList" inverseName="task_users" inverseEntity="TaskList" syncable="YES"/>
+        <attribute name="lowercaseEmail" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="preferredName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="syncNeeded" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <relationship name="assignments" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Task" inverseName="assignedTo" inverseEntity="Task" syncable="YES"/>
+        <relationship name="taskLists" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TaskList" inverseName="taskUsers" inverseEntity="TaskList" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Task" positionX="-155" positionY="243" width="128" height="148"/>
-        <element name="TaskList" positionX="-164" positionY="9" width="128" height="133"/>
-        <element name="TaskUser" positionX="-362" positionY="98" width="128" height="148"/>
-        <element name="DeleteTransaction" positionX="-441" positionY="308" width="128" height="88"/>
+        <element name="DeleteTransaction" positionX="-441" positionY="308" width="128" height="90"/>
+        <element name="Task" positionX="-155" positionY="243" width="128" height="150"/>
+        <element name="TaskList" positionX="-164" positionY="9" width="128" height="135"/>
+        <element name="TaskUser" positionX="-362" positionY="98" width="128" height="165"/>
     </elements>
 </model>

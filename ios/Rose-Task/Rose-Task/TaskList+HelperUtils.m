@@ -14,7 +14,7 @@
 
 @implementation TaskList (HelperUtils)
 
-+ (TaskList *) taskListFromId:(NSInteger) anId {
++ (TaskList *) taskListFromId:(NSNumber *) anId {
         RHAppDelegate *ad = (RHAppDelegate *) [[UIApplication sharedApplication] delegate];
         NSManagedObjectContext *moc = [ad managedObjectContext];
         NSEntityDescription *entityDescription = [NSEntityDescription
@@ -39,7 +39,7 @@
     NSManagedObjectContext *moc = [ad managedObjectContext];
     TaskList * aTaskList = (TaskList *)[NSEntityDescription insertNewObjectForEntityForName:@"TaskList"
                                                                      inManagedObjectContext:moc];
-    [aTaskList addTask_usersObject:aTaskUser];
+    [aTaskList addTaskUsersObject:aTaskUser];
     [aTaskList setCreated:[NSDate date]];
     NSError *error = nil;
     if (![moc save:&error]) {
@@ -51,7 +51,7 @@
 #pragma mark - Instance methods
 - (void) saveThenSync:(BOOL) syncNeeded {
     NSManagedObjectContext *moc = self.managedObjectContext;
-    self.sync_needed = [NSNumber numberWithBool:syncNeeded];
+    self.syncNeeded = [NSNumber numberWithBool:syncNeeded];
     NSError *error = nil;
     if (![moc save:&error]) {
         NSLog(@"MOC error in %s - %@", __FUNCTION__, [error localizedDescription]);
@@ -73,15 +73,15 @@
 
 - (NSArray *)sortedTaskUsers
 {
-    return [self.task_users.allObjects sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+    return [self.taskUsers.allObjects sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
         // If there is a preferred name use that then emails.
-        NSString * obj1_preferred_name = [(TaskUser *) obj1 preferred_name];
-        NSString * obj2_preferred_name = [(TaskUser *) obj2 preferred_name];
-        if (obj1_preferred_name == nil && obj2_preferred_name == nil) {
-            return [obj1_preferred_name compare:obj2_preferred_name];
-        } else if (obj1_preferred_name == nil) {
+        NSString * obj1PreferredName = [(TaskUser *) obj1 preferredName];
+        NSString * obj2PreferredName = [(TaskUser *) obj2 preferredName];
+        if (obj1PreferredName == nil && obj2PreferredName == nil) {
+            return [obj1PreferredName compare:obj2PreferredName];
+        } else if (obj1PreferredName == nil) {
             return NSOrderedAscending;
-        } else if (obj2_preferred_name == nil) {
+        } else if (obj2PreferredName == nil) {
             return NSOrderedDescending;
         } else {
             return [[(TaskUser *) obj1 created] compare:[(TaskUser *) obj2 created]];

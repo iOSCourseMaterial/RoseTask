@@ -32,8 +32,10 @@
                       [GTLRosetaskTask class],
                       [GTLRosetaskTaskCollection class],
                       [GTLRosetaskTaskList class],
+                      [GTLRosetaskTaskListProtoIdTitleTaskUserEmails class],
+                      [GTLRosetaskTaskProtoIdTextTaskListIdDetailsCompleteAssignedToEmail class],
                       [GTLRosetaskTaskUser class],
-                      [GTLRosetaskUserMessage class],
+                      [GTLRosetaskTaskUserProtoLowercaseEmailPreferredNameGooglePlusId class],
                       nil];
   return classes;
 }
@@ -48,9 +50,7 @@
     // From discovery.  Where to send JSON-RPC.
     // Turn off prettyPrint for this service to save bandwidth (especially on
     // mobile). The fetcher logging will pretty print.
-    self.rpcURL = [NSURL URLWithString:@"https://rose-task.appspot.com/_ah/api/rpc?prettyPrint=false"];
-    //self.rpcURL = [NSURL URLWithString:@"http://localhost:8080/_ah/api/rpc?prettyPrint=false"];
-
+    self.rpcURL = [NSURL URLWithString:@"https://None/_ah/api/rpc?prettyPrint=false"];
   }
   return self;
 }

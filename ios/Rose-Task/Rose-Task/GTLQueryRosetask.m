@@ -22,7 +22,10 @@
 #import "GTLRosetaskTask.h"
 #import "GTLRosetaskTaskCollection.h"
 #import "GTLRosetaskTaskList.h"
+#import "GTLRosetaskTaskListProtoIdTitleTaskUserEmails.h"
+#import "GTLRosetaskTaskProtoIdTextTaskListIdDetailsCompleteAssignedToEmail.h"
 #import "GTLRosetaskTaskUser.h"
+#import "GTLRosetaskTaskUserProtoLowercaseEmailPreferredNameGooglePlusId.h"
 
 @implementation GTLQueryRosetask
 
@@ -67,7 +70,7 @@
   return query;
 }
 
-+ (id)queryForTaskInsertWithObject:(GTLRosetaskTask *)object {
++ (id)queryForTaskInsertWithObject:(GTLRosetaskTaskProtoIdTextTaskListIdDetailsCompleteAssignedToEmail *)object {
   if (object == nil) {
     GTL_DEBUG_ASSERT(object != nil, @"%@ got a nil object", NSStringFromSelector(_cmd));
     return nil;
@@ -106,7 +109,7 @@
   return query;
 }
 
-+ (id)queryForTasklistInsertWithObject:(GTLRosetaskTaskList *)object {
++ (id)queryForTasklistInsertWithObject:(GTLRosetaskTaskListProtoIdTitleTaskUserEmails *)object {
   if (object == nil) {
     GTL_DEBUG_ASSERT(object != nil, @"%@ got a nil object", NSStringFromSelector(_cmd));
     return nil;
@@ -129,7 +132,7 @@
   return query;
 }
 
-+ (id)queryForTaskuserInsertWithObject:(GTLRosetaskTaskUser *)object {
++ (id)queryForTaskuserInsertWithObject:(GTLRosetaskTaskUserProtoLowercaseEmailPreferredNameGooglePlusId *)object {
   if (object == nil) {
     GTL_DEBUG_ASSERT(object != nil, @"%@ got a nil object", NSStringFromSelector(_cmd));
     return nil;

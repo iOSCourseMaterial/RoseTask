@@ -13,7 +13,7 @@
 // Description:
 //   Rose Task API
 // Classes:
-//   GTLRosetaskTaskUser (0 custom class methods, 5 custom properties)
+//   GTLRosetaskTaskUser (0 custom class methods, 4 custom properties)
 
 #if GTL_BUILT_AS_FRAMEWORK
   #import "GTL/GTLObject.h"
@@ -31,5 +31,4 @@
 @property (copy) NSString *googlePlusId;
 @property (copy) NSString *lowercaseEmail;
 @property (copy) NSString *preferredName;
-@property (retain) NSArray *taskListKeys;  // of NSString
 @end

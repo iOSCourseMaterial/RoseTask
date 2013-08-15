@@ -3,7 +3,7 @@
  */
 
 //
-//  GTLRosetaskTaskList.m
+//  GTLRosetaskTaskListProtoIdTitleTaskUserEmails.m
 //
 
 // ----------------------------------------------------------------------------
@@ -13,17 +13,17 @@
 // Description:
 //   Rose Task API
 // Classes:
-//   GTLRosetaskTaskList (0 custom class methods, 4 custom properties)
+//   GTLRosetaskTaskListProtoIdTitleTaskUserEmails (0 custom class methods, 3 custom properties)
 
-#import "GTLRosetaskTaskList.h"
+#import "GTLRosetaskTaskListProtoIdTitleTaskUserEmails.h"
 
 // ----------------------------------------------------------------------------
 //
-//   GTLRosetaskTaskList
+//   GTLRosetaskTaskListProtoIdTitleTaskUserEmails
 //
 
-@implementation GTLRosetaskTaskList
-@dynamic created, identifier, taskUserEmails, title;
+@implementation GTLRosetaskTaskListProtoIdTitleTaskUserEmails
+@dynamic identifier, taskUserEmails, title;
 
 + (NSDictionary *)propertyToJSONKeyMap {
   NSDictionary *map =

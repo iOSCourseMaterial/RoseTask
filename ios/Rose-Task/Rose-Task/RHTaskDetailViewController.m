@@ -39,8 +39,8 @@
         case 1:
             if (indexPath.row == 0) {
                 // Row 0 is the assigned to
-                TaskUser * assignToTaskUser = (TaskUser *) self.task.assigned_to;
-                cell.textLabel.text = assignToTaskUser.lowercase_email;
+                TaskUser * assignToTaskUser = (TaskUser *) self.task.assignedTo;
+                cell.textLabel.text = assignToTaskUser.lowercaseEmail;
             } else {
                 // Row 1 is the completed row
                 if (self.task.complete) {

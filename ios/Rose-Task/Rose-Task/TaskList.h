@@ -2,7 +2,7 @@
 //  TaskList.h
 //  Rose-Task
 //
-//  Created by David Fisher on 8/14/13.
+//  Created by David Fisher on 8/15/13.
 //  Copyright (c) 2013 David Fisher. All rights reserved.
 //
 
@@ -14,19 +14,19 @@
 @interface TaskList : NSManagedObject
 
 @property (nonatomic, retain) NSDate * created;
-@property (nonatomic, retain) NSNumber * id;
-@property (nonatomic, retain) NSNumber * sync_needed;
+@property (nonatomic, retain) NSNumber * identifier;
+@property (nonatomic, retain) NSNumber * syncNeeded;
 @property (nonatomic, retain) NSString * title;
-@property (nonatomic, retain) NSSet *task_users;
+@property (nonatomic, retain) NSSet *taskUsers;
 @property (nonatomic, retain) NSSet *tasks;
 @end
 
 @interface TaskList (CoreDataGeneratedAccessors)
 
-- (void)addTask_usersObject:(TaskUser *)value;
-- (void)removeTask_usersObject:(TaskUser *)value;
-- (void)addTask_users:(NSSet *)values;
-- (void)removeTask_users:(NSSet *)values;
+- (void)addTaskUsersObject:(TaskUser *)value;
+- (void)removeTaskUsersObject:(TaskUser *)value;
+- (void)addTaskUsers:(NSSet *)values;
+- (void)removeTaskUsers:(NSSet *)values;
 
 - (void)addTasksObject:(Task *)value;
 - (void)removeTasksObject:(Task *)value;

@@ -173,8 +173,8 @@ bool signedIn = false;
     // Create TaskUser in core data.
     GTMOAuth2Authentication * auth = [[[RHEndpointsAdapter sharedInstance] roseTaskService] authorizer];
     TaskUser * currentTaskUser = [TaskUser createFromEmail:[auth userEmail]];
-    currentTaskUser.google_plus_id = [auth userID];
-    currentTaskUser.preferred_name = preferred_name;
+    currentTaskUser.googlePlusId = [auth userID];
+    currentTaskUser.preferredName = preferred_name;
     [currentTaskUser saveThenSync:YES];
     
     // Display the TaskLists for this user.

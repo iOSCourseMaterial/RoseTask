@@ -50,7 +50,7 @@
     [self.taskList setTitle:self.titleTextField.text];
     
     // Consider: Put the check for the local_only user here instead.
-    if ([self.taskUser.lowercase_email isEqualToString:LOCAL_ONLY_EMAIL]) {
+    if ([self.taskUser.lowercaseEmail isEqualToString:LOCAL_ONLY_EMAIL]) {
         [self.taskList saveThenSync:NO];
     } else {
         [self.taskList saveThenSync:YES];
@@ -71,18 +71,22 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[self.taskList valueForKey:@"task_users"] count];
+    return [[self.taskList valueForKey:@"taskUsers"] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    // TODO: Refactor this whole controller.  It is way out of date.  Managed Objects really?
+    
+    
     static NSString *TaskUserCellIdentifier = @"TaskUserCell";
     UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:TaskUserCellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:TaskUserCellIdentifier];
     }
     // TODO: Sort the users only once. :)
-    NSSet * taskUsers = [self.taskList valueForKey:@"task_users"];
+    NSSet * taskUsers = [self.taskList valueForKey:@"taskUsers"];
     NSArray * sortedTaskUsers = [taskUsers.allObjects sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
         return [[obj1 valueForKey:@"created"] compare:[obj2 valueForKey:@"created"]];
     }];
@@ -91,10 +95,10 @@
     NSManagedObject * aTaskUser = sortedTaskUsers[indexPath.row];
     
     // Display each user in this list.
-    NSString * displayName = [aTaskUser valueForKey:@"lowercase_email"];
-    if ([aTaskUser valueForKey:@"preferred_name"] != nil) {
+    NSString * displayName = [aTaskUser valueForKey:@"lowercaseEmail"];
+    if ([aTaskUser valueForKey:@"preferredName"] != nil) {
         cell.detailTextLabel.text = displayName;
-        displayName = [aTaskUser valueForKey:@"preferred_name"];
+        displayName = [aTaskUser valueForKey:@"preferredName"];
         // TODO: Set the image
     }
     cell.textLabel.text = displayName;

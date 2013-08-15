@@ -8,6 +8,7 @@
 
 #import "Task+HelperUtils.h"
 #import "RHAppDelegate.h"
+#import "RHEndpointsAdapter.h"
 
 @implementation Task (HelperUtils)
 
@@ -30,18 +31,33 @@
     return nil;
 }
 
-+ (Task *) createTaskforTaskList:(NSManagedObject *) aTaskList {
++ (Task *) createTaskforTaskList:(TaskList *) aTaskList {
     RHAppDelegate *ad = (RHAppDelegate *) [[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *moc = [ad managedObjectContext];
     Task * aTask = (Task *)[NSEntityDescription insertNewObjectForEntityForName:@"Task"
                                                                      inManagedObjectContext:moc];
-    [aTask setTask_list:aTaskList];
+    [aTask setTaskList:aTaskList];
     [aTask setCreated:[NSDate date]];
     NSError *error = nil;
     if (![moc save:&error]) {
         NSLog(@"MOC error in %s - %@", __FUNCTION__, [error localizedDescription]);
     }
     return aTask;
+}
+
+#pragma mark - Instance methods
+- (void) saveThenSync:(BOOL) syncNeeded {
+    NSManagedObjectContext *moc = self.managedObjectContext;
+    self.syncNeeded = [NSNumber numberWithBool:syncNeeded];
+    NSError *error = nil;
+    if (![moc save:&error]) {
+        NSLog(@"MOC error in %s - %@", __FUNCTION__, [error localizedDescription]);
+    }
+    // Potentially sync with Endpoints.
+    if (syncNeeded) {
+        // Save the TaskUser with Endpoints
+        [[RHEndpointsAdapter sharedInstance] syncTask:self];
+    }
 }
 
 @end

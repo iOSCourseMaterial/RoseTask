@@ -44,10 +44,10 @@
 - (void) syncTaskUser:(TaskUser *) aTaskUser {
     GTLServiceRosetask *service = [self roseTaskService];
     // Convert the TaskUser into a GtlTaskUser.
-    GTLRosetaskTaskUser *aGtlTaskUser = [GTLRosetaskTaskUser alloc];
-    [aGtlTaskUser setPreferredName:aTaskUser.preferred_name];
-    [aGtlTaskUser setLowercaseEmail:aTaskUser.lowercase_email];
-    [aGtlTaskUser setGooglePlusId:aTaskUser.google_plus_id];
+    GTLRosetaskTaskUserProtoLowercaseEmailPreferredNameGooglePlusId *aGtlTaskUser = [GTLRosetaskTaskUserProtoLowercaseEmailPreferredNameGooglePlusId alloc];
+    [aGtlTaskUser setPreferredName:aTaskUser.preferredName];
+    [aGtlTaskUser setLowercaseEmail:aTaskUser.lowercaseEmail];
+    [aGtlTaskUser setGooglePlusId:aTaskUser.googlePlusId];
     
     GTLQueryRosetask *query = [GTLQueryRosetask queryForTaskuserInsertWithObject:aGtlTaskUser];
     
@@ -66,32 +66,55 @@
 
 - (void) syncTask:(Task *) aTask {
     
+    GTLServiceRosetask *service = [self roseTaskService];
+    // Convert the Task into a GtlTask.
+    GTLRosetaskTaskProtoIdTextTaskListIdDetailsCompleteAssignedToEmail *aGtlTask = [GTLRosetaskTaskProtoIdTextTaskListIdDetailsCompleteAssignedToEmail alloc];
+    [aGtlTask setText:aTask.text];
+    [aGtlTask setTaskListId:aTask.taskList.identifier];
+    [aGtlTask setText:aTask.text];
+    [aGtlTask setText:aTask.text];
+    [aGtlTask setText:aTask.text];
+    [aGtlTask setText:aTask.text];
+    
+    GTLQueryRosetask *query = [GTLQueryRosetask queryForTaskInsertWithObject:aGtlTask];
+    
+    [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, GTLRosetaskTask *returnedGtlTask, NSError *error) {
+        NSLog(@"Done!");
+        NSLog(@"Text = %@", returnedGtlTask.text);
+        NSLog(@"id = %@", returnedGtlTask.identifier);
+        
+        // Mark the TaskList in CD as no longer needing a sync.
+        [aTask setIdentifier:returnedGtlTask.identifier];
+        [aTask saveThenSync:NO];
+    }];
+
 }
 
 - (void) syncTaskList:(TaskList *) aTaskList {
     GTLServiceRosetask *service = [self roseTaskService];
     // Convert the TaskList into a GtlTaskList.
-    GTLRosetaskTaskList *aGtlTaskList = [GTLRosetaskTaskList alloc];
+    GTLRosetaskTaskListProtoIdTitleTaskUserEmails *aGtlTaskList = [GTLRosetaskTaskListProtoIdTitleTaskUserEmails alloc];
     [aGtlTaskList setTitle:aTaskList.title];
-    // Users
-    // Tasks
+    [aGtlTaskList setTaskUserEmails:aTaskList.sortedTaskUsers];
+    // Note that tasks are not sent in TaskList updates
 
     GTLQueryRosetask *query = [GTLQueryRosetask queryForTasklistInsertWithObject:aGtlTaskList];
     
     [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, GTLRosetaskTaskList *returnedGtlTaskList, NSError *error) {
         NSLog(@"Done!");
         NSLog(@"Title = %@", returnedGtlTaskList.title);
-        // Tasks
-        // Users
+        NSLog(@"id = %@", returnedGtlTaskList.identifier);
+        NSLog(@"emails = %@", returnedGtlTaskList.taskUserEmails);
+        // Tasks are not given here.
         
         // Mark the TaskList in CD as no longer needing a sync.
+        [aTaskList setIdentifier:returnedGtlTaskList.identifier];
+        // Consider: Could sync the created times by converting the GAE created time string to an NSDate.
+//        [aTaskList setCreated:returnedGtlTaskList.created];
         [aTaskList saveThenSync:NO];
-        
-        // TODO: Switch to 100% API methods please.
-        // That way we can get the id and other things will be less messy.
-        
-//        TaskList * returnedTaskList = [TaskList taskListFromId:returnedGtlTaskList.identifier];
-//        [returnedTaskList saveThenSync:NO];
+        // Note, this might be adding the id to CD!  Originally I thought I'd do this.  No way.
+        //TaskList * returnedTaskList = [TaskList taskListFromId:returnedGtlTaskList.identifier];
+        //[returnedTaskList saveThenSync:NO];
     }];
 
 }

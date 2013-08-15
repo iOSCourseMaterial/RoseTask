@@ -3,7 +3,7 @@
  */
 
 //
-//  GTLRosetaskTaskList.h
+//  GTLRosetaskTaskProtoIdTextTaskListIdDetailsCompleteAssignedToEmail.h
 //
 
 // ----------------------------------------------------------------------------
@@ -13,7 +13,7 @@
 // Description:
 //   Rose Task API
 // Classes:
-//   GTLRosetaskTaskList (0 custom class methods, 4 custom properties)
+//   GTLRosetaskTaskProtoIdTextTaskListIdDetailsCompleteAssignedToEmail (0 custom class methods, 6 custom properties)
 
 #if GTL_BUILT_AS_FRAMEWORK
   #import "GTL/GTLObject.h"
@@ -23,15 +23,17 @@
 
 // ----------------------------------------------------------------------------
 //
-//   GTLRosetaskTaskList
+//   GTLRosetaskTaskProtoIdTextTaskListIdDetailsCompleteAssignedToEmail
 //
 
-@interface GTLRosetaskTaskList : GTLObject
-@property (copy) NSString *created;
+@interface GTLRosetaskTaskProtoIdTextTaskListIdDetailsCompleteAssignedToEmail : GTLObject
+@property (copy) NSString *assignedToEmail;
+@property (retain) NSNumber *complete;  // boolValue
+@property (copy) NSString *details;
 
 // identifier property maps to 'id' in JSON (to avoid Objective C's 'id').
 @property (retain) NSNumber *identifier;  // longLongValue
 
-@property (retain) NSArray *taskUserEmails;  // of NSString
-@property (copy) NSString *title;
+@property (retain) NSNumber *taskListId;  // longLongValue
+@property (copy) NSString *text;
 @end

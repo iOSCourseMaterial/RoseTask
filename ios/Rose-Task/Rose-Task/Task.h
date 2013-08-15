@@ -2,22 +2,23 @@
 //  Task.h
 //  Rose-Task
 //
-//  Created by David Fisher on 8/14/13.
+//  Created by David Fisher on 8/15/13.
 //  Copyright (c) 2013 David Fisher. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
+@class TaskList, TaskUser;
 
 @interface Task : NSManagedObject
 
 @property (nonatomic, retain) NSNumber * complete;
 @property (nonatomic, retain) NSDate * created;
-@property (nonatomic, retain) NSNumber * id;
-@property (nonatomic, retain) NSNumber * sync_needed;
+@property (nonatomic, retain) NSNumber * identifier;
+@property (nonatomic, retain) NSNumber * syncNeeded;
 @property (nonatomic, retain) NSString * text;
-@property (nonatomic, retain) NSManagedObject *assigned_to;
-@property (nonatomic, retain) NSManagedObject *task_list;
+@property (nonatomic, retain) TaskUser *assignedTo;
+@property (nonatomic, retain) TaskList *taskList;
 
 @end

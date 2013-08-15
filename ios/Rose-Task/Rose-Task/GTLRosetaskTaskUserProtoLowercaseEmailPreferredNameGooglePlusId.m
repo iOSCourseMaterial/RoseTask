@@ -3,7 +3,7 @@
  */
 
 //
-//  GTLRosetaskTaskUser.m
+//  GTLRosetaskTaskUserProtoLowercaseEmailPreferredNameGooglePlusId.m
 //
 
 // ----------------------------------------------------------------------------
@@ -13,17 +13,17 @@
 // Description:
 //   Rose Task API
 // Classes:
-//   GTLRosetaskTaskUser (0 custom class methods, 4 custom properties)
+//   GTLRosetaskTaskUserProtoLowercaseEmailPreferredNameGooglePlusId (0 custom class methods, 3 custom properties)
 
-#import "GTLRosetaskTaskUser.h"
+#import "GTLRosetaskTaskUserProtoLowercaseEmailPreferredNameGooglePlusId.h"
 
 // ----------------------------------------------------------------------------
 //
-//   GTLRosetaskTaskUser
+//   GTLRosetaskTaskUserProtoLowercaseEmailPreferredNameGooglePlusId
 //
 
-@implementation GTLRosetaskTaskUser
-@dynamic created, googlePlusId, lowercaseEmail, preferredName;
+@implementation GTLRosetaskTaskUserProtoLowercaseEmailPreferredNameGooglePlusId
+@dynamic googlePlusId, lowercaseEmail, preferredName;
 
 + (NSDictionary *)propertyToJSONKeyMap {
   NSDictionary *map =

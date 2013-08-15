@@ -2,7 +2,7 @@
 //  DeleteTransaction.h
 //  Rose-Task
 //
-//  Created by David Fisher on 8/14/13.
+//  Created by David Fisher on 8/15/13.
 //  Copyright (c) 2013 David Fisher. All rights reserved.
 //
 
@@ -12,8 +12,8 @@
 
 @interface DeleteTransaction : NSManagedObject
 
-@property (nonatomic, retain) NSString * entity_type;
-@property (nonatomic, retain) NSNumber * id;
-@property (nonatomic, retain) NSString * lowercase_email;
+@property (nonatomic, retain) NSString * entityType;
+@property (nonatomic, retain) NSNumber * identifier;
+@property (nonatomic, retain) NSString * lowercaseEmail;
 
 @end

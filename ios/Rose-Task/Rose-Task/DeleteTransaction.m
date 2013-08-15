@@ -2,7 +2,7 @@
 //  DeleteTransaction.m
 //  Rose-Task
 //
-//  Created by David Fisher on 8/14/13.
+//  Created by David Fisher on 8/15/13.
 //  Copyright (c) 2013 David Fisher. All rights reserved.
 //
 
@@ -11,8 +11,8 @@
 
 @implementation DeleteTransaction
 
-@dynamic entity_type;
-@dynamic id;
-@dynamic lowercase_email;
+@dynamic entityType;
+@dynamic identifier;
+@dynamic lowercaseEmail;
 
 @end

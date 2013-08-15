@@ -28,12 +28,18 @@
 //   GTLRosetaskApiMessagesTaskResponseMessage
 //
 
+// ProtoRPC message definition to return a Task
+
 @interface GTLRosetaskApiMessagesTaskResponseMessage : GTLObject
+
+// ProtoRPC message definition to return a TaskUser
 @property (retain) GTLRosetaskApiMessagesTaskUserResponseMessage *assignedTo;
+
 @property (retain) NSNumber *complete;  // boolValue
 
-// identifier property maps to 'id' in JSON (to avoid Objective C's 'id').
-@property (retain) NSNumber *identifier;  // longLongValue
+// identifierProperty property maps to 'identifier' in the JSON ('identifier' is
+// reserved for remapping 'id').
+@property (retain) NSNumber *identifierProperty;  // longLongValue
 
 @property (copy) NSString *text;
 @end

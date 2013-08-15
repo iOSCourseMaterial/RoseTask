@@ -3,7 +3,7 @@
  */
 
 //
-//  GTLRosetaskTaskList.m
+//  GTLRosetaskTaskProtoIdTextTaskListIdDetailsCompleteAssignedToEmail.m
 //
 
 // ----------------------------------------------------------------------------
@@ -13,31 +13,25 @@
 // Description:
 //   Rose Task API
 // Classes:
-//   GTLRosetaskTaskList (0 custom class methods, 4 custom properties)
+//   GTLRosetaskTaskProtoIdTextTaskListIdDetailsCompleteAssignedToEmail (0 custom class methods, 6 custom properties)
 
-#import "GTLRosetaskTaskList.h"
+#import "GTLRosetaskTaskProtoIdTextTaskListIdDetailsCompleteAssignedToEmail.h"
 
 // ----------------------------------------------------------------------------
 //
-//   GTLRosetaskTaskList
+//   GTLRosetaskTaskProtoIdTextTaskListIdDetailsCompleteAssignedToEmail
 //
 
-@implementation GTLRosetaskTaskList
-@dynamic created, identifier, taskUserEmails, title;
+@implementation GTLRosetaskTaskProtoIdTextTaskListIdDetailsCompleteAssignedToEmail
+@dynamic assignedToEmail, complete, details, identifier, taskListId, text;
 
 + (NSDictionary *)propertyToJSONKeyMap {
   NSDictionary *map =
     [NSDictionary dictionaryWithObjectsAndKeys:
+      @"assigned_to_email", @"assignedToEmail",
       @"id", @"identifier",
-      @"task_user_emails", @"taskUserEmails",
+      @"task_list_id", @"taskListId",
       nil];
-  return map;
-}
-
-+ (NSDictionary *)arrayPropertyToClassMap {
-  NSDictionary *map =
-    [NSDictionary dictionaryWithObject:[NSString class]
-                                forKey:@"task_user_emails"];
   return map;
 }
 

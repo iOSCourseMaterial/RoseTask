@@ -25,13 +25,13 @@
 //
 
 @implementation GTLRosetaskApiMessagesTaskResponseMessage
-@dynamic assignedTo, complete, identifier, text;
+@dynamic assignedTo, complete, identifierProperty, text;
 
 + (NSDictionary *)propertyToJSONKeyMap {
   NSDictionary *map =
     [NSDictionary dictionaryWithObjectsAndKeys:
       @"assigned_to", @"assignedTo",
-      @"id", @"identifier",
+      @"identifier", @"identifierProperty",
       nil];
   return map;
 }
