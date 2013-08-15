@@ -36,7 +36,7 @@ class RoseTaskApi(remote.Service):
     """Class which defines rosetask API v1."""
     
     # ----------------------------- Inserts ----------------------------- 
-    @TaskUser.method(user_required=True, request_fields=('lowercase_email', 'preferred_name', 'google_plus_id'), path='taskuser', http_method='POST', name='taskuser.insert')
+    @TaskUser.method(user_required=True, path='taskuser', http_method='POST', name='taskuser.insert')
     def task_user_insert(self, a_task_user):
         """ Insert a TaskUser. """
         request_email = a_task_user.lowercase_email.lower()
@@ -53,7 +53,7 @@ class RoseTaskApi(remote.Service):
         the_task_user.put()
         return the_task_user
     
-    @TaskList.method(user_required=True, request_fields=('id', 'title', 'task_user_emails'), path='tasklist', http_method='POST', name='tasklist.insert')
+    @TaskList.method(user_required=True, path='tasklist', http_method='POST', name='tasklist.insert')
     def task_list_insert(self, a_task_list):
         """ Insert a TaskList. """
         #TODO: Check if current user is in this TaskList
@@ -73,7 +73,7 @@ class RoseTaskApi(remote.Service):
         return a_task_list
     
     
-    @Task.method(user_required=True, request_fields=('id', 'text', 'task_list_id', 'details', 'complete', 'assigned_to_email'), path='task', http_method='POST', name='task.insert')
+    @Task.method(user_required=True, path='task', http_method='POST', name='task.insert')
     def task_insert(self, a_task):
         """ Insert a Task. """
         #TODO: Check if current user is in this TaskList
@@ -135,15 +135,16 @@ class RoseTaskApi(remote.Service):
                 if a_task.assigned_to_email:
                     assigned_to_task_user = TaskUser.get_task_user_by_email(a_task.assigned_to_email)
                     assigned_to_task_user_msg = TaskUserResponseMessage(lowercase_email=assigned_to_task_user.lowercase_email, preferred_name=assigned_to_task_user.preferred_name, google_plus_id=assigned_to_task_user.google_plus_id)
-                all_tasks_in_list.append(TaskResponseMessage(id=a_task.key.id(),
+                all_tasks_in_list.append(TaskResponseMessage(identifier=a_task.key.id(),
                                                              text=a_task.text,
+                                                             details=a_task.details,
                                                              complete=a_task.complete,
                                                              assigned_to=assigned_to_task_user_msg))
             all_task_users_in_list = []
             for a_task_user_email in a_task_list.task_user_emails:
                 a_task_user = TaskUser.get_task_user_by_email(a_task_user_email)
                 all_task_users_in_list.append(TaskUserResponseMessage(lowercase_email=a_task_user.lowercase_email, preferred_name=a_task_user.preferred_name, google_plus_id=a_task_user.google_plus_id))
-            users_task_lists.append(TaskListResponseMessage(id=a_task_list.key.id(), title=a_task_list.title, tasks=all_tasks_in_list, task_users=all_task_users_in_list))
+            users_task_lists.append(TaskListResponseMessage(identifier=a_task_list.key.id(), title=a_task_list.title, tasks=all_tasks_in_list, task_users=all_task_users_in_list))
         return TaskListListResponse(items=users_task_lists)
     
     @Task.query_method(user_required=True, query_fields=('task_list_id', 'order', 'pageToken',), path='tasks', name='task.gettasks')

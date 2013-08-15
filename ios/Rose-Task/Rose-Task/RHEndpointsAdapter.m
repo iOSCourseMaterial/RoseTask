@@ -44,7 +44,7 @@
 - (void) syncTaskUser:(TaskUser *) aTaskUser {
     GTLServiceRosetask *service = [self roseTaskService];
     // Convert the TaskUser into a GtlTaskUser.
-    GTLRosetaskTaskUserProtoLowercaseEmailPreferredNameGooglePlusId *aGtlTaskUser = [GTLRosetaskTaskUserProtoLowercaseEmailPreferredNameGooglePlusId alloc];
+    GTLRosetaskTaskUser *aGtlTaskUser = [GTLRosetaskTaskUser alloc];
     [aGtlTaskUser setPreferredName:aTaskUser.preferredName];
     [aGtlTaskUser setLowercaseEmail:aTaskUser.lowercaseEmail];
     [aGtlTaskUser setGooglePlusId:aTaskUser.googlePlusId];
@@ -65,16 +65,15 @@
 }
 
 - (void) syncTask:(Task *) aTask {
-    
     GTLServiceRosetask *service = [self roseTaskService];
     // Convert the Task into a GtlTask.
-    GTLRosetaskTaskProtoIdTextTaskListIdDetailsCompleteAssignedToEmail *aGtlTask = [GTLRosetaskTaskProtoIdTextTaskListIdDetailsCompleteAssignedToEmail alloc];
+    GTLRosetaskTask *aGtlTask = [GTLRosetaskTask alloc];
+    [aGtlTask setIdentifier:aTask.identifier];
     [aGtlTask setText:aTask.text];
     [aGtlTask setTaskListId:aTask.taskList.identifier];
-    [aGtlTask setText:aTask.text];
-    [aGtlTask setText:aTask.text];
-    [aGtlTask setText:aTask.text];
-    [aGtlTask setText:aTask.text];
+    [aGtlTask setDetails:aTask.details];
+    [aGtlTask setAssignedToEmail:aTask.assignedTo.lowercaseEmail];
+    [aGtlTask setComplete:aTask.complete];
     
     GTLQueryRosetask *query = [GTLQueryRosetask queryForTaskInsertWithObject:aGtlTask];
     
@@ -93,7 +92,8 @@
 - (void) syncTaskList:(TaskList *) aTaskList {
     GTLServiceRosetask *service = [self roseTaskService];
     // Convert the TaskList into a GtlTaskList.
-    GTLRosetaskTaskListProtoIdTitleTaskUserEmails *aGtlTaskList = [GTLRosetaskTaskListProtoIdTitleTaskUserEmails alloc];
+    GTLRosetaskTaskList *aGtlTaskList = [GTLRosetaskTaskList alloc];
+    [aGtlTaskList setIdentifier:aTaskList.identifier];
     [aGtlTaskList setTitle:aTaskList.title];
     [aGtlTaskList setTaskUserEmails:aTaskList.sortedTaskUsers];
     // Note that tasks are not sent in TaskList updates

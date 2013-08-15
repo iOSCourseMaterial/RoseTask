@@ -21,9 +21,9 @@
   #import "GTLQuery.h"
 #endif
 
-@class GTLRosetaskTaskListProtoIdTitleTaskUserEmails;
-@class GTLRosetaskTaskProtoIdTextTaskListIdDetailsCompleteAssignedToEmail;
-@class GTLRosetaskTaskUserProtoLowercaseEmailPreferredNameGooglePlusId;
+@class GTLRosetaskTask;
+@class GTLRosetaskTaskList;
+@class GTLRosetaskTaskUser;
 
 @interface GTLQueryRosetask : GTLQuery
 
@@ -79,7 +79,7 @@
 //  Authorization scope(s):
 //   kGTLAuthScopeRosetaskUserinfoEmail
 // Fetches a GTLRosetaskTask.
-+ (id)queryForTaskInsertWithObject:(GTLRosetaskTaskProtoIdTextTaskListIdDetailsCompleteAssignedToEmail *)object;
++ (id)queryForTaskInsertWithObject:(GTLRosetaskTask *)object;
 
 #pragma mark -
 #pragma mark "tasklist" methods
@@ -116,7 +116,7 @@
 //  Authorization scope(s):
 //   kGTLAuthScopeRosetaskUserinfoEmail
 // Fetches a GTLRosetaskTaskList.
-+ (id)queryForTasklistInsertWithObject:(GTLRosetaskTaskListProtoIdTitleTaskUserEmails *)object;
++ (id)queryForTasklistInsertWithObject:(GTLRosetaskTaskList *)object;
 
 #pragma mark -
 #pragma mark "taskuser" methods
@@ -136,6 +136,6 @@
 //  Authorization scope(s):
 //   kGTLAuthScopeRosetaskUserinfoEmail
 // Fetches a GTLRosetaskTaskUser.
-+ (id)queryForTaskuserInsertWithObject:(GTLRosetaskTaskUserProtoLowercaseEmailPreferredNameGooglePlusId *)object;
++ (id)queryForTaskuserInsertWithObject:(GTLRosetaskTaskUser *)object;
 
 @end

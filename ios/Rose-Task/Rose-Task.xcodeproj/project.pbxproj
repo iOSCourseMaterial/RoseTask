@@ -7,23 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		FD081BA317BC935400336EDA /* GTLQueryRosetask.m in Sources */ = {isa = PBXBuildFile; fileRef = FD081B8617BC935400336EDA /* GTLQueryRosetask.m */; };
-		FD081BA517BC935400336EDA /* GTLRosetaskApiMessagesTaskListListResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = FD081B8A17BC935400336EDA /* GTLRosetaskApiMessagesTaskListListResponse.m */; };
-		FD081BA617BC935400336EDA /* GTLRosetaskApiMessagesTaskListResponseMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = FD081B8C17BC935400336EDA /* GTLRosetaskApiMessagesTaskListResponseMessage.m */; };
-		FD081BA717BC935400336EDA /* GTLRosetaskApiMessagesTaskResponseMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = FD081B8E17BC935400336EDA /* GTLRosetaskApiMessagesTaskResponseMessage.m */; };
-		FD081BA817BC935400336EDA /* GTLRosetaskApiMessagesTaskUserResponseMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = FD081B9017BC935400336EDA /* GTLRosetaskApiMessagesTaskUserResponseMessage.m */; };
-		FD081BA917BC935400336EDA /* GTLRosetaskConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = FD081B9217BC935400336EDA /* GTLRosetaskConstants.m */; };
-		FD081BAA17BC935400336EDA /* GTLRosetaskTask.m in Sources */ = {isa = PBXBuildFile; fileRef = FD081B9417BC935400336EDA /* GTLRosetaskTask.m */; };
-		FD081BAB17BC935400336EDA /* GTLRosetaskTaskCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = FD081B9617BC935400336EDA /* GTLRosetaskTaskCollection.m */; };
-		FD081BAC17BC935400336EDA /* GTLRosetaskTaskList.m in Sources */ = {isa = PBXBuildFile; fileRef = FD081B9817BC935400336EDA /* GTLRosetaskTaskList.m */; };
-		FD081BAD17BC935400336EDA /* GTLRosetaskTaskListProtoIdTitleTaskUserEmails.m in Sources */ = {isa = PBXBuildFile; fileRef = FD081B9A17BC935400336EDA /* GTLRosetaskTaskListProtoIdTitleTaskUserEmails.m */; };
-		FD081BAE17BC935400336EDA /* GTLRosetaskTaskProtoIdTextTaskListIdDetailsCompleteAssignedToEmail.m in Sources */ = {isa = PBXBuildFile; fileRef = FD081B9C17BC935400336EDA /* GTLRosetaskTaskProtoIdTextTaskListIdDetailsCompleteAssignedToEmail.m */; };
-		FD081BAF17BC935400336EDA /* GTLRosetaskTaskUser.m in Sources */ = {isa = PBXBuildFile; fileRef = FD081B9E17BC935400336EDA /* GTLRosetaskTaskUser.m */; };
-		FD081BB017BC935400336EDA /* GTLRosetaskTaskUserProtoLowercaseEmailPreferredNameGooglePlusId.m in Sources */ = {isa = PBXBuildFile; fileRef = FD081BA017BC935400336EDA /* GTLRosetaskTaskUserProtoLowercaseEmailPreferredNameGooglePlusId.m */; };
-		FD081BB117BC935400336EDA /* GTLServiceRosetask.m in Sources */ = {isa = PBXBuildFile; fileRef = FD081BA217BC935400336EDA /* GTLServiceRosetask.m */; };
 		FD081BC317BC9A2B00336EDA /* TaskUser.m in Sources */ = {isa = PBXBuildFile; fileRef = FD081BC217BC9A2B00336EDA /* TaskUser.m */; };
 		FD081BC617BC9A2C00336EDA /* DeleteTransaction.m in Sources */ = {isa = PBXBuildFile; fileRef = FD081BC517BC9A2C00336EDA /* DeleteTransaction.m */; };
-		FD081BC917BC9A2C00336EDA /* Task.m in Sources */ = {isa = PBXBuildFile; fileRef = FD081BC817BC9A2C00336EDA /* Task.m */; };
 		FD081BCC17BC9A2C00336EDA /* TaskList.m in Sources */ = {isa = PBXBuildFile; fileRef = FD081BCB17BC9A2C00336EDA /* TaskList.m */; };
 		FD292E3D17B5F3A800BB9EBE /* RHLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD292E3C17B5F3A800BB9EBE /* RHLoginViewController.m */; };
 		FD292E4017B8816400BB9EBE /* RHTaskDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD292E3F17B8816400BB9EBE /* RHTaskDetailViewController.m */; };
@@ -64,6 +49,18 @@
 		FDBE74F317BBCD7B0006092D /* DeleteTransaction+HelperUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = FDBE74F217BBCD7B0006092D /* DeleteTransaction+HelperUtils.m */; };
 		FDBE74F717BBD3250006092D /* RHEndpointsAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = FDBE74F617BBD3250006092D /* RHEndpointsAdapter.m */; };
 		FDC0FF8217B9D64300341E18 /* RHTaskListDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FDC0FF8117B9D64300341E18 /* RHTaskListDetailViewController.m */; };
+		FDCA00F817BD53130069E317 /* GTLQueryRosetask.m in Sources */ = {isa = PBXBuildFile; fileRef = FDCA00E217BD53130069E317 /* GTLQueryRosetask.m */; };
+		FDCA00F917BD53130069E317 /* GTLRosetaskApiMessagesTaskListListResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = FDCA00E517BD53130069E317 /* GTLRosetaskApiMessagesTaskListListResponse.m */; };
+		FDCA00FA17BD53130069E317 /* GTLRosetaskApiMessagesTaskListResponseMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = FDCA00E717BD53130069E317 /* GTLRosetaskApiMessagesTaskListResponseMessage.m */; };
+		FDCA00FB17BD53130069E317 /* GTLRosetaskApiMessagesTaskResponseMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = FDCA00E917BD53130069E317 /* GTLRosetaskApiMessagesTaskResponseMessage.m */; };
+		FDCA00FC17BD53130069E317 /* GTLRosetaskApiMessagesTaskUserResponseMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = FDCA00EB17BD53130069E317 /* GTLRosetaskApiMessagesTaskUserResponseMessage.m */; };
+		FDCA00FD17BD53130069E317 /* GTLRosetaskConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = FDCA00ED17BD53130069E317 /* GTLRosetaskConstants.m */; };
+		FDCA00FE17BD53130069E317 /* GTLRosetaskTask.m in Sources */ = {isa = PBXBuildFile; fileRef = FDCA00EF17BD53130069E317 /* GTLRosetaskTask.m */; };
+		FDCA00FF17BD53130069E317 /* GTLRosetaskTaskCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = FDCA00F117BD53130069E317 /* GTLRosetaskTaskCollection.m */; };
+		FDCA010017BD53130069E317 /* GTLRosetaskTaskList.m in Sources */ = {isa = PBXBuildFile; fileRef = FDCA00F317BD53130069E317 /* GTLRosetaskTaskList.m */; };
+		FDCA010117BD53130069E317 /* GTLRosetaskTaskUser.m in Sources */ = {isa = PBXBuildFile; fileRef = FDCA00F517BD53130069E317 /* GTLRosetaskTaskUser.m */; };
+		FDCA010217BD53130069E317 /* GTLServiceRosetask.m in Sources */ = {isa = PBXBuildFile; fileRef = FDCA00F717BD53130069E317 /* GTLServiceRosetask.m */; };
+		FDCA010517BD540D0069E317 /* Task.m in Sources */ = {isa = PBXBuildFile; fileRef = FDCA010417BD540D0069E317 /* Task.m */; };
 		FDFC23C417B41B6400AACB71 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDFC23C317B41B6400AACB71 /* UIKit.framework */; };
 		FDFC23C617B41B6400AACB71 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDFC23C517B41B6400AACB71 /* Foundation.framework */; };
 		FDFC23C817B41B6400AACB71 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDFC23C717B41B6400AACB71 /* CoreGraphics.framework */; };
@@ -81,41 +78,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		FD081B8517BC935400336EDA /* GTLQueryRosetask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLQueryRosetask.h; sourceTree = "<group>"; };
-		FD081B8617BC935400336EDA /* GTLQueryRosetask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLQueryRosetask.m; sourceTree = "<group>"; };
-		FD081B8817BC935400336EDA /* GTLRosetask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLRosetask.h; sourceTree = "<group>"; };
-		FD081B8917BC935400336EDA /* GTLRosetaskApiMessagesTaskListListResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLRosetaskApiMessagesTaskListListResponse.h; sourceTree = "<group>"; };
-		FD081B8A17BC935400336EDA /* GTLRosetaskApiMessagesTaskListListResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLRosetaskApiMessagesTaskListListResponse.m; sourceTree = "<group>"; };
-		FD081B8B17BC935400336EDA /* GTLRosetaskApiMessagesTaskListResponseMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLRosetaskApiMessagesTaskListResponseMessage.h; sourceTree = "<group>"; };
-		FD081B8C17BC935400336EDA /* GTLRosetaskApiMessagesTaskListResponseMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLRosetaskApiMessagesTaskListResponseMessage.m; sourceTree = "<group>"; };
-		FD081B8D17BC935400336EDA /* GTLRosetaskApiMessagesTaskResponseMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLRosetaskApiMessagesTaskResponseMessage.h; sourceTree = "<group>"; };
-		FD081B8E17BC935400336EDA /* GTLRosetaskApiMessagesTaskResponseMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLRosetaskApiMessagesTaskResponseMessage.m; sourceTree = "<group>"; };
-		FD081B8F17BC935400336EDA /* GTLRosetaskApiMessagesTaskUserResponseMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLRosetaskApiMessagesTaskUserResponseMessage.h; sourceTree = "<group>"; };
-		FD081B9017BC935400336EDA /* GTLRosetaskApiMessagesTaskUserResponseMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLRosetaskApiMessagesTaskUserResponseMessage.m; sourceTree = "<group>"; };
-		FD081B9117BC935400336EDA /* GTLRosetaskConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLRosetaskConstants.h; sourceTree = "<group>"; };
-		FD081B9217BC935400336EDA /* GTLRosetaskConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLRosetaskConstants.m; sourceTree = "<group>"; };
-		FD081B9317BC935400336EDA /* GTLRosetaskTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLRosetaskTask.h; sourceTree = "<group>"; };
-		FD081B9417BC935400336EDA /* GTLRosetaskTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLRosetaskTask.m; sourceTree = "<group>"; };
-		FD081B9517BC935400336EDA /* GTLRosetaskTaskCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLRosetaskTaskCollection.h; sourceTree = "<group>"; };
-		FD081B9617BC935400336EDA /* GTLRosetaskTaskCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLRosetaskTaskCollection.m; sourceTree = "<group>"; };
-		FD081B9717BC935400336EDA /* GTLRosetaskTaskList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLRosetaskTaskList.h; sourceTree = "<group>"; };
-		FD081B9817BC935400336EDA /* GTLRosetaskTaskList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLRosetaskTaskList.m; sourceTree = "<group>"; };
-		FD081B9917BC935400336EDA /* GTLRosetaskTaskListProtoIdTitleTaskUserEmails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLRosetaskTaskListProtoIdTitleTaskUserEmails.h; sourceTree = "<group>"; };
-		FD081B9A17BC935400336EDA /* GTLRosetaskTaskListProtoIdTitleTaskUserEmails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLRosetaskTaskListProtoIdTitleTaskUserEmails.m; sourceTree = "<group>"; };
-		FD081B9B17BC935400336EDA /* GTLRosetaskTaskProtoIdTextTaskListIdDetailsCompleteAssignedToEmail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLRosetaskTaskProtoIdTextTaskListIdDetailsCompleteAssignedToEmail.h; sourceTree = "<group>"; };
-		FD081B9C17BC935400336EDA /* GTLRosetaskTaskProtoIdTextTaskListIdDetailsCompleteAssignedToEmail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLRosetaskTaskProtoIdTextTaskListIdDetailsCompleteAssignedToEmail.m; sourceTree = "<group>"; };
-		FD081B9D17BC935400336EDA /* GTLRosetaskTaskUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLRosetaskTaskUser.h; sourceTree = "<group>"; };
-		FD081B9E17BC935400336EDA /* GTLRosetaskTaskUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLRosetaskTaskUser.m; sourceTree = "<group>"; };
-		FD081B9F17BC935400336EDA /* GTLRosetaskTaskUserProtoLowercaseEmailPreferredNameGooglePlusId.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLRosetaskTaskUserProtoLowercaseEmailPreferredNameGooglePlusId.h; sourceTree = "<group>"; };
-		FD081BA017BC935400336EDA /* GTLRosetaskTaskUserProtoLowercaseEmailPreferredNameGooglePlusId.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLRosetaskTaskUserProtoLowercaseEmailPreferredNameGooglePlusId.m; sourceTree = "<group>"; };
-		FD081BA117BC935400336EDA /* GTLServiceRosetask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLServiceRosetask.h; sourceTree = "<group>"; };
-		FD081BA217BC935400336EDA /* GTLServiceRosetask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLServiceRosetask.m; sourceTree = "<group>"; };
 		FD081BC117BC9A2B00336EDA /* TaskUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskUser.h; sourceTree = "<group>"; };
 		FD081BC217BC9A2B00336EDA /* TaskUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskUser.m; sourceTree = "<group>"; };
 		FD081BC417BC9A2B00336EDA /* DeleteTransaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeleteTransaction.h; sourceTree = "<group>"; };
 		FD081BC517BC9A2C00336EDA /* DeleteTransaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeleteTransaction.m; sourceTree = "<group>"; };
-		FD081BC717BC9A2C00336EDA /* Task.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Task.h; sourceTree = "<group>"; };
-		FD081BC817BC9A2C00336EDA /* Task.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Task.m; sourceTree = "<group>"; };
 		FD081BCA17BC9A2C00336EDA /* TaskList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskList.h; sourceTree = "<group>"; };
 		FD081BCB17BC9A2C00336EDA /* TaskList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskList.m; sourceTree = "<group>"; };
 		FD292E3B17B5F3A800BB9EBE /* RHLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHLoginViewController.h; sourceTree = "<group>"; };
@@ -197,6 +163,31 @@
 		FDBE74F617BBD3250006092D /* RHEndpointsAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHEndpointsAdapter.m; sourceTree = "<group>"; };
 		FDC0FF8017B9D64300341E18 /* RHTaskListDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHTaskListDetailViewController.h; sourceTree = "<group>"; };
 		FDC0FF8117B9D64300341E18 /* RHTaskListDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHTaskListDetailViewController.m; sourceTree = "<group>"; };
+		FDCA00E117BD53130069E317 /* GTLQueryRosetask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLQueryRosetask.h; sourceTree = "<group>"; };
+		FDCA00E217BD53130069E317 /* GTLQueryRosetask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLQueryRosetask.m; sourceTree = "<group>"; };
+		FDCA00E317BD53130069E317 /* GTLRosetask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLRosetask.h; sourceTree = "<group>"; };
+		FDCA00E417BD53130069E317 /* GTLRosetaskApiMessagesTaskListListResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLRosetaskApiMessagesTaskListListResponse.h; sourceTree = "<group>"; };
+		FDCA00E517BD53130069E317 /* GTLRosetaskApiMessagesTaskListListResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLRosetaskApiMessagesTaskListListResponse.m; sourceTree = "<group>"; };
+		FDCA00E617BD53130069E317 /* GTLRosetaskApiMessagesTaskListResponseMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLRosetaskApiMessagesTaskListResponseMessage.h; sourceTree = "<group>"; };
+		FDCA00E717BD53130069E317 /* GTLRosetaskApiMessagesTaskListResponseMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLRosetaskApiMessagesTaskListResponseMessage.m; sourceTree = "<group>"; };
+		FDCA00E817BD53130069E317 /* GTLRosetaskApiMessagesTaskResponseMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLRosetaskApiMessagesTaskResponseMessage.h; sourceTree = "<group>"; };
+		FDCA00E917BD53130069E317 /* GTLRosetaskApiMessagesTaskResponseMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLRosetaskApiMessagesTaskResponseMessage.m; sourceTree = "<group>"; };
+		FDCA00EA17BD53130069E317 /* GTLRosetaskApiMessagesTaskUserResponseMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLRosetaskApiMessagesTaskUserResponseMessage.h; sourceTree = "<group>"; };
+		FDCA00EB17BD53130069E317 /* GTLRosetaskApiMessagesTaskUserResponseMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLRosetaskApiMessagesTaskUserResponseMessage.m; sourceTree = "<group>"; };
+		FDCA00EC17BD53130069E317 /* GTLRosetaskConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLRosetaskConstants.h; sourceTree = "<group>"; };
+		FDCA00ED17BD53130069E317 /* GTLRosetaskConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLRosetaskConstants.m; sourceTree = "<group>"; };
+		FDCA00EE17BD53130069E317 /* GTLRosetaskTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLRosetaskTask.h; sourceTree = "<group>"; };
+		FDCA00EF17BD53130069E317 /* GTLRosetaskTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLRosetaskTask.m; sourceTree = "<group>"; };
+		FDCA00F017BD53130069E317 /* GTLRosetaskTaskCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLRosetaskTaskCollection.h; sourceTree = "<group>"; };
+		FDCA00F117BD53130069E317 /* GTLRosetaskTaskCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLRosetaskTaskCollection.m; sourceTree = "<group>"; };
+		FDCA00F217BD53130069E317 /* GTLRosetaskTaskList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLRosetaskTaskList.h; sourceTree = "<group>"; };
+		FDCA00F317BD53130069E317 /* GTLRosetaskTaskList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLRosetaskTaskList.m; sourceTree = "<group>"; };
+		FDCA00F417BD53130069E317 /* GTLRosetaskTaskUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLRosetaskTaskUser.h; sourceTree = "<group>"; };
+		FDCA00F517BD53130069E317 /* GTLRosetaskTaskUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLRosetaskTaskUser.m; sourceTree = "<group>"; };
+		FDCA00F617BD53130069E317 /* GTLServiceRosetask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLServiceRosetask.h; sourceTree = "<group>"; };
+		FDCA00F717BD53130069E317 /* GTLServiceRosetask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLServiceRosetask.m; sourceTree = "<group>"; };
+		FDCA010317BD540D0069E317 /* Task.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Task.h; sourceTree = "<group>"; };
+		FDCA010417BD540D0069E317 /* Task.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Task.m; sourceTree = "<group>"; };
 		FDFC23C017B41B6400AACB71 /* Rose-Task.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Rose-Task.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDFC23C317B41B6400AACB71 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		FDFC23C517B41B6400AACB71 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -336,35 +327,29 @@
 		FD82D80F17B4220C00529133 /* API */ = {
 			isa = PBXGroup;
 			children = (
-				FD081B8517BC935400336EDA /* GTLQueryRosetask.h */,
-				FD081B8617BC935400336EDA /* GTLQueryRosetask.m */,
-				FD081B8817BC935400336EDA /* GTLRosetask.h */,
-				FD081B8917BC935400336EDA /* GTLRosetaskApiMessagesTaskListListResponse.h */,
-				FD081B8A17BC935400336EDA /* GTLRosetaskApiMessagesTaskListListResponse.m */,
-				FD081B8B17BC935400336EDA /* GTLRosetaskApiMessagesTaskListResponseMessage.h */,
-				FD081B8C17BC935400336EDA /* GTLRosetaskApiMessagesTaskListResponseMessage.m */,
-				FD081B8D17BC935400336EDA /* GTLRosetaskApiMessagesTaskResponseMessage.h */,
-				FD081B8E17BC935400336EDA /* GTLRosetaskApiMessagesTaskResponseMessage.m */,
-				FD081B8F17BC935400336EDA /* GTLRosetaskApiMessagesTaskUserResponseMessage.h */,
-				FD081B9017BC935400336EDA /* GTLRosetaskApiMessagesTaskUserResponseMessage.m */,
-				FD081B9117BC935400336EDA /* GTLRosetaskConstants.h */,
-				FD081B9217BC935400336EDA /* GTLRosetaskConstants.m */,
-				FD081B9317BC935400336EDA /* GTLRosetaskTask.h */,
-				FD081B9417BC935400336EDA /* GTLRosetaskTask.m */,
-				FD081B9517BC935400336EDA /* GTLRosetaskTaskCollection.h */,
-				FD081B9617BC935400336EDA /* GTLRosetaskTaskCollection.m */,
-				FD081B9717BC935400336EDA /* GTLRosetaskTaskList.h */,
-				FD081B9817BC935400336EDA /* GTLRosetaskTaskList.m */,
-				FD081B9917BC935400336EDA /* GTLRosetaskTaskListProtoIdTitleTaskUserEmails.h */,
-				FD081B9A17BC935400336EDA /* GTLRosetaskTaskListProtoIdTitleTaskUserEmails.m */,
-				FD081B9B17BC935400336EDA /* GTLRosetaskTaskProtoIdTextTaskListIdDetailsCompleteAssignedToEmail.h */,
-				FD081B9C17BC935400336EDA /* GTLRosetaskTaskProtoIdTextTaskListIdDetailsCompleteAssignedToEmail.m */,
-				FD081B9D17BC935400336EDA /* GTLRosetaskTaskUser.h */,
-				FD081B9E17BC935400336EDA /* GTLRosetaskTaskUser.m */,
-				FD081B9F17BC935400336EDA /* GTLRosetaskTaskUserProtoLowercaseEmailPreferredNameGooglePlusId.h */,
-				FD081BA017BC935400336EDA /* GTLRosetaskTaskUserProtoLowercaseEmailPreferredNameGooglePlusId.m */,
-				FD081BA117BC935400336EDA /* GTLServiceRosetask.h */,
-				FD081BA217BC935400336EDA /* GTLServiceRosetask.m */,
+				FDCA00E117BD53130069E317 /* GTLQueryRosetask.h */,
+				FDCA00E217BD53130069E317 /* GTLQueryRosetask.m */,
+				FDCA00E317BD53130069E317 /* GTLRosetask.h */,
+				FDCA00E417BD53130069E317 /* GTLRosetaskApiMessagesTaskListListResponse.h */,
+				FDCA00E517BD53130069E317 /* GTLRosetaskApiMessagesTaskListListResponse.m */,
+				FDCA00E617BD53130069E317 /* GTLRosetaskApiMessagesTaskListResponseMessage.h */,
+				FDCA00E717BD53130069E317 /* GTLRosetaskApiMessagesTaskListResponseMessage.m */,
+				FDCA00E817BD53130069E317 /* GTLRosetaskApiMessagesTaskResponseMessage.h */,
+				FDCA00E917BD53130069E317 /* GTLRosetaskApiMessagesTaskResponseMessage.m */,
+				FDCA00EA17BD53130069E317 /* GTLRosetaskApiMessagesTaskUserResponseMessage.h */,
+				FDCA00EB17BD53130069E317 /* GTLRosetaskApiMessagesTaskUserResponseMessage.m */,
+				FDCA00EC17BD53130069E317 /* GTLRosetaskConstants.h */,
+				FDCA00ED17BD53130069E317 /* GTLRosetaskConstants.m */,
+				FDCA00EE17BD53130069E317 /* GTLRosetaskTask.h */,
+				FDCA00EF17BD53130069E317 /* GTLRosetaskTask.m */,
+				FDCA00F017BD53130069E317 /* GTLRosetaskTaskCollection.h */,
+				FDCA00F117BD53130069E317 /* GTLRosetaskTaskCollection.m */,
+				FDCA00F217BD53130069E317 /* GTLRosetaskTaskList.h */,
+				FDCA00F317BD53130069E317 /* GTLRosetaskTaskList.m */,
+				FDCA00F417BD53130069E317 /* GTLRosetaskTaskUser.h */,
+				FDCA00F517BD53130069E317 /* GTLRosetaskTaskUser.m */,
+				FDCA00F617BD53130069E317 /* GTLServiceRosetask.h */,
+				FDCA00F717BD53130069E317 /* GTLServiceRosetask.m */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -372,10 +357,10 @@
 		FDBE74E717BBCCC40006092D /* CD Generated MOs */ = {
 			isa = PBXGroup;
 			children = (
+				FDCA010317BD540D0069E317 /* Task.h */,
+				FDCA010417BD540D0069E317 /* Task.m */,
 				FD081BCA17BC9A2C00336EDA /* TaskList.h */,
 				FD081BCB17BC9A2C00336EDA /* TaskList.m */,
-				FD081BC717BC9A2C00336EDA /* Task.h */,
-				FD081BC817BC9A2C00336EDA /* Task.m */,
 				FD081BC417BC9A2B00336EDA /* DeleteTransaction.h */,
 				FD081BC517BC9A2C00336EDA /* DeleteTransaction.m */,
 				FD081BC117BC9A2B00336EDA /* TaskUser.h */,
@@ -583,24 +568,21 @@
 				FDBE74F017BBCD670006092D /* TaskList+HelperUtils.m in Sources */,
 				FDBE74F317BBCD7B0006092D /* DeleteTransaction+HelperUtils.m in Sources */,
 				FDBE74F717BBD3250006092D /* RHEndpointsAdapter.m in Sources */,
-				FD081BA317BC935400336EDA /* GTLQueryRosetask.m in Sources */,
-				FD081BA517BC935400336EDA /* GTLRosetaskApiMessagesTaskListListResponse.m in Sources */,
-				FD081BA617BC935400336EDA /* GTLRosetaskApiMessagesTaskListResponseMessage.m in Sources */,
-				FD081BA717BC935400336EDA /* GTLRosetaskApiMessagesTaskResponseMessage.m in Sources */,
-				FD081BA817BC935400336EDA /* GTLRosetaskApiMessagesTaskUserResponseMessage.m in Sources */,
-				FD081BA917BC935400336EDA /* GTLRosetaskConstants.m in Sources */,
-				FD081BAA17BC935400336EDA /* GTLRosetaskTask.m in Sources */,
-				FD081BAB17BC935400336EDA /* GTLRosetaskTaskCollection.m in Sources */,
-				FD081BAC17BC935400336EDA /* GTLRosetaskTaskList.m in Sources */,
-				FD081BAD17BC935400336EDA /* GTLRosetaskTaskListProtoIdTitleTaskUserEmails.m in Sources */,
-				FD081BAE17BC935400336EDA /* GTLRosetaskTaskProtoIdTextTaskListIdDetailsCompleteAssignedToEmail.m in Sources */,
-				FD081BAF17BC935400336EDA /* GTLRosetaskTaskUser.m in Sources */,
-				FD081BB017BC935400336EDA /* GTLRosetaskTaskUserProtoLowercaseEmailPreferredNameGooglePlusId.m in Sources */,
-				FD081BB117BC935400336EDA /* GTLServiceRosetask.m in Sources */,
 				FD081BC317BC9A2B00336EDA /* TaskUser.m in Sources */,
 				FD081BC617BC9A2C00336EDA /* DeleteTransaction.m in Sources */,
-				FD081BC917BC9A2C00336EDA /* Task.m in Sources */,
 				FD081BCC17BC9A2C00336EDA /* TaskList.m in Sources */,
+				FDCA00F817BD53130069E317 /* GTLQueryRosetask.m in Sources */,
+				FDCA00F917BD53130069E317 /* GTLRosetaskApiMessagesTaskListListResponse.m in Sources */,
+				FDCA00FA17BD53130069E317 /* GTLRosetaskApiMessagesTaskListResponseMessage.m in Sources */,
+				FDCA00FB17BD53130069E317 /* GTLRosetaskApiMessagesTaskResponseMessage.m in Sources */,
+				FDCA00FC17BD53130069E317 /* GTLRosetaskApiMessagesTaskUserResponseMessage.m in Sources */,
+				FDCA00FD17BD53130069E317 /* GTLRosetaskConstants.m in Sources */,
+				FDCA00FE17BD53130069E317 /* GTLRosetaskTask.m in Sources */,
+				FDCA00FF17BD53130069E317 /* GTLRosetaskTaskCollection.m in Sources */,
+				FDCA010017BD53130069E317 /* GTLRosetaskTaskList.m in Sources */,
+				FDCA010117BD53130069E317 /* GTLRosetaskTaskUser.m in Sources */,
+				FDCA010217BD53130069E317 /* GTLServiceRosetask.m in Sources */,
+				FDCA010517BD540D0069E317 /* Task.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

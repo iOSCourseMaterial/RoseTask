@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"nPbVolg1F8jpPe9kkErPtt8mpZE/rB0DltTn1PR4czgN8hIqx7h-zhQ\"",
+ "etag": "\"nPbVolg1F8jpPe9kkErPtt8mpZE/qSBtChEj0gK8EUwH26pK0Ep4yGU\"",
  "discoveryVersion": "v1",
  "id": "rosetask:v1",
  "name": "rosetask",
@@ -125,6 +125,9 @@
     "complete": {
      "type": "boolean"
     },
+    "details": {
+     "type": "string"
+    },
     "identifier": {
      "type": "string",
      "format": "int64"
@@ -216,51 +219,6 @@
     }
    }
   },
-  "TaskListProtoIdTitleTaskUserEmails": {
-   "id": "TaskListProtoIdTitleTaskUserEmails",
-   "type": "object",
-   "properties": {
-    "id": {
-     "type": "string",
-     "format": "int64"
-    },
-    "task_user_emails": {
-     "type": "array",
-     "items": {
-      "type": "string"
-     }
-    },
-    "title": {
-     "type": "string"
-    }
-   }
-  },
-  "TaskProtoIdTextTaskListIdDetailsCompleteAssignedToEmail": {
-   "id": "TaskProtoIdTextTaskListIdDetailsCompleteAssignedToEmail",
-   "type": "object",
-   "properties": {
-    "assigned_to_email": {
-     "type": "string"
-    },
-    "complete": {
-     "type": "boolean"
-    },
-    "details": {
-     "type": "string"
-    },
-    "id": {
-     "type": "string",
-     "format": "int64"
-    },
-    "task_list_id": {
-     "type": "string",
-     "format": "int64"
-    },
-    "text": {
-     "type": "string"
-    }
-   }
-  },
   "TaskUser": {
    "id": "TaskUser",
    "type": "object",
@@ -268,21 +226,6 @@
     "created": {
      "type": "string"
     },
-    "google_plus_id": {
-     "type": "string"
-    },
-    "lowercase_email": {
-     "type": "string"
-    },
-    "preferred_name": {
-     "type": "string"
-    }
-   }
-  },
-  "TaskUserProtoLowercaseEmailPreferredNameGooglePlusId": {
-   "id": "TaskUserProtoLowercaseEmailPreferredNameGooglePlusId",
-   "type": "object",
-   "properties": {
     "google_plus_id": {
      "type": "string"
     },
@@ -370,7 +313,7 @@
    "description": "Insert a Task.",
    "parameters": {
     "resource": {
-     "$ref": "TaskProtoIdTextTaskListIdDetailsCompleteAssignedToEmail"
+     "$ref": "Task"
     }
    },
    "parameterOrder": [
@@ -460,7 +403,7 @@
    "description": "Insert a TaskList.",
    "parameters": {
     "resource": {
-     "$ref": "TaskListProtoIdTitleTaskUserEmails"
+     "$ref": "TaskList"
     }
    },
    "parameterOrder": [
@@ -494,7 +437,7 @@
    "description": "Insert a TaskUser.",
    "parameters": {
     "resource": {
-     "$ref": "TaskUserProtoLowercaseEmailPreferredNameGooglePlusId"
+     "$ref": "TaskUser"
     }
    },
    "parameterOrder": [

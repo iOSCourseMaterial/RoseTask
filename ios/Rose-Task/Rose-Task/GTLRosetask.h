@@ -22,10 +22,7 @@
 #import "GTLRosetaskTask.h"
 #import "GTLRosetaskTaskCollection.h"
 #import "GTLRosetaskTaskList.h"
-#import "GTLRosetaskTaskListProtoIdTitleTaskUserEmails.h"
-#import "GTLRosetaskTaskProtoIdTextTaskListIdDetailsCompleteAssignedToEmail.h"
 #import "GTLRosetaskTaskUser.h"
-#import "GTLRosetaskTaskUserProtoLowercaseEmailPreferredNameGooglePlusId.h"
 
 #import "GTLQueryRosetask.h"
 #import "GTLServiceRosetask.h"

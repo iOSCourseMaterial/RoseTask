@@ -18,6 +18,7 @@
 @property (nonatomic, retain) NSNumber * identifier;
 @property (nonatomic, retain) NSNumber * syncNeeded;
 @property (nonatomic, retain) NSString * text;
+@property (nonatomic, retain) NSString * details;
 @property (nonatomic, retain) TaskUser *assignedTo;
 @property (nonatomic, retain) TaskList *taskList;
 

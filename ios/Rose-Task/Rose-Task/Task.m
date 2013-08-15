@@ -18,6 +18,7 @@
 @dynamic identifier;
 @dynamic syncNeeded;
 @dynamic text;
+@dynamic details;
 @dynamic assignedTo;
 @dynamic taskList;
 

@@ -15,8 +15,9 @@ class TaskResponseMessage(messages.Message):
     """ProtoRPC message definition to return a Task """
     identifier = messages.IntegerField(1)
     text = messages.StringField(2)
-    complete = messages.BooleanField(3)
-    assigned_to = messages.MessageField(TaskUserResponseMessage, 4)
+    details = messages.StringField(3)
+    complete = messages.BooleanField(4)
+    assigned_to = messages.MessageField(TaskUserResponseMessage, 5)
     
 class TaskListResponseMessage(messages.Message):
     """ProtoRPC message definition to return a TaskList """

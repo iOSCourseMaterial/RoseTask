@@ -13,7 +13,7 @@
 // Description:
 //   Rose Task API
 // Classes:
-//   GTLRosetaskApiMessagesTaskResponseMessage (0 custom class methods, 4 custom properties)
+//   GTLRosetaskApiMessagesTaskResponseMessage (0 custom class methods, 5 custom properties)
 
 #import "GTLRosetaskApiMessagesTaskResponseMessage.h"
 
@@ -25,7 +25,7 @@
 //
 
 @implementation GTLRosetaskApiMessagesTaskResponseMessage
-@dynamic assignedTo, complete, identifierProperty, text;
+@dynamic assignedTo, complete, details, identifierProperty, text;
 
 + (NSDictionary *)propertyToJSONKeyMap {
   NSDictionary *map =

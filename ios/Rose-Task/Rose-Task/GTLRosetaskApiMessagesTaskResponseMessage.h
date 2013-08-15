@@ -13,7 +13,7 @@
 // Description:
 //   Rose Task API
 // Classes:
-//   GTLRosetaskApiMessagesTaskResponseMessage (0 custom class methods, 4 custom properties)
+//   GTLRosetaskApiMessagesTaskResponseMessage (0 custom class methods, 5 custom properties)
 
 #if GTL_BUILT_AS_FRAMEWORK
   #import "GTL/GTLObject.h"
@@ -36,6 +36,7 @@
 @property (retain) GTLRosetaskApiMessagesTaskUserResponseMessage *assignedTo;
 
 @property (retain) NSNumber *complete;  // boolValue
+@property (copy) NSString *details;
 
 // identifierProperty property maps to 'identifier' in the JSON ('identifier' is
 // reserved for remapping 'id').

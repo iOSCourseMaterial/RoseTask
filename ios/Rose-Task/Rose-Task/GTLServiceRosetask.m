@@ -32,10 +32,7 @@
                       [GTLRosetaskTask class],
                       [GTLRosetaskTaskCollection class],
                       [GTLRosetaskTaskList class],
-                      [GTLRosetaskTaskListProtoIdTitleTaskUserEmails class],
-                      [GTLRosetaskTaskProtoIdTextTaskListIdDetailsCompleteAssignedToEmail class],
                       [GTLRosetaskTaskUser class],
-                      [GTLRosetaskTaskUserProtoLowercaseEmailPreferredNameGooglePlusId class],
                       nil];
   return classes;
 }
