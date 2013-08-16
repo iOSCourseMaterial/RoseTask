@@ -33,12 +33,27 @@
     if (NO) {
         // Create a local_only Task User if needed.
         TaskUser * theLocalOnlyTaskUser = [TaskUser localOnlyTaskUser];
+        TaskUser * test1 = [TaskUser createFromEmail:@"test1"];
+        TaskUser * test2 = [TaskUser createFromEmail:@"test2"];
+        TaskUser * test3 = [TaskUser createFromEmail:@"test3"];
+        TaskUser * test4 = [TaskUser createFromEmail:@"test4"];
+        [test1 setPreferredName:@"Test1"];
+        [test2 setPreferredName:@"Test2"];
         
         // Create a TaskList for local only
         TaskList * list1 = [TaskList createTaskListforTaskUser:theLocalOnlyTaskUser];
         TaskList * list2 = [TaskList createTaskListforTaskUser:theLocalOnlyTaskUser];
         [list1 setTitle:@"List 1"];
         [list2 setTitle:@"List 2"];
+        
+        [list1 addTaskUsersObject:theLocalOnlyTaskUser];
+        [list1 addTaskUsersObject:test1];
+        [list1 addTaskUsersObject:test2];
+        [list1 addTaskUsersObject:test3];
+        [list1 addTaskUsersObject:test4];
+        [list2 addTaskUsersObject:theLocalOnlyTaskUser];
+        [list2 addTaskUsersObject:test1];
+        [list2 addTaskUsersObject:test4];
         
         // Create Tasks for the lists
         Task * l1s1 = [Task createTaskforTaskList:list1];
@@ -48,13 +63,18 @@
         Task * l2s2 = [Task createTaskforTaskList:list2];
         Task * l2s3 = [Task createTaskforTaskList:list2];
         Task * l2s4 = [Task createTaskforTaskList:list2];
-        [l1s1 setText:@"List 1 Step 1"];
-        [l1s2 setText:@"List 1 Step 2"];
+        [l1s1 setText:@"List 1 Step 1 assigned"];
+        [l1s2 setText:@"List 1 Step 2 assigned"];
         [l1s3 setText:@"List 1 Step 3"];
         [l2s1 setText:@"List 2 Step 1"];
         [l2s2 setText:@"List 2 Step 2"];
         [l2s3 setText:@"List 2 Step 3"];
-        [l2s4 setText:@"List 2 Step 4"];
+        [l2s4 setText:@"List 2 Step 4 assigned"];
+        
+        [l1s1 setAssignedTo:test1];
+        [l1s2 setAssignedTo:test2];
+        [l2s4 setAssignedTo:test4];
+        
         
         // Grab the one and only context (from anywhere) and save all.
         NSManagedObjectContext *moc = [(RHAppDelegate *) [[UIApplication sharedApplication] delegate] managedObjectContext];
@@ -66,6 +86,10 @@
     
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.tableView reloadData];
+}
 
 #pragma mark - Endpoints OAuth
 

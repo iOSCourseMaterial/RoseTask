@@ -28,6 +28,11 @@
 
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.tableView reloadData];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -57,7 +62,7 @@
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
     TaskList * selectedTaskList = self.taskLists[indexPath.row];
-    [self performSegueWithIdentifier:@"EditTaskList" sender:selectedTaskList];
+    [self performSegueWithIdentifier:@"EditTaskListSegue" sender:selectedTaskList];
 }
 
 #pragma mark -
@@ -66,19 +71,19 @@
     
     // Create a new task list.  Fire the segway manually to open the TaskList editor.
     TaskList * newTaskList = [TaskList createTaskListforTaskUser:self.taskUser];
-    [self performSegueWithIdentifier:@"EditTaskList" sender:newTaskList];
+    [self performSegueWithIdentifier:@"EditTaskListSegue" sender:newTaskList];
 }
 
 
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"EditTaskList"]) {
+    if ([segue.identifier isEqualToString:@"EditTaskListSegue"]) {
         if ([sender isKindOfClass:[TaskList class]]) {
             // Edit this TaskList (title and team members).
             RHTaskListDetailViewController *detailController = segue.destinationViewController;
             detailController.taskList = sender;
-            NSLog(@"Launching for list %@", [sender valueForKey:@"title"]);
+            detailController.taskUser = self.taskUser;
         }
         else {
             NSLog(@"Error launching TaskList editor");

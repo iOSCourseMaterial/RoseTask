@@ -14,6 +14,8 @@
 #import "TaskList+HelperUtils.h"
 #import "Task+HelperUtils.h"
 
+#define LOCAL_TESTING_ONLY YES
+
 @implementation RHEndpointsAdapter
 
 +(id)sharedInstance
@@ -42,6 +44,10 @@
 
 
 - (void) syncTaskUser:(TaskUser *) aTaskUser {
+    if (LOCAL_TESTING_ONLY) {
+        NSLog(@"Local testing no TaskUser sent");
+        return;
+    }
     GTLServiceRosetask *service = [self roseTaskService];
     // Convert the TaskUser into a GtlTaskUser.
     GTLRosetaskTaskUser *aGtlTaskUser = [GTLRosetaskTaskUser alloc];
@@ -50,6 +56,11 @@
     [aGtlTaskUser setGooglePlusId:aTaskUser.googlePlusId];
     
     GTLQueryRosetask *query = [GTLQueryRosetask queryForTaskuserInsertWithObject:aGtlTaskUser];
+    
+    NSLog(@"Sending...");
+    NSLog(@" lowercaseEmail = %@", aGtlTaskUser.lowercaseEmail);
+    NSLog(@" preferredName = %@", aGtlTaskUser.preferredName);
+    NSLog(@" googlePlusId = %@", aGtlTaskUser.googlePlusId);
     
     [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, GTLRosetaskTaskUser *returnedGtlTaskUser, NSError *error) {
         NSLog(@"Done!");
@@ -65,6 +76,10 @@
 }
 
 - (void) syncTask:(Task *) aTask {
+    if (LOCAL_TESTING_ONLY) {
+        NSLog(@"Local testing no Task sent");
+        return;
+    }
     GTLServiceRosetask *service = [self roseTaskService];
     // Convert the Task into a GtlTask.
     GTLRosetaskTask *aGtlTask = [GTLRosetaskTask alloc];
@@ -79,8 +94,8 @@
     
     [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, GTLRosetaskTask *returnedGtlTask, NSError *error) {
         NSLog(@"Done!");
-        NSLog(@"Text = %@", returnedGtlTask.text);
-        NSLog(@"id = %@", returnedGtlTask.identifier);
+        NSLog(@"text = %@", returnedGtlTask.text);
+        NSLog(@"identifier = %@", returnedGtlTask.identifier);
         
         // Mark the TaskList in CD as no longer needing a sync.
         [aTask setIdentifier:returnedGtlTask.identifier];
@@ -90,6 +105,10 @@
 }
 
 - (void) syncTaskList:(TaskList *) aTaskList {
+    if (LOCAL_TESTING_ONLY) {
+        NSLog(@"Local testing no TaskList sent");
+        return;
+    }
     GTLServiceRosetask *service = [self roseTaskService];
     // Convert the TaskList into a GtlTaskList.
     GTLRosetaskTaskList *aGtlTaskList = [GTLRosetaskTaskList alloc];
@@ -102,8 +121,8 @@
     
     [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, GTLRosetaskTaskList *returnedGtlTaskList, NSError *error) {
         NSLog(@"Done!");
-        NSLog(@"Title = %@", returnedGtlTaskList.title);
-        NSLog(@"id = %@", returnedGtlTaskList.identifier);
+        NSLog(@"title = %@", returnedGtlTaskList.title);
+        NSLog(@"identifier = %@", returnedGtlTaskList.identifier);
         NSLog(@"emails = %@", returnedGtlTaskList.taskUserEmails);
         // Tasks are not given here.
         
@@ -120,6 +139,10 @@
 }
 
 - (void) syncDeletes {
+    if (LOCAL_TESTING_ONLY) {
+        NSLog(@"Local testing no Delete sent");
+        return;
+    }
     
 }
 

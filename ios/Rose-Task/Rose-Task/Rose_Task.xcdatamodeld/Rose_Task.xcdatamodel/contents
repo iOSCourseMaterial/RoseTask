@@ -11,7 +11,7 @@
         <attribute name="details" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="identifier" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="syncNeeded" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="text" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="text" optional="YES" attributeType="String" defaultValueString="undefined" indexed="YES" syncable="YES"/>
         <relationship name="assignedTo" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaskUser" inverseName="assignments" inverseEntity="TaskUser" syncable="YES"/>
         <relationship name="taskList" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaskList" inverseName="tasks" inverseEntity="TaskList" syncable="YES"/>
     </entity>

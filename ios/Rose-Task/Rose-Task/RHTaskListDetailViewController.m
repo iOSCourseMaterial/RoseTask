@@ -9,9 +9,14 @@
 #import "RHTaskListDetailViewController.h"
 #import "TaskList+HelperUtils.h"
 #import "TaskUser+HelperUtils.h"
+#import "RHTaskUserCell.h"
+#import "RHSelectTaskListTaskUsersViewController.h"
+
+#define kSelectTaskListTaskUsersSegue @"SelectTaskListTaskUsersSegue"
 
 @interface RHTaskListDetailViewController ()
-
+@property (nonatomic, strong) NSMutableArray * taskListTaskUsers;
+@property (weak, nonatomic) UITextField *titleTextField;
 @end
 
 @implementation RHTaskListDetailViewController
@@ -20,11 +25,15 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    
-    self.titleTextField.text = self.taskList.title;
-    self.taskListTaskUsers = [self.taskList.sortedTaskUsers mutableCopy];
 }
 
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.titleTextField.text = self.taskList.title;
+    self.taskListTaskUsers = [self.taskList.sortedTaskUsers mutableCopy];
+    [self.tableView reloadData];
+}
 
 - (IBAction)deleteTaskList:(id)sender {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Delete %@", [self.taskList valueForKey:@"title"]]
@@ -35,17 +44,16 @@
     [alert show];
 }
 
+
+#pragma mark - UITextField delegate
 - (IBAction)textEditingDone:(id)sender {
     [sender resignFirstResponder];
 }
-#pragma mark - UITextField delegate
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     [textField resignFirstResponder];
 }
 
 - (IBAction)save:(id)sender {
-    NSLog(@"%s", __FUNCTION__);
-    
     // Save the changes to the title and jump back to the list of task lists.
     [self.taskList setTitle:self.titleTextField.text];
     
@@ -55,10 +63,11 @@
     } else {
         [self.taskList saveThenSync:YES];
     }
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)editTaskListTaskUsers:(id)sender {
-    
+    [self performSegueWithIdentifier:kSelectTaskListTaskUsersSegue sender:self.taskList];
 }
 
 
@@ -66,12 +75,21 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[self.taskList valueForKey:@"taskUsers"] count];
+    switch (section) {
+        case 0:
+            // Title text field.
+            return 1;
+        case 1:
+            return [self.taskList.sortedTaskUsers count];
+        default:
+            NSLog(@"Error in %s", __FUNCTION__);
+            return 0;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -81,92 +99,63 @@
     
     
     static NSString *TaskUserCellIdentifier = @"TaskUserCell";
-    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:TaskUserCellIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:TaskUserCellIdentifier];
+    static NSString *TaskListTitleCellIdentifier = @"TaskListTitleCell";
+    UITableViewCell * cell = nil;
+    switch (indexPath.section) {
+        case 0:
+        {
+            cell = [tableView dequeueReusableCellWithIdentifier:TaskListTitleCellIdentifier forIndexPath:indexPath];
+            // TODO: Figure out how to get the content view to set the text field ... hum...
+            NSArray * childViews = cell.contentView.subviews;
+            NSLog(@"There are %d child views of the content view", [childViews count]);
+            NSLog(@"The view at index 0 is of class %@.", [childViews[0] class]);
+            self.titleTextField = childViews[0];
+            self.titleTextField.text = self.taskList.title;
+        }
+            break;
+        case 1:
+        {
+            cell = [tableView dequeueReusableCellWithIdentifier:TaskUserCellIdentifier forIndexPath:indexPath];
+            [(RHTaskUserCell *) cell setTaskUser:self.taskList.sortedTaskUsers[indexPath.row]];
+        }
+            break;
+        default:
+        {
+            NSLog(@"Error in %s", __FUNCTION__);
+            return nil;
+        }
     }
-    // TODO: Sort the users only once. :)
-    NSSet * taskUsers = [self.taskList valueForKey:@"taskUsers"];
-    NSArray * sortedTaskUsers = [taskUsers.allObjects sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-        return [[obj1 valueForKey:@"created"] compare:[obj2 valueForKey:@"created"]];
-    }];
-
-    //NSManagedObject * aTaskUser = [taskUsers anyObject];
-    NSManagedObject * aTaskUser = sortedTaskUsers[indexPath.row];
-    
-    // Display each user in this list.
-    NSString * displayName = [aTaskUser valueForKey:@"lowercaseEmail"];
-    if ([aTaskUser valueForKey:@"preferredName"] != nil) {
-        cell.detailTextLabel.text = displayName;
-        displayName = [aTaskUser valueForKey:@"preferredName"];
-        // TODO: Set the image
-    }
-    cell.textLabel.text = displayName;
     return cell;
 }
 
-
-- (UITableViewCellEditingStyle) tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return UITableViewCellEditingStyleDelete;
-}
-
-/*
- // Override to support conditional editing of the table view.
- - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the specified item to be editable.
- return YES;
- }
- */
-
-/*
- // Override to support editing the table view.
- - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
- {
- if (editingStyle == UITableViewCellEditingStyleDelete) {
- // Delete the row from the data source
- [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
- }
- else if (editingStyle == UITableViewCellEditingStyleInsert) {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }
- }
- */
-
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
- {
- }
- */
-
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
 
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    // Pressing any user fires the selection tool.
+    if (indexPath.section == 1) {
+        [self performSegueWithIdentifier:kSelectTaskListTaskUsersSegue sender:self.taskList];
+    }
+
 }
 
 -(NSString *) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return @"Team members";
+    if (section == 0) {
+        return @"Title";
+    } else {
+        return @"Team members";
+    }
 }
 
-
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:kSelectTaskListTaskUsersSegue]) {
+        if ([sender isKindOfClass:[TaskList class]]) {
+            RHSelectTaskListTaskUsersViewController * destination = segue.destinationViewController;
+            destination.taskList = self.taskList;
+        }
+    }
+}
 
 @end
