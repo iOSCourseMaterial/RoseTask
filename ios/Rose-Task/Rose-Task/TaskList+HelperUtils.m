@@ -11,6 +11,7 @@
 #import "RHEndpointsAdapter.h"
 #import "Task+HelperUtils.h"
 #import "TaskUser+HelperUtils.h"
+#import "DeleteTransaction+HelperUtils.h"
 
 @implementation TaskList (HelperUtils)
 
@@ -31,7 +32,6 @@
             return array[0]; // There should only ever be one.
         }
         return nil;
-
 }
 
 + (TaskList *) createTaskListforTaskUser:(TaskUser *) aTaskUser {
@@ -64,6 +64,25 @@
 }
 
 
+- (void) deleteThenSync:(BOOL) syncNeeded {    
+    NSManagedObjectContext *moc = self.managedObjectContext;
+    self.syncNeeded = [NSNumber numberWithBool:syncNeeded]; // About to be deleted. :)
+    
+    // Potentially sync with Endpoints.
+    if (syncNeeded) {
+        DeleteTransaction * dt = [DeleteTransaction createTaskListDeleteTransactionWithIdentifier:self];
+        [[RHEndpointsAdapter sharedInstance] deleteTask:dt];
+    }
+    [moc deleteObject:self];
+    NSError *error = nil;
+    if (![moc save:&error]) {
+        NSLog(@"MOC error in %s - %@", __FUNCTION__, [error localizedDescription]);
+    }
+    
+}
+
+
+
 - (NSArray *)sortedTasks
 {
     return [self.tasks.allObjects sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
@@ -78,15 +97,24 @@
         NSString * obj1PreferredName = [(TaskUser *) obj1 preferredName];
         NSString * obj2PreferredName = [(TaskUser *) obj2 preferredName];
         if (obj1PreferredName == nil && obj2PreferredName == nil) {
-            return [obj1PreferredName compare:obj2PreferredName];
+            return [obj2PreferredName compare:obj1PreferredName];
         } else if (obj1PreferredName == nil) {
-            return NSOrderedAscending;
-        } else if (obj2PreferredName == nil) {
             return NSOrderedDescending;
+        } else if (obj2PreferredName == nil) {
+            return NSOrderedAscending;
         } else {
-            return [[(TaskUser *) obj1 created] compare:[(TaskUser *) obj2 created]];
+            return [[(TaskUser *) obj1 lowercaseEmail] compare:[(TaskUser *) obj2 lowercaseEmail]];
         }
     }];
+}
+
+- (NSArray *) sortedTaskUserEmails {    
+    NSArray * taskListTaskUsers = self.sortedTaskUsers;
+    NSMutableArray * emailsInTaskList = [[NSMutableArray alloc] initWithCapacity:[taskListTaskUsers count]];
+    for (TaskUser * aTaskUser in taskListTaskUsers) {
+        [emailsInTaskList addObject:aTaskUser.lowercaseEmail];
+    }
+    return emailsInTaskList;
 }
 
 @end

@@ -7,13 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RHMocDidChangeTableViewController.h"
 @class TaskList;
 
-@interface RHTaskTableViewController : UITableViewController
-
+@interface RHTaskTableViewController : RHMocDidChangeTableViewController
 
 @property (nonatomic) TaskList * taskList;
-
-- (IBAction)addTask:(id)sender;
 
 @end

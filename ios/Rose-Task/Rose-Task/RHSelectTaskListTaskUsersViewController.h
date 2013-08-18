@@ -9,8 +9,7 @@
 #import <UIKit/UIKit.h>
 @class TaskList;
 
-@interface RHSelectTaskListTaskUsersViewController : UITableViewController
-
+@interface RHSelectTaskListTaskUsersViewController : UITableViewController <NSFetchedResultsControllerDelegate, UIAlertViewDelegate>
 @property (nonatomic) TaskList * taskList;
 
 @end

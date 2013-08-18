@@ -7,7 +7,13 @@
 //
 
 #import "DeleteTransaction.h"
+@class Task;
+@class TaskList;
 
 @interface DeleteTransaction (HelperUtils)
 
++ (DeleteTransaction *) createTaskDeleteTransactionWithIdentifier:(Task *) taskAboutToBeDeleted;
++ (DeleteTransaction *) createTaskListDeleteTransactionWithIdentifier:(TaskList *) taskListAboutToBeDeleted;
+
+- (void) transactionComplete;
 @end

@@ -38,7 +38,7 @@
     NSManagedObjectContext *moc = [ad managedObjectContext];
     TaskUser * aTaskUser = (TaskUser *)[NSEntityDescription insertNewObjectForEntityForName:@"TaskUser"
                                                        inManagedObjectContext:moc];
-    [aTaskUser setValue:[anEmail lowercaseString] forKey:@"lowercaseEmail"];
+    [aTaskUser setLowercaseEmail:[anEmail lowercaseString]];
     [aTaskUser setCreated:[NSDate date]];
     NSError *error = nil;
     if (![moc save:&error]) {
@@ -75,6 +75,22 @@
         [RHEndpointsAdapter.sharedInstance syncTaskUser:self];
     }
 }
+
+
+- (void) deleteThenSync:(BOOL) syncNeeded {
+    NSManagedObjectContext *moc = self.managedObjectContext;
+    self.syncNeeded = [NSNumber numberWithBool:syncNeeded];
+    // Potentially sync with Endpoints.
+    if (syncNeeded) {
+        NSLog(@"TODO: Create a delete transaction and make it happen");
+    }
+    [moc deleteObject:self];
+    NSError *error = nil;
+    if (![moc save:&error]) {
+        NSLog(@"MOC error in %s - %@", __FUNCTION__, [error localizedDescription]);
+    }
+}
+
 
 - (NSArray *)sortedTaskLists
 {

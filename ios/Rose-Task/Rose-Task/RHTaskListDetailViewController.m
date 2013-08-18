@@ -14,9 +14,12 @@
 
 #define kSelectTaskListTaskUsersSegue @"SelectTaskListTaskUsersSegue"
 
-@interface RHTaskListDetailViewController ()
+@interface RHTaskListDetailViewController (){
+    BOOL _saveWasPressed;
+}
 @property (nonatomic, strong) NSMutableArray * taskListTaskUsers;
 @property (weak, nonatomic) UITextField *titleTextField;
+@property (nonatomic, strong) NSSet * originalTaskUsers;
 @end
 
 @implementation RHTaskListDetailViewController
@@ -25,6 +28,8 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    self.originalTaskUsers = [self.taskList.taskUsers copy];
+    _saveWasPressed = NO;
 }
 
 
@@ -35,15 +40,12 @@
     [self.tableView reloadData];
 }
 
-- (IBAction)deleteTaskList:(id)sender {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Delete %@", [self.taskList valueForKey:@"title"]]
-                                                    message:@"Are you sure?"
-                                                   delegate:self
-                                          cancelButtonTitle:@"Cancel"
-                                          otherButtonTitles:@"Delete", nil];
-    [alert show];
+- (void) viewWillDisappear:(BOOL)animated {
+    if(!_saveWasPressed) {
+        NSLog(@"Resetting users to a count of %d", [self.originalTaskUsers.allObjects count]);
+        [self.taskList setTaskUsers:self.originalTaskUsers];
+    }
 }
-
 
 #pragma mark - UITextField delegate
 - (IBAction)textEditingDone:(id)sender {
@@ -55,6 +57,7 @@
 
 - (IBAction)save:(id)sender {
     // Save the changes to the title and jump back to the list of task lists.
+    _saveWasPressed = YES;
     [self.taskList setTitle:self.titleTextField.text];
     
     // Consider: Put the check for the local_only user here instead.
@@ -65,11 +68,6 @@
     }
     [self.navigationController popViewControllerAnimated:YES];
 }
-
-- (IBAction)editTaskListTaskUsers:(id)sender {
-    [self performSegueWithIdentifier:kSelectTaskListTaskUsersSegue sender:self.taskList];
-}
-
 
 #pragma mark - Table view data source
 
@@ -94,10 +92,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    // TODO: Refactor this whole controller.  It is way out of date.  Managed Objects really?
-    
-    
     static NSString *TaskUserCellIdentifier = @"TaskUserCell";
     static NSString *TaskListTitleCellIdentifier = @"TaskListTitleCell";
     UITableViewCell * cell = nil;
@@ -107,10 +101,13 @@
             cell = [tableView dequeueReusableCellWithIdentifier:TaskListTitleCellIdentifier forIndexPath:indexPath];
             // TODO: Figure out how to get the content view to set the text field ... hum...
             NSArray * childViews = cell.contentView.subviews;
-            NSLog(@"There are %d child views of the content view", [childViews count]);
-            NSLog(@"The view at index 0 is of class %@.", [childViews[0] class]);
+//            NSLog(@"There are %d child views of the content view", [childViews count]);
+//            NSLog(@"The view at index 0 is of class %@.", [childViews[0] class]);
             self.titleTextField = childViews[0];
             self.titleTextField.text = self.taskList.title;
+            if ([self.taskList.title length] < 1) {
+                [self.titleTextField becomeFirstResponder];
+            }
         }
             break;
         case 1:

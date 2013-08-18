@@ -16,6 +16,7 @@
 
 @property (nonatomic, readonly) NSArray * sortedTasks;
 @property (nonatomic, readonly) NSArray * sortedTaskUsers;
-
+@property (nonatomic, readonly) NSArray * sortedTaskUserEmails;
 - (void) saveThenSync:(BOOL) syncNeeded;
+- (void) deleteThenSync:(BOOL) syncNeeded;
 @end

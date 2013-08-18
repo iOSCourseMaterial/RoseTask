@@ -15,5 +15,6 @@
 + (Task *) createTaskforTaskList:(TaskList *) aTaskList;
 
 - (void) saveThenSync:(BOOL) syncNeeded;
+- (void) deleteThenSync:(BOOL) syncNeeded;
 
 @end

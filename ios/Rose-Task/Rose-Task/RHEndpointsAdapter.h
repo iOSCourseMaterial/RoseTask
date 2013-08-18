@@ -11,6 +11,7 @@
 @class TaskUser;
 @class Task;
 @class TaskList;
+@class DeleteTransaction;
 
 @interface RHEndpointsAdapter : NSObject
 
@@ -20,6 +21,8 @@
 - (void) syncTaskUser:(TaskUser *) aTaskUser;
 - (void) syncTask:(Task *) aTask;
 - (void) syncTaskList:(TaskList *) aTaskList;
-- (void) syncDeletes;
 
+- (void) syncAll;
+- (void) deleteTask:(DeleteTransaction *) aTaskDeleteTransaction;
+- (void) deleteTaskList:(DeleteTransaction *) aTaskListDeleteTransaction;
 @end

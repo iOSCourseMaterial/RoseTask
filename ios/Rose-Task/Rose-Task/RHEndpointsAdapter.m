@@ -13,8 +13,9 @@
 #import "TaskUser+HelperUtils.h"
 #import "TaskList+HelperUtils.h"
 #import "Task+HelperUtils.h"
+#import "DeleteTransaction+HelperUtils.h"
 
-#define LOCAL_TESTING_ONLY YES
+#define LOCAL_TESTING_ONLY NO
 
 @implementation RHEndpointsAdapter
 
@@ -80,10 +81,17 @@
         NSLog(@"Local testing no Task sent");
         return;
     }
+    if (!aTask.taskList.identifier) {
+        NSLog(@"Abort this task sync.  There is no TaskList identifier.  Don't waste Endpoints time.");
+        return;
+    }
     GTLServiceRosetask *service = [self roseTaskService];
     // Convert the Task into a GtlTask.
     GTLRosetaskTask *aGtlTask = [GTLRosetaskTask alloc];
-    [aGtlTask setIdentifier:aTask.identifier];
+    if (aTask.identifier) {
+        // Only add the identifier if it already exist.
+        [aGtlTask setIdentifier:aTask.identifier];
+    }
     [aGtlTask setText:aTask.text];
     [aGtlTask setTaskListId:aTask.taskList.identifier];
     [aGtlTask setDetails:aTask.details];
@@ -91,6 +99,11 @@
     [aGtlTask setComplete:aTask.complete];
     
     GTLQueryRosetask *query = [GTLQueryRosetask queryForTaskInsertWithObject:aGtlTask];
+    
+    NSLog(@"Sending...");
+    NSLog(@" text = %@", aGtlTask.text);
+    NSLog(@" identifier = %@", aGtlTask.identifier);
+    NSLog(@" details = %@", aGtlTask.details);
     
     [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, GTLRosetaskTask *returnedGtlTask, NSError *error) {
         NSLog(@"Done!");
@@ -109,15 +122,27 @@
         NSLog(@"Local testing no TaskList sent");
         return;
     }
+
+    
     GTLServiceRosetask *service = [self roseTaskService];
     // Convert the TaskList into a GtlTaskList.
     GTLRosetaskTaskList *aGtlTaskList = [GTLRosetaskTaskList alloc];
-    [aGtlTaskList setIdentifier:aTaskList.identifier];
+    if (aTaskList.identifier) {
+        // Only add the identifier if it already exist.
+        [aGtlTaskList setIdentifier:aTaskList.identifier];
+    }
+    
     [aGtlTaskList setTitle:aTaskList.title];
-    [aGtlTaskList setTaskUserEmails:aTaskList.sortedTaskUsers];
+    [aGtlTaskList setTaskUserEmails:aTaskList.sortedTaskUserEmails];
+    
     // Note that tasks are not sent in TaskList updates
 
     GTLQueryRosetask *query = [GTLQueryRosetask queryForTasklistInsertWithObject:aGtlTaskList];
+    
+    NSLog(@"Sending...");
+    NSLog(@" title = %@", aGtlTaskList.title);
+    NSLog(@" identifier = %@", aGtlTaskList.identifier);
+    NSLog(@" emails = %@", aGtlTaskList.taskUserEmails);
     
     [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, GTLRosetaskTaskList *returnedGtlTaskList, NSError *error) {
         NSLog(@"Done!");
@@ -128,22 +153,87 @@
         
         // Mark the TaskList in CD as no longer needing a sync.
         [aTaskList setIdentifier:returnedGtlTaskList.identifier];
-        // Consider: Could sync the created times by converting the GAE created time string to an NSDate.
-//        [aTaskList setCreated:returnedGtlTaskList.created];
         [aTaskList saveThenSync:NO];
-        // Note, this might be adding the id to CD!  Originally I thought I'd do this.  No way.
-        //TaskList * returnedTaskList = [TaskList taskListFromId:returnedGtlTaskList.identifier];
-        //[returnedTaskList saveThenSync:NO];
+    }];
+
+}
+
+- (void) deleteTask:(DeleteTransaction *) aTaskDeleteTransaction{
+    if (LOCAL_TESTING_ONLY) {
+        NSLog(@"Local testing no Delete Task sent");
+        return;
+    }
+    
+    // Create an API message to delete a task
+    GTLServiceRosetask *service = [self roseTaskService];
+    GTLRosetaskTask *aGtlTask = [GTLRosetaskTask alloc];
+    [aGtlTask setIdentifier:aTaskDeleteTransaction.identifier];
+    // Rest can be blank.
+    
+    GTLQueryRosetask *query = [GTLQueryRosetask queryForTaskDeleteWithIdentifier:[aTaskDeleteTransaction.identifier longLongValue]];
+    
+    [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, GTLRosetaskTask *returnedGtlTask, NSError *error) {
+        NSLog(@"Done!");
+        NSLog(@"text = %@", returnedGtlTask.text);
+        NSLog(@"identifier = %@", returnedGtlTask.identifier);
+        
+
+        // Consider:  Make sure it worked. :)
+        if ([returnedGtlTask.text caseInsensitiveCompare:@"deleted"] == NSOrderedSame) {
+            NSLog(@"Yes confirmed.  Task was deleted.");
+        }
+        [aTaskDeleteTransaction transactionComplete];
+    }];
+    
+
+}
+
+
+- (void) deleteTaskList:(DeleteTransaction *) aTaskListDeleteTransaction {
+    if (LOCAL_TESTING_ONLY) {
+        NSLog(@"Local testing no Delete TaskList sent");
+        return;
+    }
+    
+    // Create an API message to delete a task
+    GTLServiceRosetask *service = [self roseTaskService];
+    GTLRosetaskTask *aGtlTask = [GTLRosetaskTask alloc];
+    [aGtlTask setIdentifier:aTaskListDeleteTransaction.identifier];
+    // Rest can be blank.
+    
+    GTLQueryRosetask *query = [GTLQueryRosetask queryForTasklistDeleteWithIdentifier:[aTaskListDeleteTransaction.identifier longLongValue]];
+    
+    [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, GTLRosetaskTaskList *returnedGtlTaskList, NSError *error) {
+        NSLog(@"Done!");
+        NSLog(@"text = %@", returnedGtlTaskList.title);
+        NSLog(@"identifier = %@", returnedGtlTaskList.identifier);
+        
+        
+        // Consider:  Make sure it worked. :)
+        if ([returnedGtlTaskList.title caseInsensitiveCompare:@"deleted"] == NSOrderedSame) {
+            NSLog(@"Yes confirmed.  Task was deleted.");
+        }
+        [aTaskListDeleteTransaction transactionComplete];
     }];
 
 }
 
 - (void) syncDeletes {
     if (LOCAL_TESTING_ONLY) {
-        NSLog(@"Local testing no Delete sent");
+        NSLog(@"Local testing no Deletes sent");
         return;
     }
     
+    
+    // Find all the objects that need a delete.
 }
+
+- (void) syncAll{
+    if (LOCAL_TESTING_ONLY) {
+        NSLog(@"Local testing no Sync all sent");
+        return;
+    }
+}
+
 
 @end

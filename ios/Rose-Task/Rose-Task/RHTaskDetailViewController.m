@@ -12,7 +12,11 @@
 #import "RHAssignTaskController.h"
 #import "RHTaskUserCell.h"
 
-@interface RHTaskDetailViewController ()
+@interface RHTaskDetailViewController () {
+    BOOL _saveWasPressed;
+}
+@property (nonatomic, strong) NSNumber * tempIsComplete;
+@property (nonatomic) TaskUser * originalAssignedTo;
 
 @end
 
@@ -24,13 +28,25 @@
     [super viewDidLoad];
     self.textTextField.text = self.task.text;
     self.detailsTextView.text = @"Details will go here";
-
+    self.tempIsComplete = self.task.complete;
+    self.originalAssignedTo = self.task.assignedTo;
+    _saveWasPressed = NO;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.tableView reloadData];
+    if ([self.task.text length] < 1) {
+        [self.textTextField becomeFirstResponder];
+    }
 }
+
+- (void) viewWillDisappear:(BOOL)animated {
+    if (!_saveWasPressed) {
+        self.task.assignedTo = self.originalAssignedTo;
+    }
+}
+
 
 #pragma mark - Table view data source
 // Static cells from storyboard
@@ -50,11 +66,12 @@
                 [(RHTaskUserCell *) cell setTaskUser:self.task.assignedTo];
             } else {
                 // Row 1 is the completed row
-                if (self.task.complete) {
+                if ([self.tempIsComplete isEqualToNumber:@YES]) {
                     cell.detailTextLabel.text = @"Yes";
-                    // TODO: make the color green.
+                    [cell.detailTextLabel setTextColor:[UIColor colorWithRed:0 green:0.6 blue:0 alpha:1.0]];
                 } else {
                     cell.detailTextLabel.text = @"No";
+                    [cell.detailTextLabel setTextColor:[UIColor colorWithRed:0.6 green:0 blue:0 alpha:1.0]];
                 }
             }
             break;
@@ -68,15 +85,12 @@
 
 
 - (IBAction)save:(id)sender {
-    NSLog(@"You'd like to save.  Good for you");
+    _saveWasPressed = YES;
     self.task.text = self.textTextField.text;
     self.task.details = self.detailsTextView.text;
+    self.task.complete = self.tempIsComplete;
     [self.task saveThenSync:YES];
     [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (IBAction)deleteTask:(id)sender {
-    NSLog(@"You'd like to delete this Task");
 }
 
 
@@ -99,7 +113,11 @@
             } else {
                 // Row 1 is the completed row
                 NSLog(@"Change the complete status");
-                self.task.complete = self.task.complete ? @NO : @YES;
+                if ([self.tempIsComplete isEqualToNumber:@YES]) {
+                    self.tempIsComplete = @NO;
+                } else {
+                    self.tempIsComplete = @YES;
+                }
                 [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
             }
             break;
@@ -112,6 +130,7 @@
 
 }
 
+
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"AssignTaskSegue"]) {
         if ([sender isKindOfClass:[Task class]]) {
@@ -121,6 +140,7 @@
         }
     }
 }
+
 
 #pragma mark - UITextField delegate
 

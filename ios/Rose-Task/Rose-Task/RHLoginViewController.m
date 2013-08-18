@@ -38,7 +38,7 @@
         TaskUser * test3 = [TaskUser createFromEmail:@"test3"];
         TaskUser * test4 = [TaskUser createFromEmail:@"test4"];
         [test1 setPreferredName:@"Test1"];
-        [test2 setPreferredName:@"Test2"];
+        [test2 setPreferredName:@"Best2"];
         
         // Create a TaskList for local only
         TaskList * list1 = [TaskList createTaskListforTaskUser:theLocalOnlyTaskUser];

@@ -10,14 +10,12 @@
 @class TaskUser;
 @class TaskList;
 
-@interface RHTaskListDetailViewController : UITableViewController <UIAlertViewDelegate, UITextFieldDelegate>
+@interface RHTaskListDetailViewController : UITableViewController <UITextFieldDelegate>
 
 @property (nonatomic) TaskUser * taskUser;
 @property (nonatomic) TaskList * taskList;
 
 - (IBAction)save:(id)sender;
-- (IBAction)editTaskListTaskUsers:(id)sender;
-- (IBAction)deleteTaskList:(id)sender;
 - (IBAction)textEditingDone:(id)sender;
 
 @end

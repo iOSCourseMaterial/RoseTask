@@ -9,6 +9,7 @@
 #import "Task+HelperUtils.h"
 #import "RHAppDelegate.h"
 #import "RHEndpointsAdapter.h"
+#import "DeleteTransaction+HelperUtils.h"
 
 @implementation Task (HelperUtils)
 
@@ -58,6 +59,25 @@
         // Save the TaskUser with Endpoints
         [[RHEndpointsAdapter sharedInstance] syncTask:self];
     }
+}
+
+- (void) deleteThenSync:(BOOL) syncNeeded {
+    
+    NSManagedObjectContext *moc = self.managedObjectContext;
+    self.syncNeeded = [NSNumber numberWithBool:syncNeeded]; // About to be deleted. :)
+    
+    // Potentially sync with Endpoints.
+    if (syncNeeded) {
+        NSLog(@"TODO: Create a delete transaction and make it happen");
+        DeleteTransaction * dt = [DeleteTransaction createTaskDeleteTransactionWithIdentifier:self];
+        [[RHEndpointsAdapter sharedInstance] deleteTask:dt];
+    }
+    [moc deleteObject:self];
+    NSError *error = nil;
+    if (![moc save:&error]) {
+        NSLog(@"MOC error in %s - %@", __FUNCTION__, [error localizedDescription]);
+    }
+
 }
 
 @end

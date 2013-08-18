@@ -17,7 +17,6 @@
 @property (weak, nonatomic) IBOutlet UITextView *detailsTextView;
 
 - (IBAction)save:(id)sender;
-- (IBAction)deleteTask:(id)sender;
 - (IBAction)textEditingDone:(id)sender;
 
 @end
