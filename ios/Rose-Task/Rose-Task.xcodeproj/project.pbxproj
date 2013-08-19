@@ -20,6 +20,7 @@
 		FD364D3F17C08F6E006E31B6 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FD364D3D17C08F6E006E31B6 /* Icon@2x.png */; };
 		FD364D4117C08F7C006E31B6 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FD364D4017C08F7C006E31B6 /* Icon@2x.png */; };
 		FD364D4317C08F89006E31B6 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = FD364D4217C08F89006E31B6 /* Icon-72.png */; };
+		FD364D4617C1C55A006E31B6 /* GTLRosetaskApiMessagesTaskListResponseMessage+Customization.m in Sources */ = {isa = PBXBuildFile; fileRef = FD364D4517C1C559006E31B6 /* GTLRosetaskApiMessagesTaskListResponseMessage+Customization.m */; };
 		FD82D7CB17B421BB00529133 /* GTLObject.m in Sources */ = {isa = PBXBuildFile; fileRef = FD82D79217B421BB00529133 /* GTLObject.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FD82D7CC17B421BB00529133 /* GTLQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = FD82D79417B421BB00529133 /* GTLQuery.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FD82D7CD17B421BB00529133 /* GTLBatchQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = FD82D79617B421BB00529133 /* GTLBatchQuery.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -108,6 +109,8 @@
 		FD364D3D17C08F6E006E31B6 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		FD364D4017C08F7C006E31B6 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		FD364D4217C08F89006E31B6 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
+		FD364D4417C1C558006E31B6 /* GTLRosetaskApiMessagesTaskListResponseMessage+Customization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTLRosetaskApiMessagesTaskListResponseMessage+Customization.h"; sourceTree = "<group>"; };
+		FD364D4517C1C559006E31B6 /* GTLRosetaskApiMessagesTaskListResponseMessage+Customization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTLRosetaskApiMessagesTaskListResponseMessage+Customization.m"; sourceTree = "<group>"; };
 		FD82D79017B421BB00529133 /* GTLDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLDefines.h; sourceTree = "<group>"; };
 		FD82D79117B421BB00529133 /* GTLObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLObject.h; sourceTree = "<group>"; };
 		FD82D79217B421BB00529133 /* GTLObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLObject.m; sourceTree = "<group>"; };
@@ -417,6 +420,8 @@
 		FDBE74F817BBD34A0006092D /* Endpoints */ = {
 			isa = PBXGroup;
 			children = (
+				FD364D4417C1C558006E31B6 /* GTLRosetaskApiMessagesTaskListResponseMessage+Customization.h */,
+				FD364D4517C1C559006E31B6 /* GTLRosetaskApiMessagesTaskListResponseMessage+Customization.m */,
 				FDBE74F517BBD3250006092D /* RHEndpointsAdapter.h */,
 				FDBE74F617BBD3250006092D /* RHEndpointsAdapter.m */,
 			);
@@ -640,6 +645,7 @@
 				FDCA011A17BDE8D60069E317 /* RHSelectTaskListTaskUsersViewController.m in Sources */,
 				FD364D3217BF26B0006E31B6 /* RHMocDidChangeTableViewController.m in Sources */,
 				FD364D3B17C07DEE006E31B6 /* DeleteTransaction.m in Sources */,
+				FD364D4617C1C55A006E31B6 /* GTLRosetaskApiMessagesTaskListResponseMessage+Customization.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

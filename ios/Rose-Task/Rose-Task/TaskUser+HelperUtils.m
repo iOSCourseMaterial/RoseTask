@@ -8,8 +8,9 @@
 
 #import "TaskUser+HelperUtils.h"
 #import "RHAppDelegate.h"
-#import "TaskList.h"
+#import "TaskList+HelperUtils.h"
 #import "RHEndpointsAdapter.h"
+#import "GTLRosetaskApiMessagesTaskUserResponseMessage.h"
 
 @implementation TaskUser (HelperUtils)
 
@@ -46,6 +47,24 @@
     }
     return aTaskUser;
 }
+
++ (TaskUser *) taskUserFromMessage:(GTLRosetaskApiMessagesTaskUserResponseMessage *) apiTaskUserMessage withParentTaskList:(TaskList *) parentTaskList{
+    // Determine if this TaskUser is already in CD
+    TaskUser * aTaskUser = [TaskUser taskUserFromEmail:apiTaskUserMessage.lowercaseEmail];
+    if (aTaskUser == nil) {
+        // This is a new TaskUser that is NOT within CD.  Let's add it.
+        aTaskUser = [TaskUser createFromEmail:apiTaskUserMessage.lowercaseEmail];
+    }
+    [aTaskUser setPreferredName:apiTaskUserMessage.preferredName];
+    [aTaskUser setGooglePlusId:apiTaskUserMessage.googlePlusId];
+    [aTaskUser addTaskListsObject:parentTaskList];
+    
+    if (aTaskUser.image == nil && [aTaskUser.googlePlusId length] > 0) {
+        [aTaskUser addImageUsingFetch];
+    }
+    return aTaskUser;
+}
+
 
 + (TaskUser *) localOnlyTaskUser {
     static TaskUser * theLocalOnlyTaskUser = nil;
@@ -97,6 +116,36 @@
     return [self.taskLists.allObjects sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
         return [[(TaskList *) obj1 created] compare:[(TaskList *) obj2 created]];
     }];
+}
+
+- (void) addImageUsingFetch {
+    if ([self.googlePlusId length] > 0) {
+        // Get the image by using the Google+ id.
+        NSLog(@"TODO: Figure out how to fetch the Google+ id");
+        
+        // Make a request to Google to get the URL of the image.  Something like this:
+//        https://www.googleapis.com/plus/v1/people/106027280718489289045?fields=displayName%2Cimage&key=AIzaSyAUwqTXAMLGn2pynwuOJYEzZlW1oJuO0Nk
+        
+        // Use the image url to get an image
+        // Sample with Kristy
+//        https://lh3.googleusercontent.com/-jFEun7oX1eI/AAAAAAAAAAI/AAAAAAAAAAA/yDmoCwnh_ew/photo.jpg?sz=50
+
+        // Obviously we'll need to get the URL from the Google+ API request.
+        NSString * testUrl = @"https://lh3.googleusercontent.com/-jFEun7oX1eI/AAAAAAAAAAI/AAAAAAAAAAA/yDmoCwnh_ew/photo.jpg?sz=50";
+        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:testUrl]]];
+        
+        // Save that image into Core Data
+        NSData *imageData = UIImagePNGRepresentation(image);
+        [self setImage:imageData];
+        [self saveThenSync:NO];
+    }
+}
+
+- (UIImage *) googlePlusImage {
+    if (self.image == nil) {
+        return nil;
+    }
+    return [UIImage imageWithData:self.image];
 }
 
 @end

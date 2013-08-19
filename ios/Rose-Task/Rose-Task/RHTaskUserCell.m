@@ -45,8 +45,9 @@
         self.detailTextLabel.text = @"";
     }
     
-    if (self.taskUser.image) {
+    if (self.taskUser.googlePlusImage != nil) {
         NSLog(@"We have an image for %@. Display it", self.taskUser.preferredName);
+        self.imageView.image = self.taskUser.googlePlusImage;
     }
 }
 

@@ -25,4 +25,7 @@
 - (void) syncAll;
 - (void) deleteTask:(DeleteTransaction *) aTaskDeleteTransaction;
 - (void) deleteTaskList:(DeleteTransaction *) aTaskListDeleteTransaction;
+
+- (void) updateAllForTaskUser:(TaskUser *) currentTaskUser;
+
 @end

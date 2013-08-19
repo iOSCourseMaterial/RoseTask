@@ -14,6 +14,7 @@
 #import "TaskList+HelperUtils.h"
 #import "Task+HelperUtils.h"
 #import "DeleteTransaction+HelperUtils.h"
+#import "GTLRosetaskApiMessagesTaskListResponseMessage+Customization.h"
 
 #define LOCAL_TESTING_ONLY NO
 
@@ -88,9 +89,12 @@
     GTLServiceRosetask *service = [self roseTaskService];
     // Convert the Task into a GtlTask.
     GTLRosetaskTask *aGtlTask = [GTLRosetaskTask alloc];
-    if (aTask.identifier) {
+    if (aTask.identifier != nil && [aTask.identifier longLongValue] > 0) {
         // Only add the identifier if it already exist.
         [aGtlTask setIdentifier:aTask.identifier];
+    } else {
+        // Go ahead and make sure it's nil if this is a new entry.
+        [aGtlTask setIdentifier:nil];
     }
     [aGtlTask setText:aTask.text];
     [aGtlTask setTaskListId:aTask.taskList.identifier];
@@ -127,11 +131,13 @@
     GTLServiceRosetask *service = [self roseTaskService];
     // Convert the TaskList into a GtlTaskList.
     GTLRosetaskTaskList *aGtlTaskList = [GTLRosetaskTaskList alloc];
-    if (aTaskList.identifier) {
+    if (aTaskList.identifier != nil && [aTaskList.identifier longLongValue] > 0) {
         // Only add the identifier if it already exist.
         [aGtlTaskList setIdentifier:aTaskList.identifier];
+    } else {
+        // Go ahead and make sure it's nil if this is a new entry.
+        [aGtlTaskList setIdentifier:nil];
     }
-    
     [aGtlTaskList setTitle:aTaskList.title];
     [aGtlTaskList setTaskUserEmails:aTaskList.sortedTaskUserEmails];
     
@@ -142,6 +148,15 @@
     NSLog(@"Sending...");
     NSLog(@" title = %@", aGtlTaskList.title);
     NSLog(@" identifier = %@", aGtlTaskList.identifier);
+    
+    if (aGtlTaskList.identifier) {
+        // Only add the identifier if it already exist.
+        NSLog(@"aGtlTaskList HAS an identifier %@", aGtlTaskList.identifier);
+        [aGtlTaskList setIdentifier:aTaskList.identifier];
+    } else {
+        NSLog(@"aGtlTaskList has no identifier");
+    }
+
     NSLog(@" emails = %@", aGtlTaskList.taskUserEmails);
     
     [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, GTLRosetaskTaskList *returnedGtlTaskList, NSError *error) {
@@ -224,8 +239,26 @@
         return;
     }
     
-    
-    // Find all the objects that need a delete.
+    // Find all the DeleteTransaction managed objects and send them.
+}
+
+- (void) updateAllForTaskUser:(TaskUser *) currentTaskUser {
+    if (LOCAL_TESTING_ONLY) {
+        NSLog(@"Local testing no Sync all sent");
+        return;
+    }
+    GTLServiceRosetask *service = [self roseTaskService];
+    GTLQueryRosetask *query = [GTLQueryRosetask queryForTasklistGettasklists];
+    // Note there is another version where you can set limits (current is 20 TaskLists) queryForTasklistInsertWithObject:(GTLRosetaskTaskList *)object;
+
+    [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, GTLRosetaskApiMessagesTaskListListResponse *object, NSError *error) {
+        NSLog(@"Done with the kitchen sink reply! Num items is %d", [object.items count]);
+        for(GTLRosetaskApiMessagesTaskListResponseMessage * taskListMessage in object.items) {
+            NSLog(@"Updating/creating the list %@", taskListMessage.title);
+            [taskListMessage updateCoreDataForTaskUser: currentTaskUser];
+        }
+    }];
+
 }
 
 - (void) syncAll{
@@ -233,6 +266,8 @@
         NSLog(@"Local testing no Sync all sent");
         return;
     }
+    
+    // Find all the managed objects with syncNeeded set and send them.
 }
 
 

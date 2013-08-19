@@ -8,12 +8,13 @@
 
 #import "Task.h"
 @class TaskList;
+@class GTLRosetaskApiMessagesTaskResponseMessage;
 
 @interface Task (HelperUtils)
 
-+ (Task *) taskFromId:(NSInteger) anId;
++ (Task *) taskFromId:(NSNumber *) anId;
 + (Task *) createTaskforTaskList:(TaskList *) aTaskList;
-
++ (Task *) taskUserFromMessage:(GTLRosetaskApiMessagesTaskResponseMessage *) apiTaskMessage  withParentTaskList:(TaskList *) parentTaskList;
 - (void) saveThenSync:(BOOL) syncNeeded;
 - (void) deleteThenSync:(BOOL) syncNeeded;
 

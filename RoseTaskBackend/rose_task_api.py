@@ -25,13 +25,14 @@ CLIENT_ID = '692785471170.apps.googleusercontent.com';
 
 # For http://localhost:8080
 CLIENT_ID_LOCALHOST = '692785471170-eb3d0s8l8mats4knvint6i35977uoojv.apps.googleusercontent.com'
+CLIENT_ID_LOCALHOST_BY_IP = '692785471170-obbt0rpr43dsqfpkov3hqnk5thgntvbr.apps.googleusercontent.com';
 
 # For my iOS client.  
 CLIENT_ID_IOS = '692785471170-iphols9ldsfi4596dn12oc617400d7qc.apps.googleusercontent.com';
 
 @endpoints.api(name='rosetask', version='v1',
                description='Rose Task API',
-               allowed_client_ids=[CLIENT_ID, CLIENT_ID_LOCALHOST, CLIENT_ID_IOS, endpoints.API_EXPLORER_CLIENT_ID])
+               allowed_client_ids=[CLIENT_ID, CLIENT_ID_LOCALHOST, CLIENT_ID_LOCALHOST_BY_IP, CLIENT_ID_IOS, endpoints.API_EXPLORER_CLIENT_ID])
 class RoseTaskApi(remote.Service):
     """Class which defines rosetask API v1."""
     
@@ -58,7 +59,10 @@ class RoseTaskApi(remote.Service):
         """ Insert a TaskList. """
         #TODO: Check if current user is in this TaskList
         a_task_list.creator = endpoints.get_current_user()
-        a_task_list.task_user_emails.append(endpoints.get_current_user().email().lower())
+        current_user_email = endpoints.get_current_user().email().lower()
+        if not current_user_email in a_task_list.task_user_emails:
+            a_task_list.task_user_emails.append(current_user_email)
+        # Consider: Check the email list for duplicates and remove them.
         if a_task_list.from_datastore:
             #logging.info("This is an update not a new TaskList")
             if not a_task_list.task_user_emails is None:

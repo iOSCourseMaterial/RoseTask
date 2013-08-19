@@ -10,10 +10,14 @@
 #import "RHAppDelegate.h"
 #import "RHEndpointsAdapter.h"
 #import "DeleteTransaction+HelperUtils.h"
+#import "GTLRosetaskApiMessagesTaskResponseMessage.h"
+#import "GTLRosetaskApiMessagesTaskUserResponseMessage.h"
+#import "TaskList+HelperUtils.h"
+#import "TaskUser+HelperUtils.h"
 
 @implementation Task (HelperUtils)
 
-+ (Task *) taskFromId:(NSInteger) anId {
++ (Task *) taskFromId:(NSNumber *) anId {
     RHAppDelegate *ad = (RHAppDelegate *) [[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *moc = [ad managedObjectContext];
     NSEntityDescription *entityDescription = [NSEntityDescription
@@ -43,6 +47,29 @@
     if (![moc save:&error]) {
         NSLog(@"MOC error in %s - %@", __FUNCTION__, [error localizedDescription]);
     }
+    return aTask;
+}
+
++ (Task *) taskUserFromMessage:(GTLRosetaskApiMessagesTaskResponseMessage *) apiTaskMessage  withParentTaskList:(TaskList *) parentTaskList {
+    // Determine if this Task is already in CD
+    Task * aTask = [Task taskFromId:apiTaskMessage.identifierProperty];
+    if (aTask == nil) {
+        // This is a new Task that is NOT within CD.  Let's add it.
+        aTask = [Task createTaskforTaskList:parentTaskList];
+    } else {
+        [aTask setTaskList:parentTaskList];
+    }
+    [aTask setIdentifier:apiTaskMessage.identifierProperty];
+    [aTask setText:apiTaskMessage.text];
+    [aTask setDetails:apiTaskMessage.details];
+    [aTask setComplete:apiTaskMessage.complete];
+    [aTask setSyncNeeded:@NO];
+    
+    if (apiTaskMessage.assignedTo != nil) {
+        TaskUser * assignedToUser = [TaskUser taskUserFromMessage:apiTaskMessage.assignedTo withParentTaskList:parentTaskList];
+        [aTask setAssignedTo:assignedToUser];
+    }
+    [aTask setTaskList:parentTaskList];
     return aTask;
 }
 

@@ -7,6 +7,8 @@
 //
 
 #import "TaskUser.h"
+@class GTLRosetaskApiMessagesTaskUserResponseMessage;
+@class TaskList;
 
 #define LOCAL_ONLY_EMAIL @"local_only"
 
@@ -14,10 +16,13 @@
 
 + (TaskUser *) taskUserFromEmail:(NSString *) anEmail;
 + (TaskUser *) createFromEmail:(NSString *) anEmail;
++ (TaskUser *) taskUserFromMessage:(GTLRosetaskApiMessagesTaskUserResponseMessage *) apiTaskUserMessage withParentTaskList:(TaskList *) parentTaskList;
 + (TaskUser *) localOnlyTaskUser;
 
 @property (nonatomic, readonly) NSArray * sortedTaskLists;
+@property (nonatomic, strong) UIImage * googlePlusImage;
 
 - (void) saveThenSync:(BOOL) syncNeeded;
+- (void) addImageUsingFetch;
 
 @end

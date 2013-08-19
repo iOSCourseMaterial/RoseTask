@@ -167,6 +167,7 @@ bool signedIn = false;
     if ([segue.identifier isEqualToString:@"PushTaskListsSegue"]) {
         if ([sender isKindOfClass:[TaskUser class]]) {
             taskListController.taskUser = sender;
+            [[RHEndpointsAdapter sharedInstance] updateAllForTaskUser:sender];
         }
         else {
             taskListController.taskUser = [TaskUser localOnlyTaskUser];
@@ -200,6 +201,7 @@ bool signedIn = false;
     currentTaskUser.googlePlusId = [auth userID];
     currentTaskUser.preferredName = preferred_name;
     [currentTaskUser saveThenSync:YES];
+    [currentTaskUser addImageUsingFetch];
     
     // Display the TaskLists for this user.
     [self performSegueWithIdentifier:@"PushTaskListsSegue" sender:currentTaskUser];
