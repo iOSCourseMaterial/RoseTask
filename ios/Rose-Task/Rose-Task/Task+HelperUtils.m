@@ -26,7 +26,7 @@
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     [request setEntity:entityDescription];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:
-                              @"(id == %@)", anId];
+                              @"(identifier == %@)", anId];
     [request setPredicate:predicate];
     NSError *error;
     NSArray *array = [moc executeFetchRequest:request error:&error];

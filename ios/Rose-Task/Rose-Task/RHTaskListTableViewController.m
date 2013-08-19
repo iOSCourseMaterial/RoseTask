@@ -12,6 +12,7 @@
 #import "RHTaskTableViewController.h"
 #import "TaskUser+HelperUtils.h"
 #import "TaskList+HelperUtils.h"
+#import "RHEndpointsAdapter.h"
 
 @interface RHTaskListTableViewController ()
 @property (nonatomic, strong) NSMutableArray * taskLists;
@@ -26,6 +27,10 @@
     // Fetch this user's TaskLists
     self.taskLists = [self.taskUser.sortedTaskLists mutableCopy];
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    // Update the TaskList using Endpoints
+    NSLog(@"Not sending request for kitchen sink");
+//    [[RHEndpointsAdapter sharedInstance] updateAllForTaskUser:self.taskUser];
 }
 
 
@@ -62,6 +67,11 @@
     }
     
     [self.tableView endUpdates];
+    
+    if (!self.editing) {
+        NSLog(@"Firing request to update lists TESTING ONLY!");
+            [[RHEndpointsAdapter sharedInstance] updateAllForTaskUser:self.taskUser];
+    }
 }
 
 #pragma mark - Table view data source

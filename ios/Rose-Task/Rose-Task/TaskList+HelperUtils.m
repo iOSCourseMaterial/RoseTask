@@ -16,22 +16,22 @@
 @implementation TaskList (HelperUtils)
 
 + (TaskList *) taskListFromId:(NSNumber *) anId {
-        RHAppDelegate *ad = (RHAppDelegate *) [[UIApplication sharedApplication] delegate];
-        NSManagedObjectContext *moc = [ad managedObjectContext];
-        NSEntityDescription *entityDescription = [NSEntityDescription
-                                                  entityForName:@"TaskList"
-                                                  inManagedObjectContext:moc];
-        NSFetchRequest *request = [[NSFetchRequest alloc] init];
-        [request setEntity:entityDescription];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:
-                                  @"(id == %@)", anId];
-        [request setPredicate:predicate];
-        NSError *error;
-        NSArray *array = [moc executeFetchRequest:request error:&error];
-        if ([array count] > 0) {
-            return array[0]; // There should only ever be one.
-        }
-        return nil;
+    RHAppDelegate *ad = (RHAppDelegate *) [[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *moc = [ad managedObjectContext];
+    NSEntityDescription *entityDescription = [NSEntityDescription
+                                              entityForName:@"TaskList"
+                                              inManagedObjectContext:moc];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:entityDescription];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:
+                              @"(identifier == %@)", anId];
+    [request setPredicate:predicate];
+    NSError *error;
+    NSArray *array = [moc executeFetchRequest:request error:&error];
+    if ([array count] > 0) {
+        return array[0]; // There should only ever be one.
+    }
+    return nil;
 }
 
 + (TaskList *) createTaskListforTaskUser:(TaskUser *) aTaskUser {

@@ -25,14 +25,13 @@ CLIENT_ID = '692785471170.apps.googleusercontent.com';
 
 # For http://localhost:8080
 CLIENT_ID_LOCALHOST = '692785471170-eb3d0s8l8mats4knvint6i35977uoojv.apps.googleusercontent.com'
-CLIENT_ID_LOCALHOST_BY_IP = '692785471170-obbt0rpr43dsqfpkov3hqnk5thgntvbr.apps.googleusercontent.com';
 
 # For my iOS client.  
 CLIENT_ID_IOS = '692785471170-iphols9ldsfi4596dn12oc617400d7qc.apps.googleusercontent.com';
 
 @endpoints.api(name='rosetask', version='v1',
                description='Rose Task API',
-               allowed_client_ids=[CLIENT_ID, CLIENT_ID_LOCALHOST, CLIENT_ID_LOCALHOST_BY_IP, CLIENT_ID_IOS, endpoints.API_EXPLORER_CLIENT_ID])
+               allowed_client_ids=[CLIENT_ID, CLIENT_ID_LOCALHOST, CLIENT_ID_IOS, endpoints.API_EXPLORER_CLIENT_ID])
 class RoseTaskApi(remote.Service):
     """Class which defines rosetask API v1."""
     
@@ -149,6 +148,7 @@ class RoseTaskApi(remote.Service):
                 a_task_user = TaskUser.get_task_user_by_email(a_task_user_email)
                 all_task_users_in_list.append(TaskUserResponseMessage(lowercase_email=a_task_user.lowercase_email, preferred_name=a_task_user.preferred_name, google_plus_id=a_task_user.google_plus_id))
             users_task_lists.append(TaskListResponseMessage(identifier=a_task_list.key.id(), title=a_task_list.title, tasks=all_tasks_in_list, task_users=all_task_users_in_list))
+        logging.info("Returning a list of TaskList, count = " + str(len(users_task_lists)))
         return TaskListListResponse(items=users_task_lists)
     
     @Task.query_method(user_required=True, query_fields=('task_list_id', 'order', 'pageToken',), path='tasks', name='task.gettasks')

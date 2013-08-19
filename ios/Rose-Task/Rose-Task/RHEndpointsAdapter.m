@@ -65,15 +65,19 @@
     NSLog(@" googlePlusId = %@", aGtlTaskUser.googlePlusId);
     
     [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, GTLRosetaskTaskUser *returnedGtlTaskUser, NSError *error) {
-        NSLog(@"Done!");
-        NSLog(@"Created = %@", returnedGtlTaskUser.created);
-        NSLog(@"lowercaseEmail = %@", returnedGtlTaskUser.lowercaseEmail);
-        NSLog(@"preferredName = %@", returnedGtlTaskUser.preferredName);
-        NSLog(@"googlePlusId = %@", returnedGtlTaskUser.googlePlusId);
-        
-        // Mark the TaskUser in CD as no longer needing a sync.
-        TaskUser * returnedTaskUser = [TaskUser taskUserFromEmail:returnedGtlTaskUser.lowercaseEmail];
-        [returnedTaskUser saveThenSync:NO];
+
+        if ([returnedGtlTaskUser.lowercaseEmail isEqualToString:aGtlTaskUser.lowercaseEmail]) {
+            NSLog(@"*** Done sending TaskUser and it worked!");
+            // Mark the TaskUser in CD as no longer needing a sync.
+            TaskUser * returnedTaskUser = [TaskUser taskUserFromEmail:returnedGtlTaskUser.lowercaseEmail];
+            [returnedTaskUser saveThenSync:NO];
+        } else {
+            NSLog(@"*** Done sending TaskUser, but it failed. :(");
+        }
+        NSLog(@"  created = %@", returnedGtlTaskUser.created);
+        NSLog(@"  lowercaseEmail = %@", returnedGtlTaskUser.lowercaseEmail);
+        NSLog(@"  preferredName = %@", returnedGtlTaskUser.preferredName);
+        NSLog(@"  googlePlusId = %@", returnedGtlTaskUser.googlePlusId);
     }];
 }
 

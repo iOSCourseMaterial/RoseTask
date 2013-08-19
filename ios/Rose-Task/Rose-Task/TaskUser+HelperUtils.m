@@ -121,24 +121,55 @@
 - (void) addImageUsingFetch {
     if ([self.googlePlusId length] > 0) {
         // Get the image by using the Google+ id.
-        NSLog(@"TODO: Figure out how to fetch the Google+ id");
+        NSLog(@"TODO: Figure out how to fetch the image url for Google+ id %@ for now cheat and use a hardcoded image url", self.googlePlusId);
         
+//        NSString * plusRequest = [NSString stringWithFormat:@"https://www.googleapis.com/plus/v1/people/%@?fields=displayName%2Cimage&key=AIzaSyAUwqTXAMLGn2pynwuOJYEzZlW1oJuO0Nk", self.googlePlusId];
+
         // Make a request to Google to get the URL of the image.  Something like this:
 //        https://www.googleapis.com/plus/v1/people/106027280718489289045?fields=displayName%2Cimage&key=AIzaSyAUwqTXAMLGn2pynwuOJYEzZlW1oJuO0Nk
         
-        // Use the image url to get an image
-        // Sample with Kristy
-//        https://lh3.googleusercontent.com/-jFEun7oX1eI/AAAAAAAAAAI/AAAAAAAAAAA/yDmoCwnh_ew/photo.jpg?sz=50
-
-        // Obviously we'll need to get the URL from the Google+ API request.
-        NSString * testUrl = @"https://lh3.googleusercontent.com/-jFEun7oX1eI/AAAAAAAAAAI/AAAAAAAAAAA/yDmoCwnh_ew/photo.jpg?sz=50";
-        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:testUrl]]];
-        
-        // Save that image into Core Data
-        NSData *imageData = UIImagePNGRepresentation(image);
-        [self setImage:imageData];
-        [self saveThenSync:NO];
+            NSString * plusRequest = [NSString stringWithFormat:@"https://www.googleapis.com/plus/v1/people/%@?fields=image&key=AIzaSyAUwqTXAMLGn2pynwuOJYEzZlW1oJuO0Nk", self.googlePlusId];
+        [self executeRequestUrlString:plusRequest withBlock:^(NSDictionary * jsonData) {
+            NSString *imageUrl = [[jsonData valueForKey:@"image"] valueForKey:@"url"];
+            NSLog(@"The image url is %@", imageUrl);
+            // Use the image url to get an image
+            // Sample with Kristy
+            //        https://lh3.googleusercontent.com/-jFEun7oX1eI/AAAAAAAAAAI/AAAAAAAAAAA/yDmoCwnh_ew/photo.jpg?sz=50
+            
+            // Obviously we'll need to get the URL from the Google+ API request.
+//            NSString * testUrl = @"https://lh3.googleusercontent.com/-jFEun7oX1eI/AAAAAAAAAAI/AAAAAAAAAAA/yDmoCwnh_ew/photo.jpg?sz=50";
+//            UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:testUrl]]];
+            UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:imageUrl]]];
+            
+            // Save that image into Core Data
+            NSData *imageData = UIImagePNGRepresentation(image);
+            [self setImage:imageData];
+            
+            // TODO: Put this back.
+            //        [self saveThenSync:NO];
+        }];
     }
+}
+
+- (void)executeRequestUrlString:(NSString *)urlString withBlock:(void (^)(NSDictionary *jsonData))block {
+    // Prepare for the call
+
+    NSURLRequest * requestForImageUrl = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:urlString]];
+    // Make the call
+    [NSURLConnection sendAsynchronousRequest:requestForImageUrl
+                                       queue:[NSOperationQueue currentQueue]
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+                               NSError *error1;
+                               NSMutableDictionary * innerJson = [NSJSONSerialization
+                                                                  JSONObjectWithData:data options:kNilOptions error:&error1
+                                                                  ];
+                               if (error == nil) {
+                                   NSLog(@"Error is nil.  NOW you can do the callback.");
+                                   block(innerJson); // Call back the block passed into your method
+                               } else {
+                                   NSLog(@"Error with fetch %@.", urlString);
+                               }
+                           }];
 }
 
 - (UIImage *) googlePlusImage {

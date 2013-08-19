@@ -11,6 +11,7 @@
 #import "TaskUser+HelperUtils.h"
 #import "Task+HelperUtils.h"
 #import "RHTaskDetailViewController.h"
+#import "RHEndpointsAdapter.h"
 
 @interface RHTaskTableViewController ()
 @property (nonatomic, strong) NSMutableArray * tasks;
@@ -24,6 +25,8 @@
     [super viewDidLoad];
     self.tasks = [self.taskList.sortedTasks mutableCopy];
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    
 }
 
 - (void) refreshData {

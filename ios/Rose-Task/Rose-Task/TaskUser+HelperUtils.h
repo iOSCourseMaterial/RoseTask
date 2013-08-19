@@ -20,7 +20,7 @@
 + (TaskUser *) localOnlyTaskUser;
 
 @property (nonatomic, readonly) NSArray * sortedTaskLists;
-@property (nonatomic, strong) UIImage * googlePlusImage;
+@property (nonatomic, readonly) UIImage * googlePlusImage;
 
 - (void) saveThenSync:(BOOL) syncNeeded;
 - (void) addImageUsingFetch;

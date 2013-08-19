@@ -133,6 +133,10 @@ bool signedIn = false;
         [RHEndpointsAdapter.sharedInstance.roseTaskService setAuthorizer:auth];
         auth.authorizationTokenKey = @"id_token";
         
+        // Allow localhost via http to work!!!!
+        NSLog(@"NO LOCALHOST! %s", __FUNCTION__);
+//        auth.shouldAuthorizeAllRequests = YES;
+        
         // TODO: Change the text on the Table View Cell to sign out instead.
 //        [self.signInButton setTitle:@"Sign out" forState:UIControlStateNormal];
         
@@ -140,8 +144,8 @@ bool signedIn = false;
         [self dismissViewControllerAnimated:YES completion:^{
             // Determine if this user has a preferred_name set.
             TaskUser * currentTaskUser = [TaskUser taskUserFromEmail:auth.userEmail];
-            if (currentTaskUser == nil) {
-                // First login for this users ask there for their name.
+            if (currentTaskUser.preferredName == nil) {
+                // Ask to set the preferred name
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Set your preferred name", @"Set your preferred name")
                                                                 message:@"Usually just your first name"
                                                                delegate:self
@@ -167,7 +171,6 @@ bool signedIn = false;
     if ([segue.identifier isEqualToString:@"PushTaskListsSegue"]) {
         if ([sender isKindOfClass:[TaskUser class]]) {
             taskListController.taskUser = sender;
-            [[RHEndpointsAdapter sharedInstance] updateAllForTaskUser:sender];
         }
         else {
             taskListController.taskUser = [TaskUser localOnlyTaskUser];
