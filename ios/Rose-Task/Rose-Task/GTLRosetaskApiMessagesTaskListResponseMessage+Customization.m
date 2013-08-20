@@ -31,8 +31,6 @@
     [aTaskList setSyncNeeded:@NO];
     [aTaskList setTitle:self.title];
     [aTaskList setIdentifier:self.identifierProperty];
-//    [aTaskList saveThenSync:NO]; // I don't think this is necessary.  Just testing. ;)
-    
     NSLog(@"List with title %@, has %d users", self.title, [self.taskUsers count]);
     for (GTLRosetaskApiMessagesTaskUserResponseMessage * gtlMessageTaskUser in self.taskUsers) {
         TaskUser * aTaskUser = [TaskUser taskUserFromMessage:gtlMessageTaskUser withParentTaskList:aTaskList];
@@ -46,7 +44,6 @@
         NSLog(@"Updating/creating the taskl %@", aTask.text);
         [aTaskList addTasksObject:aTask];
     }
-    
     [aTaskList saveThenSync:NO];
 }
 

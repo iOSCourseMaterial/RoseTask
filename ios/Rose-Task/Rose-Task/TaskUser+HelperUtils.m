@@ -121,32 +121,22 @@
 - (void) addImageUsingFetch {
     if ([self.googlePlusId length] > 0) {
         // Get the image by using the Google+ id.
-        NSLog(@"TODO: Figure out how to fetch the image url for Google+ id %@ for now cheat and use a hardcoded image url", self.googlePlusId);
         
-//        NSString * plusRequest = [NSString stringWithFormat:@"https://www.googleapis.com/plus/v1/people/%@?fields=displayName%2Cimage&key=AIzaSyAUwqTXAMLGn2pynwuOJYEzZlW1oJuO0Nk", self.googlePlusId];
-
-        // Make a request to Google to get the URL of the image.  Something like this:
-//        https://www.googleapis.com/plus/v1/people/106027280718489289045?fields=displayName%2Cimage&key=AIzaSyAUwqTXAMLGn2pynwuOJYEzZlW1oJuO0Nk
-        
-            NSString * plusRequest = [NSString stringWithFormat:@"https://www.googleapis.com/plus/v1/people/%@?fields=image&key=AIzaSyAUwqTXAMLGn2pynwuOJYEzZlW1oJuO0Nk", self.googlePlusId];
+        // TODO: Reduce this hacky string hardcoding by using a NSURL methods.
+        // TODO: Split the key off as a constant
+        NSString * plusRequest = [NSString stringWithFormat:@"https://www.googleapis.com/plus/v1/people/%@?fields=image&key=AIzaSyAUwqTXAMLGn2pynwuOJYEzZlW1oJuO0Nk", self.googlePlusId];
         [self executeRequestUrlString:plusRequest withBlock:^(NSDictionary * jsonData) {
             NSString *imageUrl = [[jsonData valueForKey:@"image"] valueForKey:@"url"];
-            NSLog(@"The image url is %@", imageUrl);
-            // Use the image url to get an image
-            // Sample with Kristy
+//            NSLog(@"The image url is %@", imageUrl);
+            // Example result with Kristy's google plus picture
             //        https://lh3.googleusercontent.com/-jFEun7oX1eI/AAAAAAAAAAI/AAAAAAAAAAA/yDmoCwnh_ew/photo.jpg?sz=50
-            
-            // Obviously we'll need to get the URL from the Google+ API request.
-//            NSString * testUrl = @"https://lh3.googleusercontent.com/-jFEun7oX1eI/AAAAAAAAAAI/AAAAAAAAAAA/yDmoCwnh_ew/photo.jpg?sz=50";
-//            UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:testUrl]]];
             UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:imageUrl]]];
             
             // Save that image into Core Data
             NSData *imageData = UIImagePNGRepresentation(image);
             [self setImage:imageData];
             
-            // TODO: Put this back.
-            //        [self saveThenSync:NO];
+            [self saveThenSync:NO];
         }];
     }
 }
