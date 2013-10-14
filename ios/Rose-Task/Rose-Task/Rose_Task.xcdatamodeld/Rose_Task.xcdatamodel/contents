@@ -29,13 +29,13 @@
         <attribute name="lowercaseEmail" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="preferredName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="syncNeeded" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <relationship name="assignments" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Task" inverseName="assignedTo" inverseEntity="Task" syncable="YES"/>
+        <relationship name="assignments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Task" inverseName="assignedTo" inverseEntity="Task" syncable="YES"/>
         <relationship name="taskLists" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TaskList" inverseName="taskUsers" inverseEntity="TaskList" syncable="YES"/>
     </entity>
     <elements>
         <element name="DeleteTransaction" positionX="-441" positionY="308" width="128" height="75"/>
         <element name="Task" positionX="-155" positionY="243" width="128" height="165"/>
-        <element name="TaskList" positionX="-164" positionY="9" width="128" height="135"/>
-        <element name="TaskUser" positionX="-362" positionY="98" width="128" height="165"/>
+        <element name="TaskList" positionX="-180" positionY="9" width="128" height="135"/>
+        <element name="TaskUser" positionX="-362" positionY="98" width="128" height="163"/>
     </elements>
 </model>

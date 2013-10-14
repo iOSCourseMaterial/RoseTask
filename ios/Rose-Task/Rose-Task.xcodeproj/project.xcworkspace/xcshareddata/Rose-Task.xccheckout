@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>746EC9C9-C15D-429B-97E7-C4E7D8B7D61D</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Rose-Task</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>681FD067-9FDB-4368-ADE6-07207D246EDA</key>
+		<string>https://github.com/iOSCourseMaterial/RoseTask.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>ios/Rose-Task/Rose-Task.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>681FD067-9FDB-4368-ADE6-07207D246EDA</key>
+		<string>../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/iOSCourseMaterial/RoseTask.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>681FD067-9FDB-4368-ADE6-07207D246EDA</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>681FD067-9FDB-4368-ADE6-07207D246EDA</string>
+			<key>IDESourceControlWCCName</key>
+			<string>RoseTask</string>
+		</dict>
+	</array>
+</dict>
+</plist>

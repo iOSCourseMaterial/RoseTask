@@ -2,7 +2,7 @@
 
 
 
-"""TaskMaster API implemented using Google Cloud Endpoints."""
+"""RoseTask API implemented using Google Cloud Endpoints."""
 
 from google.appengine.ext import endpoints
 from protorpc import remote
@@ -36,7 +36,7 @@ class RoseTaskApi(remote.Service):
     """Class which defines rosetask API v1."""
     
     # ----------------------------- Inserts ----------------------------- 
-    @TaskUser.method(user_required=True, path='taskuser', http_method='POST', name='taskuser.insert')
+    @TaskUser.method(user_required=True, path='taskuser', http_method='POST', name='taskuser.insert', hostname='rose-task.appspot.com')
     def task_user_insert(self, a_task_user):
         """ Insert a TaskUser. """
         request_email = a_task_user.lowercase_email.lower()
